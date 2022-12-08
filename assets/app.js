@@ -10,3 +10,10 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+const $ = require('jquery');
+require('bootstrap');
+
+import logoPath from './images/logo-makesense.png';
+
+let logo = `<img src="${logoPath}" alt="logo of make sense">`;
