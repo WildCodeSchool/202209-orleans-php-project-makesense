@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire
+{% endblock %}
+
+
+{% block body %}
+	<section class="section-register">
+		<div class="navbar-register d-flex justify-content-center mt-3 align-items-center">
+			<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
+		</div>
+
+		<h1>S'inscrire</h1>
+
+		<div class="container w-50 m-auto mt-5">
+			{{ form_start(registrationForm) }}
+
+			<div class="form-group w-50 m-auto mt-5">
+				{{ form_row(registrationForm.email, {'attr':{'class':'form-control'}}) }}
+
+				{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+
+				{{ form_widget(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
+				) }}
+				{{ form_errors(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
+				) }}
+
+				{{ form_label(registrationForm.agreeTerms, 'Condition d\'utilisation') }}
+                {{ form_widget(registrationForm.agreeTerms) }}
+                <p>Un administrateur devras approuvé votre inscription.
+Mais ne vous inquietez pas ils sont très rapide. </p>
+			</div>
+            <button type="submit" class="btn btn-succces">S'inscrire</button>
+				{{ form_end(registrationForm) }}
+			</div>
+		</section>
+	{% endblock %}
