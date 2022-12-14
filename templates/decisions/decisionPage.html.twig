@@ -5,14 +5,54 @@
 
 {% block body %}
 
-	<div class="container bg-info py-5 rounded-4 mt-5">
+	<div class="container py-5 rounded-4 mt-5 mb-5 bg-start-decision">
 		<div class="row py-3">
-			<div class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">Ceci n'est pas la bonne couleur de background.</div>
+			<div class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias repudiandae illo voluptate quo sunt. Consectetur provident placeat necessitatibus nisi, velit tempora? Similique sequi facilis cumque molestias esse dicta a? At!</div>
 
-			<div class="col-md-4 text-white d-flex">
-				<img class="mx-2 h-75" src="{{ asset('build/images/Jeanne.png') }}" alt="">
-				<div class="mx-2 py-2">par</div>
-				<div class="text-uppercase fw-bold py-2">Jeannette Doeatienne</div>
+			<div class="col-md-4 text-white d-flex pt-4">
+				<img class="mx-2 pictureCreator" src="{{ asset('build/images/Jeanne.png') }}" alt="">
+				<div class="ms-2 py-3 pe-2">par</div>
+				<div class="text-uppercase fw-bold py-3">Jeannette Doeatienne</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="container">
+
+			<div class="border border-2 border-dark rounded-4 d-flex col-md-8 py-2 ps-4 fw-bolder fs-5 mb-1">
+				<a href="#" class="border-end px-3 m-0 text-decoration-none"><img class="me-3" src="{{ asset('build/images/Vectororga.svg') }}" alt="">Impact sur l’organisation</a>
+				<a href="#" class="border-end px-3 m-0 text-decoration-none pt-1"><img class="me-3" src="{{ asset('build/images/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
+				<a href="#" class="px-3 m-0 text-decoration-none"><img class="me-3" src="{{ asset('build/images/Vectorrisk.svg') }}" alt="">
+					Risques potentiels</a>
+			</div>
+			<div class="row py-5 rounded-4 bg-start-decision">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle fs-4 rounded-4 ms-4 border-white p-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img class="me-3" src="{{ asset('build/images/decisiontxt.svg') }}" alt="">
+						Détails de la sortie
+					</button>
+					<ul class="dropdown-menu px-5 bg-primary">
+						<li>
+							<a class="dropdown-item text-white" href="#">Détails de la décision</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-white" href="#">Première décision</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-white" href="#">Décision finale</a>
+						</li>
+					</ul>
+				</div>
+				<div class="text-white p-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam praesentium vero autem, architecto deserunt aut nisi sit dolorem harum? Vero asperiores perspiciatis animi ex, unde aliquam hic cupiditate rem quod.
+										    Ipsam corrupti consequuntur sed. Commodi quae optio expedita placeat vitae aliquid repellendus mollitia voluptatibus incidunt magnam distinctio dolores nam dolorem, culpa nemo rerum. Numquam, quaerat nihil? Sint error iste repellendus!
+										    Nobis numquam nesciunt debitis natus voluptatibus? Voluptates cupiditate magni, rerum doloribus blanditiis libero, dignissimos dolorem magnam inventore ad quidem. Sapiente mollitia minus suscipit enim libero, omnis ipsam tenetur laudantium veniam.
+										    Modi a vero tenetur dolorem veniam dolore dolores atque saepe libero dignissimos temporibus at commodi quis laudantium ex, delectus eos esse. Autem assumenda, dignissimos at tenetur natus fuga dolorem veniam?        
+					                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero, id animi voluptates corrupti sapiente porro sed iure quod cupiditate nesciunt autem vitae impedit tempora laborum consectetur minus temporibus atque et.
+					                        Quos ab itaque tempore iusto maxime, et explicabo possimus quisquam numquam repellat est beatae expedita modi quia odit nihil nisi dicta fuga minus voluptates adipisci quidem. Tempora, velit. Delectus, cumque.
+					                        Ad alias itaque odit. Saepe aspernatur sit minus maiores velit beatae. In mollitia repellendus quos perferendis ea placeat facere ipsa consequuntur, sint aspernatur repudiandae saepe beatae temporibus corporis nulla porro!
+					                        Consequatur, temporibus voluptatibus qui maiores accusantium praesentium asperiores saepe libero minus dolores distinctio fuga sequi veniam, assumenda, recusandae voluptates cupiditate quisquam obcaecati unde officia quod consequuntur? Placeat doloribus velit vel!
+                 </div>
 			</div>
 		</div>
 	</div>
