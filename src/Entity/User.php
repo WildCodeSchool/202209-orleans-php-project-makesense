@@ -20,21 +20,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
-    #[Assert\Email(
-        message: 'L\'email {{ value }} n\'est pas une email valide.',
-    )]
+    #[Assert\Length(max: 180)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
     #[Assert\Type('string')]
-    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
+    #[Assert\NotBlank]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
     #[Assert\Type('string')]
-    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
+    #[Assert\NotBlank]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
