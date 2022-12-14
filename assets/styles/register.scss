@@ -11,6 +11,7 @@ $font : 'Raleway', sans-serif;
 .body-register{
     background-color: $primary;
     font-family: $font;
+    font-weight: bold;
 }
 
 .navbar-register {
@@ -27,11 +28,13 @@ $font : 'Raleway', sans-serif;
 
 .title-register{
     color: $secondary;
-    text-shadow: 1px 1px #000000 ;
+    text-shadow: 1px 1px #000000;
+    font-weight: bold;
+ 
 }
 
 .bk-form {
     background-color: white;
     border-radius: 10px;
-    height: 350px;
+    height: 500px;
 }

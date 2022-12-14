@@ -10,12 +10,12 @@
 		<nav class="navbar-register d-flex justify-content-center mt-3 align-items-center">
 			<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
 		</nav>
-		<div class="container w-50 m-auto mt-5 bk-register">
+		<div class="container mt-5 p-5 bk-register">
 			<h1 class="title-register">S'inscrire</h1>
-			<div class="bk-form">
+			<div class="bk-form p-2 d-flex justify-content-center align-items-center">
 				{{ form_start(registrationForm) }}
 
-				<div class="form-group w-50 m-auto mt-5">
+				<div class="form-group w-50 m-auto d-flex flex-column gap-3">
 					{{ form_row(registrationForm.email, {'attr':{'class':'form-control'}}) }}
 
 					{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
@@ -24,18 +24,15 @@
 					) }}
 					{{ form_errors(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
 					) }}
-
-					{{ form_label(registrationForm.agreeTerms, 'Condition d\'utilisation') }}
-                {{ form_widget(registrationForm.agreeTerms) }}
-                <p>Un administrateur devras approuvé votre inscription, mais ne vous inquietez pas ils sont très rapide. </p>
-		</div>
-            </div>
-			<div class="d-flex justify-content-evenly">
-			<button type="submit" class="btn  bg-white mt-3 w-25">S'inscrire</button>
-			<button type="submit" class="btn  bg-danger mt-3 w-25">Retour</button>
-				{{ form_end(registrationForm) }}
 				</div>
+				<p>Un administrateur devras approuvé votre inscription, mais ne vous inquietez pas ils sont très rapide.</p>
 			</div>
-		</body>
-	{% endblock %}
 
+			<div class="d-flex justify-content-evenly">
+				<button type="submit" class="btn  bg-white mt-3 w-25">S'inscrire</button>
+				{{ form_end(registrationForm) }}
+				<button class="btn bg-danger mt-3 w-25" onclick="window.location='/';">Retour</button>
+			</div>
+		</div>
+	</body>
+{% endblock %}
