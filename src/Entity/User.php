@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Type('string')]
     #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
     private ?string $lastname = null;
+
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private ?string $isApproved = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -82,6 +86,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getIsApproved(): ?string
+    {
+        return $this->isApproved;
+    }
+
+    public function setIsApproved(string $isApproved): self
+    {
+        $this->isApproved = $isApproved;
 
         return $this;
     }
