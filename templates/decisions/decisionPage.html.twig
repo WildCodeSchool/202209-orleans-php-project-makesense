@@ -1,6 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% block title %}Decision
+{% endblock %}
+
 {% block body %}
-    
-    
+
+	<div class="container bg-info py-5 rounded-4 mt-5">
+		<div class="row py-3">
+			<div class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">Ceci n'est pas la bonne couleur de background.</div>
+
+			<div class="col-md-4 text-white d-flex">
+				<img class="mx-2 h-75" src="{{ asset('build/images/Jeanne.png') }}" alt="">
+				<div class="mx-2 py-2">par</div>
+				<div class="text-uppercase fw-bold py-2">Jeannette Doeatienne</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
