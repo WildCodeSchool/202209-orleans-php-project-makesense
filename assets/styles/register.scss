@@ -8,10 +8,11 @@ $quatro : #1A3843;
 $font : 'Raleway', sans-serif;
 
 
+
 .body-register{
-    background-color: $primary;
     font-family: $font;
     font-weight: bold;
+    min-height: 100vh;
 }
 
 .navbar-register {

@@ -5,8 +5,7 @@
 
 
 {% block body %}
-	<body class="body-register">
-
+	<main class="body-register bg-primary py-2">
 		<nav class="navbar-register d-flex justify-content-center mt-3 align-items-center">
 			<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
 		</nav>
@@ -46,10 +45,11 @@
 					{{ form_errors(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
 					) }}
 				</div>
-				<div class="d-flex align-self-start mt-3">
+				<div class="mt-3">
 					<p>
 						<strong>*</strong>
-						Un administrateur devras approuvé votre inscription, mais ne vous inquietez pas ils sont très rapide.</p>
+						Un administrateur devras approuvé votre inscription, mais ne vous inquietez pas ils sont très rapide.
+					</p>
 				</div>
 			</div>
 
@@ -59,5 +59,5 @@
 				<button class="btn bg-danger mt-3 w-25 " onclick="window.location='/';">Retour</button>
 			</div>
 		</div>
-	</body>
+	</main>
 {% endblock %}
