@@ -3,6 +3,11 @@
 {% block title %}Se connecter
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('loginStyle') }}
+{% endblock %}
+
 {% block body %}
 	{% block nav %}{% endblock %}
 	<main class="body-login bg-primary py-2 fw-bold">

@@ -3,6 +3,10 @@
 {% block title %}S'inscrire
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('registerStyle') }}
+{% endblock %}
 
 {% block body %}
 	{% block nav %}{% endblock %}
