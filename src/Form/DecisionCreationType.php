@@ -8,10 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class PddCreationType extends AbstractType
+class DecisionCreationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -44,11 +43,7 @@ class PddCreationType extends AbstractType
                 'attr' => [
                     'rows' => 10,
                 ]
-            ])
-            ->add('creator', HiddenType::class, ['data' => '1'])
-            ->add('isFinished', HiddenType::class, ['data' => 'false'])
-            ->add('isAbandonned', HiddenType::class, ['data' => 'false'])
-            ->add('isLate', HiddenType::class, ['data' => 'false']);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
