@@ -3,6 +3,11 @@
 {% block title %}Création d'une prise de décision
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionCreation') }}
+{% endblock %}
+
 {% block body %}
 
 	<main class="bg-primary container-fluid">
