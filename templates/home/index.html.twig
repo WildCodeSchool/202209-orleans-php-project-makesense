@@ -5,12 +5,19 @@
 
 {% block body %}
 
-	<div class="pink-stripe">
+	<div class="pink-stripe bg-primary">
 		<h1 class="huge-title text-secondary">
 			Let's start coding&nbsp;&#129304;
 		</h1>
 	</div>
-	<div class="white-stripe">
+	<div class="bg-primary">
 		<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
+		<div class="row">
+			{% for decision in decisions %}
+				<div class="col-md-4">
+					{% include "components/_decisionCards.html.twig" %}
+				</div>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}
