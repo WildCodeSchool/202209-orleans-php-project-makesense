@@ -35,7 +35,7 @@
 					{{ form_errors(registrationForm.lastname, {'attr':{'class':'form-control'}}
 					) }}
 
-					{{ form_label(registrationForm.email, 'Émail') }}
+					{{ form_label(registrationForm.email, 'Email') }}
 
 					{{ form_widget(registrationForm.email, {'attr':{'class':'form-control'}}
 					) }}
@@ -58,10 +58,10 @@
 				</div>
 			</div>
 
-			<div class="d-flex justify-content-evenly btn-register">
-				<button type="submit" class="btn bg-light fw-bold d-flex justify-content-evenly mt-3 w-25">S'inscrire</button>
+			<div class="d-flex justify-content-evenly">
+				<button type="submit" class="btn bg-light fw-bold mt-3 w-25">S'inscrire</button>
 				{{ form_end(registrationForm) }}
-				<button class="btn bg-danger mt-3 w-25  fw-bold " onclick="window.location='/login';">Retour</button>
+				<a href="/login" class="text-decoration-none btn bg-danger mt-3 w-25 ml-5 fw-bold ">Retour</a>
 			</div>
 		</div>
 	</main>
