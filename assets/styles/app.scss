@@ -1,22 +1,3 @@
 //start coding by removing this file and adding yours ;)
 @import "_theme";
 
-
-
-
-// Tableau de couleurs personalisées
-$custom-colors: (
-    "tertiary": $tertiary,
-    "quatro": $quatro
-);
-
-// Import des parties "fonctions" (car on utilise la fonction map-merge()) 
-// et "variables" (car on utilise $theme-colors) de bootstrap
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-
-// Fusion du tableau de couleurs existant avec les couleurs custom 
-$theme-colors: map-merge($theme-colors, $custom-colors);
-
-// Import du reste de bootstrap dans lequel il aura ajoute les custom colors
-@import "~bootstrap/scss/bootstrap";
