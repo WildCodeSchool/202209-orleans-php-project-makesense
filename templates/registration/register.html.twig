@@ -5,6 +5,7 @@
 
 
 {% block body %}
+	{% block nav %}{% endblock %}
 	<main class="body-register bg-primary py-2 fw-bold">
 		<nav class="navbar-register d-flex bg-light justify-content-center mt-3 align-items-center">
 			<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
@@ -56,7 +57,7 @@
 			<div class="d-flex justify-content-evenly btn-register">
 				<button type="submit" class="btn bg-light fw-bold d-flex justify-content-evenly mt-3 w-25">S'inscrire</button>
 				{{ form_end(registrationForm) }}
-				<button class="btn bg-danger mt-3 w-25  fw-bold " onclick="window.location='/';">Retour</button>
+				<button class="btn bg-danger mt-3 w-25  fw-bold " onclick="window.location='/login';">Retour</button>
 			</div>
 		</div>
 	</main>
