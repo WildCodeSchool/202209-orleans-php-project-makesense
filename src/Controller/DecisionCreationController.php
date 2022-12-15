@@ -20,7 +20,6 @@ class DecisionCreationController extends AbstractController
         $form = $this->createForm(DecisionCreationType::class, $decision);
 
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
             $decisionRepository->save($decision, true);
 
