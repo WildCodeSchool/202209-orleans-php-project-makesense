@@ -11,6 +11,7 @@ $font : 'Raleway', sans-serif;
 }
 
 body {
+    min-height: 100vh;
     margin:0;
     font-size : 20px;
 }
@@ -23,6 +24,7 @@ body {
     font-size : 50px;
 }
 
-p, h1, h2, h3, h4, h5{
+p, h1, h2, h3, h4, h5, ul, li, div {
     font-family : $font;
 }
+
