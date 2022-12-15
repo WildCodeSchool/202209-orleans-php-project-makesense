@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire
+{% endblock %}
+
+
+{% block body %}
+	<main class="body-register bg-primary py-2 fw-bold">
+		<nav class="navbar-register d-flex bg-light justify-content-center mt-3 align-items-center">
+			<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
+		</nav>
+		<div class="container mt-5 p-5 bk-register ">
+			<h1 class="title-register fw-bold text-secondary">S'inscrire</h1>
+			<div class="bk-form bg-light py-4 d-flex flex-column justify-content-around align-items-center">
+				{{ form_start(registrationForm) }}
+
+				<div class="form-group py-4 w-50 m-auto d-flex flex-column gap-3">
+					{{ form_label(registrationForm.firstname, 'Prénom') }}
+
+					{{ form_widget(registrationForm.firstname, {'attr':{'class':'form-control'}}
+					) }}
+					{{ form_errors(registrationForm.firstname, {'attr':{'class':'form-control'}}
+					) }}
+
+
+					{{ form_label(registrationForm.lastname, 'Nom') }}
+
+					{{ form_widget(registrationForm.lastname, {'attr':{'class':'form-control'}}
+					) }}
+					{{ form_errors(registrationForm.lastname, {'attr':{'class':'form-control'}}
+					) }}
+
+					{{ form_label(registrationForm.email, 'Émail') }}
+
+					{{ form_widget(registrationForm.email, {'attr':{'class':'form-control'}}
+					) }}
+					{{ form_errors(registrationForm.email, {'attr':{'class':'form-control'}}
+					) }}
+
+
+					{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+
+					{{ form_widget(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
+					) }}
+					{{ form_errors(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
+					) }}
+				</div>
+				<div class="mt-3">
+					<p>
+						<strong>*</strong>
+						Votre compte va être approuver par un administrateur dans les plus brefs délais, merci pour votre patience.
+					</p>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-evenly btn-register">
+				<button type="submit" class="btn bg-light fw-bold d-flex justify-content-evenly mt-3 w-25">S'inscrire</button>
+				{{ form_end(registrationForm) }}
+				<button class="btn bg-danger mt-3 w-25  fw-bold " onclick="window.location='/';">Retour</button>
+			</div>
+		</div>
+	</main>
+{% endblock %}

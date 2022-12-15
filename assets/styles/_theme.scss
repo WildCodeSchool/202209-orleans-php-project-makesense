@@ -30,9 +30,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 }
 
 body {
-
     margin: 0;
     font-size: 20px;
+    min-height: 100vh;
 }
 
 .huge-title {
@@ -48,14 +48,7 @@ body {
     font-size: 50px;
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5 {
-    font-family: $font;
+p, h1, h2, h3, h4, h5, ul, li, div {
+    font-family : $font;
 }
-
-	
 
