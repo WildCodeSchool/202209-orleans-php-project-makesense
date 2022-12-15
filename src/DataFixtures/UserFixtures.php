@@ -11,9 +11,9 @@ class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $faker = Factory::create();
         $count = 0;
         while ($count < 5) {
-            $faker = Factory::create();
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
