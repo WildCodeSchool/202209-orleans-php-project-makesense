@@ -7,11 +7,23 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="text-decoration-none fw-bolder" href="{{ path("app_home") }}">Accueil</a>
+					<a class="text-decoration-none fw-bolder me-3" href="{{ path("app_home") }}">Accueil</a>
 				</li>
+         <a class="text-decoration-none fw-bolder" href="#">Tableau de bord</a>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <a class="btn btn-primary me-4 rounded-5 fw-bold text-secondary" href="{{ path("app_decision_creation") }}">Créer une décision</a>
+        </div>
+         <li class="nav-item dropdown d-flex">
+            <a class="col-md-2 align-middle text-center px-auto nav-link dropdown-toggle" data-bs-toggle="dropdown"><img class="mx-2 card-picture" src="{{ asset('build/images/jane-doe.jpg') }}" alt="">Janette Doeatienne
+          </a>
+          <ul class="dropdown-menu px-3 bg-light">
+            <li><a class="dropdown-item" href="#">Profil</a></li>
+            <li><a class="dropdown-item" href="#">Se déconnecter</a></li>
+          </ul>
+        </li>
 			</div>
-			<div class="navbar-nav">
-				<a class="btn btn-primary me-4 rounded-5 fw-bold text-secondary" href="{{ path("app_decision_creation") }}">Créer une décision</a>
-			</div>
+			
 		</div>
 	</nav>
