@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil profil
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('PageUserAcceuil') }}
+{% endblock %}
+
+{% block body %}
+	<main class="pageUserAcceuil-background py-5 fw-bold">
+		<div class="d-flex flex-column text-light m-5 gap-4" >
+			<h1 class="pageUserAcceuil-title fw-bold">Recherche</h1>
+			<a href="" class="text-decoration-none text-light">Les décisions qui m'impactent</a>
+			<a href="" class="text-decoration-none text-light">Les décisions dont je suis expert</a>
+			<a href="" class="text-decoration-none text-light">Historique de mes décisions</a>
+		</div>
+        <div>
+        
+        </div>
+	</main>
+
+{% endblock %}
