@@ -3,14 +3,37 @@
 {% block title %}Home
 {% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('home') }}
+{% endblock %}
 
-	<div class="pink-stripe">
-		<h1 class="huge-title text-secondary">
-			Let's start coding&nbsp;&#129304;
+{% block body %}
+<main class="home-background">
+	<div class="k-stripepin">
+		<h1 class="huge-title">
+			DÉCISIONS
 		</h1>
 	</div>
-	<div class="white-stripe">
-		<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
-	</div>
-{% endblock %}
+	<div>
+		<div class="mb-3 row px-5">
+				<h2 class="fw-bolder recherche text-light col-sm-2 ">Recherche</h2>
+			<div class="col-sm-10">
+			</div>
+		</div>
+		<h2 class="px-5 fw-bolder "><a href="#fini" class = " text-decoration-none text-light" >Les décisions bientôt finies</a>
+		</h2>
+		<h2 class="text-light px-5 fw-bolder "><a href="#recent" class = " text-decoration-none text-light">Les décisions récemment terminée</a>
+		</h2>
+		<h2 class="text-light px-5 fw-bolder "><a href="#toutes" class = " text-decoration-none text-light">Toutes les décisions</a>
+		</h2>
+		<h2 id="fini" class="text-secondary px-4 pt-4 fw-bolder">
+			Les décisions bientôt finies
+		</h2>
+		<h2 id="recent" class="text-secondary px-4 pt-4 fw-bolder">
+			Les décisions récemment terminée
+		</h2>
+		<h2 id="toutes" class="text-secondary px-4 pt-4 fw-bolder">
+			Toutes les décisions
+		</h2>
+		{% endblock %}

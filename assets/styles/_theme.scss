@@ -4,24 +4,48 @@ $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
-$font : 'Raleway', sans-serif;
+$font : 'Raleway',
+sans-serif;
+
+
+// Tableau de couleurs personalisées
+$custom-colors: (
+    "tertiary": $tertiary,
+    "quatro": $quatro
+);
+
+// Import des parties "fonctions" (car on utilise la fonction map-merge()) 
+// et "variables" (car on utilise $theme-colors) de bootstrap
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Fusion du tableau de couleurs existant avec les couleurs custom 
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Import du reste de bootstrap dans lequel il aura ajoute les custom colors
+@import "~bootstrap/scss/bootstrap";
 
 * {
     box-sizing: border-box;
 }
 
 body {
+    margin: 0;
+    font-size: 1.25rem;
     min-height: 100vh;
-    margin:0;
-    font-size : 20px;
 }
 
-.huge-title{
-    font-size : 270px;
+.huge-title {
+    opacity: 0.5;
+    color: $light;
+    font-size: 16.875rem;
+    text-align: center;
+    font-weight: 800;
 }
 
-.title{
-    font-size : 50px;
+.title {
+    background-color: #3B8AA6;
+    font-size: 3.125rem;
 }
 
 p, h1, h2, h3, h4, h5, ul, li, div {
