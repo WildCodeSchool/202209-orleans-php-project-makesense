@@ -1,15 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
 
 {% block body %}
-    <div class="pink-stripe">
-        <h1>
-            Let's start coding&nbsp;&#129304;
-        </h1>
-    </div>
-    <div class="white-stripe">
-        <img src="{{ asset('build/images/LOGO_WILD_CODE_SCHOOL.png') }}"
-             alt="">
-    </div>
-{% endblock %}
+	<main class="home-background">
+		<div class="k-stripepin">
+			<h1 class="huge-title">
+				DÉCISIONS
+			</h1>
+		</div>
+		<div>
+			<div class="mb-3 row px-5">
+				<h2 class="fw-bolder recherche text-light col-sm-2 ">Recherche</h2>
+				<div class="col-sm-10"></div>
+			</div>
+			<h2 class="px-5 fw-bolder ">
+				<a href="#fini" class=" text-decoration-none text-light">Les décisions bientôt finies</a>
+			</h2>
+			<h2 class="text-light px-5 fw-bolder ">
+				<a href="#recent" class=" text-decoration-none text-light">Les décisions récemment terminée</a>
+			</h2>
+			<h2 class="text-light px-5 fw-bolder ">
+				<a href="#toutes" class=" text-decoration-none text-light">Toutes les décisions</a>
+			</h2>
+			<h2 id="fini" class="text-secondary px-4 pt-4 fw-bolder">
+				Les décisions bientôt finies
+			</h2>
+			<h2 id="recent" class="text-secondary px-4 pt-4 fw-bolder">
+				Les décisions récemment terminée
+			</h2>
+			<h2 id="toutes" class="text-secondary px-4 pt-4 fw-bolder">
+				Toutes les décisions
+			</h2>
+			<div class="container-fluid">
+				<div class="row g-3">
+					{% for decision in decisions %}
+						<div class="col-xl-4">
+							{% include "components/_decisionCards.html.twig" %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endblock %}
