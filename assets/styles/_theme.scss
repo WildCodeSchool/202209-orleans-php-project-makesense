@@ -31,21 +31,21 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 body {
     margin: 0;
-    font-size: 20px;
+    font-size: 1.25rem;
     min-height: 100vh;
 }
 
 .huge-title {
     opacity: 0.5;
     color: $light;
-    font-size: 270px;
+    font-size: 16.875rem;
     text-align: center;
     font-weight: 800;
 }
 
 .title {
     background-color: #3B8AA6;
-    font-size: 50px;
+    font-size: 3.125rem;
 }
 
 p, h1, h2, h3, h4, h5, ul, li, div {
