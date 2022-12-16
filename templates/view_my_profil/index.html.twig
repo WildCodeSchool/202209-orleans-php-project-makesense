@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('ViewMyProfil') }}
+{% endblock %}
+
+
+{% block body %}
+	<main class="ViewMyProfil-background bg-primary">
+
+		<div class="container mt-5 p-5 w-50 h-50">
+			<h1 class="title-register fw-bold text-secondary">Jeanne Doe</h1>
+			<div class="ViewMyProfil-card bg-light py-4 d-flex flex-column justify-content-around align-items-center">
+            
+            </div>
+<a href="/" class="text-decoration-none btn bg-secondary mt-3 w-25 ml-5 fw-bold ">Retour</a>
+
+		</main>
+	{% endblock %}
