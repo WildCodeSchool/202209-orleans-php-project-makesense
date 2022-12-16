@@ -12,11 +12,53 @@
 	<main class="pageUserAcceuil-background py-5 fw-bold">
 		<div class="d-flex flex-column text-light m-5 gap-4">
 			<h1 class="pageUserAcceuil-title fw-bold">Recherche</h1>
-			<a href="" class="text-decoration-none text-light">Les décisions qui m'impactent</a>
-			<a href="" class="text-decoration-none text-light">Les décisions dont je suis expert</a>
-			<a href="" class="text-decoration-none text-light">Historique de mes décisions</a>
+			<a href="#TheDQM" class="text-decoration-none text-light">Les décisions qui m'impactent</a>
+			<a href="#TheDDJSE" class="text-decoration-none text-light">Les décisions dont je suis expert</a>
+			<a href="#HDMD" class="text-decoration-none text-light">Historique de mes décisions</a>
+		</div>
+
+		<div class="container-fluid">
+			<h2 class="text-secondary fw-bold">Mes décisions proposées</h2>
+			<div class="row g-3">
+				{% for decision in decisions %}
+					<div class="col-xl-4">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 		<div class="container-fluid">
+			<h2 class="text-secondary fw-bold">Les décisions que j’ai commentées</h2>
+			<div class="row g-3">
+				{% for decision in decisions %}
+					<div class="col-xl-4">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="container-fluid">
+			<h2 id="TheDQM"class="text-secondary fw-bold">Les décisions qui m’impactent</h2>
+			<div class="row g-3">
+				{% for decision in decisions %}
+					<div class="col-xl-4">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="container-fluid">
+			<h2 id="TheDDJSE" class="text-secondary fw-bold">Les décisions dont je suis expert</h2>
+			<div class="row g-3">
+				{% for decision in decisions %}
+					<div class="col-xl-4">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="container-fluid">
+			<h2 id="HDMD" class="text-secondary fw-bold">Historique de mes décisions</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
