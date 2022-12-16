@@ -4,9 +4,8 @@ $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
-$font : 'Raleway',
-sans-serif;
-
+$lightShadow : rgba(255, 255, 255, 75%);
+$font : 'Raleway', sans-serif;
 
 // Tableau de couleurs personalisées
 $custom-colors: (
@@ -35,6 +34,10 @@ body {
     min-height: 100vh;
 }
 
+main{
+    padding-block-start :10rem;
+}
+
 .huge-title {
     opacity: 0.5;
     color: $light;
@@ -52,7 +55,19 @@ p, h1, h2, h3, h4, h5, ul, li, div {
     font-family : $font;
 }
 
-main{
-    padding-block-start :10rem;
+.card-picture{
+    border: solid $primary 2px;
+    border-radius: 50%;
+    height: 50px;
+    width : 50px;
+    object-fit: cover;
 }
 
+.decisionCard{
+    box-shadow: $lightShadow 7px 7px;
+    height: 300px;
+}
+
+.card-body{
+    height: 300px;  
+}
