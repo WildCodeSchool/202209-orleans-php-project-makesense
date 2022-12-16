@@ -1,9 +1,9 @@
 <div class="card decisionCard m-4 rounded-4 border-primary">
-	<div class="card-body">
-		<h3 class="card-title text-primary fw-bolder p-3">{{decision.title}}</h3>
+	<div class="card-body d-flex flex-column justify-content-between">
+		<h3 class="card-title text-primary fw-bolder px-3 py-2">{{allDecision.title|u.truncate(110, '...')}}</h3>
 		<div class="d-flex align-items-center justify-content-end">
 			<img class="card-picture" src="{{ asset('build/images/jane-doe.jpg') }}" alt="profile picture of the creator of the decision">
-			<p class="card-text px-3 text-primary ">par
+			<p class="card-text px-3 text-primary m-0">par
 				<b>Jane Doe</b>
 			</p>
 		</div>

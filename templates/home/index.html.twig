@@ -12,12 +12,14 @@
 	</div>
 	<div class="bg-primary">
 		<img src="{{ asset('build/images/logo-makesense.png') }}" alt="">
-		<div class="row">
-			{% for decision in decisions %}
-				<div class="col-md-4">
-					{% include "components/_decisionCards.html.twig" %}
-				</div>
-			{% endfor %}
+		<div class="container-fluid">
+			<div class="row g-3">
+				{% for allDecision in allDecisions %}
+					<div class="col-xl-4">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

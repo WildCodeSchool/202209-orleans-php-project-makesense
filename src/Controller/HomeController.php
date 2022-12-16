@@ -12,11 +12,15 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(DecisionRepository $decisionRepository): Response
     {
-        $decisions = $decisionRepository->findAll();
+        $allDecisions = $decisionRepository->findBy(
+            [],
+            ['decisionStartTime' => 'ASC'],
+            12
+        );
 
         return $this->render(
             'home/index.html.twig',
-            ['decisions' => $decisions]
+            ['allDecisions' => $allDecisions]
         );
     }
 }

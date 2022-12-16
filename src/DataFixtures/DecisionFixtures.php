@@ -9,7 +9,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class DecisionFixtures extends Fixture
 {
-    public const LOOP_INDEX = 5;
+    public const LOOP_INDEX = 100;
 
     public function load(ObjectManager $manager): void
     {
@@ -18,8 +18,8 @@ class DecisionFixtures extends Fixture
         while ($index < self::LOOP_INDEX) {
             $decision = new Decision();
 
-            $decision->setTitle($faker->sentence(rand(3, 7)));
-            $decision->setDecisionStartTime($faker->dateTimeBetween('now', '+10 week'));
+            $decision->setTitle($faker->sentence(rand(15, 45)));
+            $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
             $decision->setDetails($faker->paragraph(rand(2, 10)));
             $decision->setImpact($faker->paragraph(rand(2, 10)));
             $decision->setGain($faker->paragraph(rand(2, 10)));
