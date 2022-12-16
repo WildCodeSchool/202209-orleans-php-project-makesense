@@ -7,93 +7,95 @@
 	{{ encore_entry_link_tags('decisionView') }}
 {% endblock %}
 {% block body %}
+	<main>
+		<div class="container py-5 rounded-4 mt-5 mb-5 bg-start-decision">
+			<div class="row py-3">
+				<h1 class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias repudiandae illo voluptate quo sunt. Consectetur provident placeat necessitatibus nisi, velit tempora? Similique sequi facilis cumque molestias esse dicta a? At!</h1>
 
-	<div class="container py-5 rounded-4 mt-5 mb-5 bg-start-decision">
-		<div class="row py-3">
-			<h1 class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias repudiandae illo voluptate quo sunt. Consectetur provident placeat necessitatibus nisi, velit tempora? Similique sequi facilis cumque molestias esse dicta a? At!</h1>
-
-			<div class="col-md-4 text-white d-flex pt-4">
-				<img class="mx-2 pictureCreator" src="{{ asset('build/images/Jeanne.png') }}" alt="">
-				<div class="ms-2 py-3 pe-2">par</div>
-				<div class="text-uppercase fw-bold py-3">Jeannette Doeatienne</div>
+				<div class="col-md-4 text-white d-flex pt-4">
+					<img class="mx-2 pictureCreator" src="{{ asset('build/images/Jeanne.png') }}" alt="">
+					<div class="ms-2 py-3 pe-2">par</div>
+					<div class="text-uppercase fw-bold py-3">Jeannette Doeatienne</div>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div>
-		<div class="container">
-			<div class="row py-5 rounded-4 bg-start-decision">
+		<div>
+			<div class="container">
+				<div class="row py-5 rounded-4 bg-start-decision">
 
-				<div class="col-md-4 text-white fs-5 order-first pb-5">
-					<nav id="navbar-decision" class=" align-items-stretch pe-4 border-end sticky-top">
-						<nav class="nav nav-pills ">
-							<a class="nav-link fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/decisiontxt.svg') }}" alt="">Détails de la décision</a>
-							<nav class="nav nav-pills">
-								<a class="nav-link ps-5 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
-								<a class="nav-link ps-5 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
-								<a class="nav-link ps-5 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
+					<div class="col-md-4 text-white fs-5 order-first pb-5">
+						<nav id="navbar-decision" class=" align-items-stretch pe-4 border-end sticky-top">
+							<nav class="nav nav-pills ">
+								<a class="nav-link fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/decisiontxt.svg') }}" alt="">Détails de la décision</a>
+								<nav class="nav nav-pills">
+									<a class="nav-link ps-5 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
+									<a class="nav-link ps-5 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
+									<a class="nav-link ps-5 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
+								</nav>
+								<nav class="nav nav-pills">
+									<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/firsstdecisiontxt.svg') }}" alt="">Première décision</a>
+									<a class="nav-link fw-bold" href="#flDecision"><img class="me-3" src="{{ asset('build/images/finaldecisiontxt.svg') }}" alt="">Décision finale</a>
+								</nav>
 							</nav>
-                            <nav class="nav nav-pills">
-							<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/firsstdecisiontxt.svg') }}" alt="">Première décision</a>
-							<a class="nav-link fw-bold" href="#flDecision"><img class="me-3" src="{{ asset('build/images/finaldecisiontxt.svg') }}" alt="">Décision finale</a>
-                            </nav>
 						</nav>
-					</nav>
-				</div>
-				<div class="col-md-8 text-white order-last px-5">
-					<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
-						<div id="detail" class="pb-5">
-							<h2 class="fw-bold">Détails de la décision</h2>
-							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
-						</div>
-						<div id="impacto" class="py-5">
-							<h3 class="ps-3 class="fw-bold"">Impact sur l'organisation</h3>
-							<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
-						</div>
-						<div id="bene" class="py-5">
-							<h3 class="ps-3 class="fw-bold"">Bénéfices</h3>
-							<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
-						</div>
-						<div id="rissk" class="py-5">
-							<h3 class="ps-3 class="fw-bold"">Risques potentiels</h3>
-							<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
-						</div>
-						<div id="fsDecision" class="py-5">
-							<h2 class="fw-bold">Première décision</h2>
-							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
-						</div>
-						<div id="flDecision" class="py-5">
-							<h2 class="fw-bold">Décision finale</h2>
-							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
-																																											                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
-																																											                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
-																																											                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
-																																											                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+					</div>
+					<div class="col-md-8 text-white order-last px-5">
+						<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
+							<div id="detail" class="pb-5">
+								<h2 class="fw-bold">Détails de la décision</h2>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
+							<div id="impacto" class="py-5">
+								<h3 class="ps-3 class=" fw-bold"">Impact sur l'organisation</h3>
+								<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
+							<div id="bene" class="py-5">
+								<h3 class="ps-3 class=" fw-bold"">Bénéfices</h3>
+								<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
+							<div id="rissk" class="py-5">
+								<h3 class="ps-3 class=" fw-bold"">Risques potentiels</h3>
+								<p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
+							<div id="fsDecision" class="py-5">
+								<h2 class="fw-bold">Première décision</h2>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
+							<div id="flDecision" class="py-5">
+								<h2 class="fw-bold">Décision finale</h2>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptate veniam illo esse praesentium aliquid possimus at veritatis provident. Soluta doloribus harum quas explicabo, architecto magnam doloremque iure alias corporis?
+																																																				                            Quis autem eum dicta, sequi id laboriosam maiores reprehenderit ducimus numquam tempore temporibus nesciunt eos rem. Sed, assumenda, libero sequi alias perferendis distinctio voluptate corporis laboriosam cum quidem doloribus possimus.
+																																																				                            Assumenda nisi natus totam enim, nam beatae repellendus velit inventore. Vitae perspiciatis placeat voluptatum, laborum illum adipisci dolore, quos deleniti consectetur reiciendis quas aliquam non voluptatem sapiente, sint earum cum.
+																																																				                            Optio et incidunt molestias, tempora porro voluptas totam natus consequuntur, odio atque nam, error enim! Quidem accusantium architecto quasi quis tempore laborum numquam. Animi rerum eveniet deserunt nihil repellat assumenda.
+																																																				                            Expedita doloremque fugit, id molestiae quae aut, alias maxime, rem iusto ad ratione? Beatae rem sequi, optio placeat velit enim reiciendis excepturi molestiae. Magni ratione culpa cupiditate dolore, odit earum.</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
 	</div>
-</div>{% endblock %}
+</main>
+{% endblock %}
