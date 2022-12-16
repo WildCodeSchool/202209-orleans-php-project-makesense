@@ -47,6 +47,7 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "6.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/string-extra": "^3.4",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -104,6 +105,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.21",
         "phpmd/phpmd": "^2.12",
         "phpro/grumphp": "^1.11",
         "phpstan/phpstan": "^1.5",
