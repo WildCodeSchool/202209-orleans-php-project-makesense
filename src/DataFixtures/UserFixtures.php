@@ -51,7 +51,7 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         $user = new User();
-        $user->setEmail('admin@make-sence.ms');
+        $user->setEmail('admin@make-sense.ms');
         $user->setRoles([]);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
@@ -59,7 +59,7 @@ class UserFixtures extends Fixture
         );
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
-        $user->setLastname('MakeSence');
+        $user->setLastname('MakeSense');
         $user->setIsApproved('0');
         $manager->persist($user);
 
