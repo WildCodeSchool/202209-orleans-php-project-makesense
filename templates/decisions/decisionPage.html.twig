@@ -24,23 +24,23 @@
 		<div class="container">
 			<div class="row py-5 rounded-4 bg-start-decision">
 
-				<div class="col-4 text-white fs-5">
-					<nav id="navbar-decision" class="flex-column align-items-stretch pe-4 border-end sticky-top">
-						<nav class="nav nav-pills flex-column">
+				<div class="col-md-4 text-white fs-5 order-first pb-5">
+					<nav id="navbar-decision" class=" align-items-stretch pe-4 border-end sticky-top">
+						<nav class="nav nav-pills ">
 							<a class="nav-link fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/decisiontxt.svg') }}" alt="">Détails de la décision</a>
-							<nav class="nav nav-pills flex-column">
-								<a class="nav-link ms-3 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
-								<a class="nav-link ms-3 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
-								<a class="nav-link ms-3 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
+							<nav class="nav nav-pills">
+								<a class="nav-link ps-5 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
+								<a class="nav-link ps-5 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
+								<a class="nav-link ps-5 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
 							</nav>
-                            <nav class="nav nav-pills flex-column">
+                            <nav class="nav nav-pills">
 							<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/firsstdecisiontxt.svg') }}" alt="">Première décision</a>
 							<a class="nav-link fw-bold" href="#flDecision"><img class="me-3" src="{{ asset('build/images/finaldecisiontxt.svg') }}" alt="">Décision finale</a>
                             </nav>
 						</nav>
 					</nav>
 				</div>
-				<div class="col-8 text-white">
+				<div class="col-md-8 text-white order-last px-5">
 					<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
 						<div id="detail" class="pb-5">
 							<h2 class="fw-bold">Détails de la décision</h2>
