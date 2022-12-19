@@ -34,7 +34,6 @@ Encore
     .addEntry('app', './assets/app.js')
     .addStyleEntry('registerStyle', './assets/styles/register.scss')
     .addStyleEntry('loginStyle', './assets/styles/login.scss')
-    .addStyleEntry('home', './assets/styles/home.scss')
     .addStyleEntry('decisionCreation', './assets/styles/decisionCreation.scss')
 
 
