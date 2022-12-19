@@ -3,19 +3,13 @@
 {% block title %}Home
 {% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('home') }}
-{% endblock %}
 
 {% block body %}
-	<main class="home-background">
-		<div class="k-stripepin">
-			<h1 class="huge-title">
-				DÉCISIONS
-			</h1>
-		</div>
-		<div>
+	<main class="bg-primary">
+		<div class="container-fluid">
+				<h1 class="huge-title">
+			DÉCISIONS
+		</h1>
 			<div class="mb-3 row px-5">
 				<h2 class="fw-bolder recherche text-light col-sm-2 ">Recherche</h2>
 				<div class="col-sm-10"></div>
@@ -47,4 +41,6 @@
 					{% endfor %}
 				</div>
 			</div>
-		{% endblock %}
+		</div>
+	</main>
+{% endblock %}
