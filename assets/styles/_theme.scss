@@ -66,6 +66,13 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 .decisionCard{
     box-shadow: $lightShadow 7px 7px;
     height: 300px;
+    transition: 0.2s ease-in-out;
+}
+
+.decisionCard:hover {
+    transform: translateX(-1%);
+    transform: scale(1.05);
+    box-shadow: $lightShadow 10px 10px 1px;
 }
 
 .card-body{
