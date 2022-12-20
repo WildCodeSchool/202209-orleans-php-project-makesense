@@ -38,17 +38,18 @@ main{
     padding-block-start :20vh;
 }
 
+
 .huge-title {
     opacity: 0.5;
     color: $light;
-    font-size: 16rem;
+    font-size: clamp(2rem, 18vw, 22rem);
     text-align: center;
     font-weight: 800;
 }
 
 .title {
     background-color: #3B8AA6;
-    font-size: 3.125rem;
+    font-size: 3.12rem;
 }
 
 p, h1, h2, h3, h4, h5, ul, li, div {
@@ -66,8 +67,40 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 .decisionCard{
     box-shadow: $lightShadow 7px 7px;
     height: 300px;
+    transition: 0.2s ease-in-out;
+}
+
+.decisionCard:hover {
+    transform: translateX(-1%);
+    transform: scale(1.05);
+    box-shadow: $lightShadow 10px 10px 1px;
+}
+
+.decisionCard h3 {
+    transition: 0.5s;
+}
+
+.decisionCard:hover h3 {
+    transform: translateX(3%);
+    transform: scale(1.05);
+}
+
+.hoverauthor {
+transition: 0.4s;
+}
+
+.decisionCard:hover .hoverauthor {
+transform: scale(1.05);
 }
 
 .card-body{
     height: 300px;  
+}
+
+.navtitle {
+transition: 0.2s ease-in-out;
+}
+
+.navtitle:hover {
+    opacity: 0.7;
 }
