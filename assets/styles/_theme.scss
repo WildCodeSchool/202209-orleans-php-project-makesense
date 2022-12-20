@@ -38,17 +38,18 @@ main{
     padding-block-start :20vh;
 }
 
+
 .huge-title {
     opacity: 0.5;
     color: $light;
-    font-size: 16rem;
+    font-size: clamp(2rem, 18vw, 22rem);
     text-align: center;
     font-weight: 800;
 }
 
 .title {
     background-color: #3B8AA6;
-    font-size: 3.125rem;
+    font-size: 3.12rem;
 }
 
 p, h1, h2, h3, h4, h5, ul, li, div {
