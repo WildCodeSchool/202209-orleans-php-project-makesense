@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une prise de décision
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionCreation') }}
+{% endblock %}
+
+{% block body %}
+
+	<main class="bg-primary container-fluid">
+		<h1 class="text-secondary text-center fw-bold pt-4">Création d'une décision</h1>
+		<div class="text-light fw-bold fs-2 w-75 m-auto text-center">
+			{{ form_start(form) }}
+			<div class="my-5 row align-items-center text-center">
+				<div class="col-xxl-1 offset-xxl-1 ">
+
+					{{ form_label(form.title) }}
+				</div>
+				<div class="col-xxl-8">
+					{{ form_widget(form.title) }}
+				</div>
+				{{form_errors(form.title)}}
+			</div>
+			<div class="my-5 row align-items-center">
+				<div class="col-md-2 offset-md-6 col-2 px-2 text-end">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="60" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewbox="0 0 16 16">
+						<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+					</svg>
+				</div>
+				<div class="col-md-3 col-9 fs-6 fw-bold py-0">
+					Attention la date que vous allez sélectionné ne pourras pas être modifiée une fois la décision créée.</div>
+				<div class="row align-items-center mt-3">
+					<div class="col-md-3 offset-md-4 py-2">
+
+						{{ form_label(form.decision_start_time) }}
+					</div>
+					<div class="col-md-5">
+						{{ form_widget(form.decision_start_time) }}
+					</div>
+					{{form_errors(form.decision_start_time)}}
+				</div>
+			</div>
+			<div class="form-spacing text-center">
+				{{ form_row(form.details) }}
+			</div>
+			<div class="form-spacing text-center">
+				{{ form_row(form.impact) }}
+			</div>
+			<div class="form-spacing text-center">
+				{{ form_row(form.gain) }}
+			</div>
+			<div class="form-spacing text-center">
+				{{ form_row(form.risk) }}
+			</div>
+
+			<button type="submit" class="btn btn-light text-primary fw-bold my-5 text-center">Créer ma décision</button>
+			{{ form_end(form) }}
+		</div>
+	</main>
+
+{% endblock %}

@@ -33,6 +33,10 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addStyleEntry('decisionView','./assets/styles/decisionView.scss')
+    .addStyleEntry('registerStyle', './assets/styles/register.scss')
+    .addStyleEntry('loginStyle', './assets/styles/login.scss')
+    .addStyleEntry('decisionCreation', './assets/styles/decisionCreation.scss')
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
