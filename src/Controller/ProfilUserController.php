@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilUserController extends AbstractController
 {
+    public const DECISION_START_TIME = 12;
+
     #[Route('/profil/user', name: 'app_profil_user')]
     public function index(DecisionRepository $decisionRepository): Response
     {
@@ -16,11 +18,10 @@ class ProfilUserController extends AbstractController
         $decisions = $decisionRepository->findBy(
             [],
             ['decisionStartTime' => 'ASC'],
-            12
+            self::DECISION_START_TIME
         );
 
         return $this->render('profil_user/index.html.twig', [
-            'controller_name' => 'ProfilUserController',
             'decisions' => $decisions,
         ]);
     }

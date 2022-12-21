@@ -9,13 +9,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class DecisionFixtures extends Fixture
 {
-    public const LOOP_COUNT = 100;
+    public const DECISION_NUMBER = 100;
 
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
         $index = 0;
-        while ($index < self::LOOP_COUNT) {
+        while ($index < self::DECISION_NUMBER) {
             $decision = new Decision();
 
             $decision->setTitle($faker->sentence(rand(15, 45)));
