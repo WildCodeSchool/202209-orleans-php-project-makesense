@@ -51,6 +51,15 @@ class Decision
     )]
     private ?string $risk = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $firstDecisionEndDate = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $conflictEndDate = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $finalDecisionEndDate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -124,6 +133,42 @@ class Decision
     public function setRisk(string $risk): self
     {
         $this->risk = $risk;
+
+        return $this;
+    }
+
+    public function getFirstDecisionEndDate(): ?\DateTimeInterface
+    {
+        return $this->firstDecisionEndDate;
+    }
+
+    public function setFirstDecisionEndDate(?\DateTimeInterface $firstDecisionEndDate): self
+    {
+        $this->firstDecisionEndDate = $firstDecisionEndDate;
+
+        return $this;
+    }
+
+    public function getConflictEndDate(): ?\DateTimeInterface
+    {
+        return $this->conflictEndDate;
+    }
+
+    public function setConflictEndDate(?\DateTimeInterface $conflictEndDate): self
+    {
+        $this->conflictEndDate = $conflictEndDate;
+
+        return $this;
+    }
+
+    public function getFinalDecisionEndDate(): ?\DateTimeInterface
+    {
+        return $this->finalDecisionEndDate;
+    }
+
+    public function setFinalDecisionEndDate(?\DateTimeInterface $finalDecisionEndDate): self
+    {
+        $this->finalDecisionEndDate = $finalDecisionEndDate;
 
         return $this;
     }
