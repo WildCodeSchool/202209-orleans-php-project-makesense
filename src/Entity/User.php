@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
 
-    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
     #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
@@ -41,9 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     private ?string $poster = null;
-
-    #[ORM\Column(type: 'integer')]
-    private ?int $imageSize = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(max: 255)]
@@ -75,6 +72,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
     }
 
 

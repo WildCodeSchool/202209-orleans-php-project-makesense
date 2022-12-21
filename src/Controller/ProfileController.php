@@ -18,8 +18,10 @@ class ProfileController extends AbstractController
         Request $request,
         UserRepository $userRepository,
     ): Response {
-
+/*
+dd( $user = $this->getUser()); */
         $user = $this->getUser();
+
 
         $form = $this->createForm(ProfileType::class, $user);
 
@@ -33,7 +35,9 @@ class ProfileController extends AbstractController
 
 
         return $this->render('view_my_profil/index.html.twig', [
-            'controller_name' => 'ViewMyProfilController',
+            'profileForm' => $form->createView(),
+            'user' => $user,
+
         ]);
     }
 }
