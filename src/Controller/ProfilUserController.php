@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilUserController extends AbstractController
 {
-    public const DECISION_START_TIME = 12;
+    public const DECISION_LIMIT_NUMBER = 12;
 
     #[Route('/profil/user', name: 'app_profil_user')]
     public function index(DecisionRepository $decisionRepository): Response
@@ -18,7 +18,7 @@ class ProfilUserController extends AbstractController
         $decisions = $decisionRepository->findBy(
             [],
             ['decisionStartTime' => 'ASC'],
-            self::DECISION_START_TIME
+            self::DECISION_LIMIT_NUMBER
         );
 
         return $this->render('profil_user/index.html.twig', [
