@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
         $count = 0;
+
         while ($count < 5) {
             $user = new User();
             $user->setEmail($faker->email());
@@ -30,6 +31,7 @@ class UserFixtures extends Fixture
             $user->setPassword($faker->password());
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
+            $user->setPoster('bill.pnj');
             $user->setIsApproved('0');
             $manager->persist($user);
             $count++;
@@ -48,6 +50,7 @@ class UserFixtures extends Fixture
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
         $user->setIsApproved('0');
+        $user->setPoster('bill.pnj');
         $manager->persist($user);
 
         $user = new User();
@@ -60,6 +63,7 @@ class UserFixtures extends Fixture
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
         $user->setLastname('MakeSense');
+        $user->setPoster('bill.pnj');
         $user->setIsApproved('0');
         $manager->persist($user);
 

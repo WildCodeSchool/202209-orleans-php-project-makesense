@@ -2,6 +2,7 @@
 .vscode/
 .DS_Store
 db-data
+/upload/
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
