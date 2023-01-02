@@ -7,6 +7,22 @@ $quatro : #1A3843;
 $cinco: #26586A;
 $font : 'Raleway', sans-serif;
 
+
+$custom-colors: (    
+ "tertiary": $tertiary,
+ "quatro": $quatro,  
+ "cinco": $cinco
+);       
+
+@import "~bootstrap/scss/functions";  
+
+@import "~bootstrap/scss/variables"; 
+
+$theme-colors: map-merge($theme-colors, $custom-colors); 
+
+@import "~bootstrap/scss/bootstrap";
+
+
 * {
     box-sizing: border-box;
 }

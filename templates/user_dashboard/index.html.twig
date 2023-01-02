@@ -3,22 +3,19 @@
 {% block title %}Page d'accueil profil
 {% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('pageUserHome') }}
-{% endblock %}
+
 
 {% block body %}
-	<main class="pageUserAcceuil-background py-5 fw-bold">
+	<main class="bg-cinco py-5 fw-bolder">
 		<div class="d-flex flex-column text-light m-5 gap-4">
-			<h1 class="pageUserHome-title fw-bold">Recherche</h1>
-			<a href="#TheDQM" class="text-decoration-none text-light">Les décisions qui m'impactent</a>
+			<h1 class="display-5 fw-bolder">Recherche</h1>
+			<a href="#TheDQM" class="text-decoration-none text-light ">Les décisions qui m'impactent</a>
 			<a href="#TheDDJSE" class="text-decoration-none text-light">Les décisions dont je suis expert</a>
 			<a href="#HDMD" class="text-decoration-none text-light">Historique de mes décisions</a>
 		</div>
 
 		<div class="container-fluid">
-			<h2 class="text-secondary fw-bold">Mes décisions proposées</h2>
+			<h2 class="text-secondary fw-bolder">Mes décisions proposées</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
@@ -28,7 +25,7 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<h2 class="text-secondary fw-bold">Les décisions que j’ai commentées</h2>
+			<h2 class="text-secondary fw-bolder">Les décisions que j’ai commentées</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
@@ -38,7 +35,7 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<h2 id="TheDQM"class="text-secondary fw-bold">Les décisions qui m’impactent</h2>
+			<h2 id="TheDQM"class="text-secondary fw-bolder">Les décisions qui m’impactent</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
@@ -48,7 +45,7 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<h2 id="TheDDJSE" class="text-secondary fw-bold">Les décisions dont je suis expert</h2>
+			<h2 id="TheDDJSE" class="text-secondary fw-bolder">Les décisions dont je suis expert</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
@@ -58,7 +55,7 @@
 			</div>
 		</div>
 		<div class="container-fluid">
-			<h2 id="HDMD" class="text-secondary fw-bold">Historique de mes décisions</h2>
+			<h2 id="HDMD" class="text-secondary fw-bolder">Historique de mes décisions</h2>
 			<div class="row g-3">
 				{% for decision in decisions %}
 					<div class="col-xl-4">
