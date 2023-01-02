@@ -12,6 +12,6 @@ class DecisionController extends AbstractController
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision): Response
     {
-        return $this->render('decisions/decisionPage.html.twig');
+        return $this->render('decisions/decisionPage.html.twig', ['decision' => $decision,]);
     }
 }
