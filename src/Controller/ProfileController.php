@@ -18,10 +18,8 @@ class ProfileController extends AbstractController
         Request $request,
         UserRepository $userRepository,
     ): Response {
-/*
-dd( $user = $this->getUser()); */
-        $user = $this->getUser();
 
+        $user = $this->getUser();
 
         $form = $this->createForm(ProfileType::class, $user);
 
@@ -29,10 +27,6 @@ dd( $user = $this->getUser()); */
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
         }
-
-
-
-
 
         return $this->render('view_my_profil/index.html.twig', [
             'profileForm' => $form->createView(),
