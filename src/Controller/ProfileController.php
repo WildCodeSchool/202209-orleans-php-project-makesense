@@ -19,6 +19,8 @@ class ProfileController extends AbstractController
         UserRepository $userRepository,
     ): Response {
 
+
+        /** @var User */
         $user = $this->getUser();
 
         $form = $this->createForm(ProfileType::class, $user);
