@@ -7,11 +7,20 @@
 {% block body %}
 	<main class="bg-primary">
 		<div class="container-fluid">
-				<h1 class="huge-title">DÉCISIONS</h1>
-		
-			<div class="mb-3 row px-4">
-				<h2 class="fw-bolder recherche text-light col-sm-2 ">Recherche</h2>
-				<div class="col-sm-10"></div>
+			<h1 class="huge-title">DÉCISIONS</h1>
+
+			<div class="mb-3 row px-4 mt-5">
+				<h2 class="fw-bolder text-light col-sm-2">Recherche</h2>
+				{{form_start(form, { 'attr': {'class': 'col-sm-6 px-0'} })}}
+				<div class="input-group border border-2 rounded-4 d-flex justify-content-between align-items-center">
+					{{ form_widget(form.input, { 'attr': {'class': 'bg-primary text-light border border-primary rounded-4'} }) }}
+					<button type="submit" class="btn">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFFF" class="bi bi-search" viewbox="0 0 16 16">
+							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+						</svg>
+					</button>
+					{{form_end(form)}}
+				</div>
 			</div>
 			<h2 class="px-4 fw-bolder ">
 				<a href="#fini" class="navtitle text-decoration-none text-light">Les décisions bientôt finies</a>
