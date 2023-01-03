@@ -32,6 +32,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addStyleEntry('decisionView','./assets/styles/decisionView.scss')
     .addStyleEntry('registerStyle', './assets/styles/register.scss')
     .addStyleEntry('loginStyle', './assets/styles/login.scss')
     .addStyleEntry('decisionCreation', './assets/styles/decisionCreation.scss')
