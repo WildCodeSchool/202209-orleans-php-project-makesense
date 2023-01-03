@@ -31,7 +31,7 @@ class UserFixtures extends Fixture
             $user->setPassword($faker->password());
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setPoster('bill.pnj');
+            $user->setPoster('person.svg');
             $user->setIsApproved('0');
             $manager->persist($user);
             $count++;
@@ -50,7 +50,7 @@ class UserFixtures extends Fixture
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
         $user->setIsApproved('0');
-        $user->setPoster('bill.pnj');
+        $user->setPoster('person.svg');
         $manager->persist($user);
 
         $user = new User();
@@ -63,7 +63,7 @@ class UserFixtures extends Fixture
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
         $user->setLastname('MakeSense');
-        $user->setPoster('bill.pnj');
+        $user->setPoster('person.svg');
         $user->setIsApproved('0');
         $manager->persist($user);
 
