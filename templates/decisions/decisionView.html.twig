@@ -28,7 +28,13 @@
 				<div class="col-2 border rounded-4 pt-2">Fin des conflits et début de la décision finale</div>
 				<div class="col-2 border rounded-4 pt-4">Fin de la décision</div>
 			</div>
-		<div class="row justify-content-center"><img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline"></div>
+			<div class="row justify-content-center"><img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline"></div>
+			<div class="row text-center justify-content-around pb-5">
+				<div class="col-2 fw-bold">{{ decision.decisionStartTime|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold">{{ decision.firstDecisionEndDate|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold">{{ decision.conflictEndDate|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold">{{ decision.finalDecisionEndDate|date("d-m-Y") }}</div>
+			</div>
 		</div>
 
 		<div class="container">
