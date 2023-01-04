@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use DateTimeInterface;
 use App\Form\DecisionSearchType;
 use App\Repository\DecisionRepository;
 use DateTime;
@@ -32,6 +31,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $decisions = $decisionRepository->decisionSearch($data['input']);
+            $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input']);
         }
 
         return $this->renderForm(

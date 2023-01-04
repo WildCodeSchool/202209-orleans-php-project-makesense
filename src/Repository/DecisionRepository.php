@@ -54,11 +54,13 @@ class DecisionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findDecisionFinishedSoon(DateTime $today): array
+    public function findDecisionFinishedSoon(DateTime $today, ?string $searchedValue = ''): array
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.finalDecisionEndDate < :searchedValue')
-            ->setParameter('searchedValue', $today)
+            ->andWhere('d.finalDecisionEndDate < :today')
+            ->setParameter('today', $today)
+            ->andWhere('d.title LIKE :searchedValue')
+            ->setParameter('searchedValue', '%' . $searchedValue . '%')
             ->orderBy('d.finalDecisionEndDate', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
