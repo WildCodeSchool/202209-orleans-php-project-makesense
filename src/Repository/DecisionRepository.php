@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Decision;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +40,40 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Decision[] Returns an array of Decision objects
+    //     */
+    public function decisionSearch(?string $searchedValue): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.title LIKE :searchedValue')
+            ->setParameter('searchedValue', '%' . $searchedValue . '%')
+            ->orderBy('d.decisionStartTime', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findDecisionFinishedSoon(DateTime $today, ?string $searchedValue = ''): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.finalDecisionEndDate < :today')
+            ->setParameter('today', $today)
+            ->andWhere('d.title LIKE :searchedValue')
+            ->setParameter('searchedValue', '%' . $searchedValue . '%')
+            ->orderBy('d.finalDecisionEndDate', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    //    public function findOneBySomeField($value): ?Decision
+    //    {
+    //        return $this->createQueryBuilder('d')
+    //            ->andWhere('d.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
