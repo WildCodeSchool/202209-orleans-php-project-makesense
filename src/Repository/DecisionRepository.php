@@ -45,25 +45,32 @@ class DecisionRepository extends ServiceEntityRepository
     //     */
     public function decisionSearch(?string $searchedValue): array
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.title LIKE :searchedValue')
-            ->setParameter('searchedValue', '%' . $searchedValue . '%')
-            ->orderBy('d.decisionStartTime', 'DESC')
-            ->setMaxResults(10)
-            ->getQuery()
+        $queryBuilder = $this->createQueryBuilder('d');
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+        $queryBuilder->orderBy('d.decisionStartTime', 'DESC')
+            ->setMaxResults(12);
+
+        return $queryBuilder->getQuery()
             ->getResult();
     }
 
     public function findDecisionFinished(DateTime $today, ?string $searchedValue = ''): array
     {
-        return $this->createQueryBuilder('d')
+        $queryBuilder = $this->createQueryBuilder('d')
             ->andWhere('d.finalDecisionEndDate > :today')
-            ->setParameter('today', $today)
-            ->andWhere('d.title LIKE :searchedValue')
-            ->setParameter('searchedValue', '%' . $searchedValue . '%')
-            ->orderBy('d.finalDecisionEndDate', 'ASC')
-            ->setMaxResults(3)
-            ->getQuery()
+            ->setParameter('today', $today);
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+
+        $queryBuilder->orderBy('d.finalDecisionEndDate', 'ASC')
+            ->setMaxResults(3);
+
+        return $queryBuilder->getQuery()
             ->getResult();
     }
 

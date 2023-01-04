@@ -19,20 +19,13 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        $decisions = $decisionRepository->findBy(
-            [],
-            ['decisionStartTime' => 'DESC'],
-            12
-        );
-
         $today = new DateTime('today');
-        $decisionsFinished = $decisionRepository->findDecisionFinished($today);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $decisions = $decisionRepository->decisionSearch($data['input']);
-            $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input']);
         }
+        $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
+        $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
 
         return $this->renderForm(
             'home/index.html.twig',
