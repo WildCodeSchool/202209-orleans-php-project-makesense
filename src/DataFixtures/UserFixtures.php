@@ -22,8 +22,9 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        $count = 0;
-        while ($count < 5) {
+
+
+        for ($i = 0; $i < 7; $i++) {
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
@@ -31,8 +32,8 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setIsApproved('0');
+            $this->addReference('user_' . $i, $user);
             $manager->persist($user);
-            $count++;
         }
 
 
@@ -48,7 +49,11 @@ class UserFixtures extends Fixture
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
         $user->setIsApproved('0');
+        $this->addReference('user_tedy', $user);
         $manager->persist($user);
+
+
+
 
         $user = new User();
         $user->setEmail('admin@make-sense.ms');
@@ -61,8 +66,8 @@ class UserFixtures extends Fixture
         $user->setFirstname('Admin');
         $user->setLastname('MakeSense');
         $user->setIsApproved('0');
+        $this->addReference('user_admin', $user);
         $manager->persist($user);
-
         $manager->flush();
     }
 }

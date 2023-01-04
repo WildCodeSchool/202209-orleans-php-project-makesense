@@ -23,9 +23,11 @@ class DecisionFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        $index = 0;
-        while ($index < self::LOOP_COUNT) {
+
+
+        for ($i = 0; $i < self::LOOP_COUNT; $i++) {
             $decision = new Decision();
+
 
             $decision->setTitle($faker->sentence(rand(15, 45)));
             $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
@@ -36,10 +38,10 @@ class DecisionFixtures extends Fixture
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-
+            $this->addReference('decision_' . $i, $decision);
             $manager->persist($decision);
-            $index++;
         }
+
         $manager->flush();
     }
 }
