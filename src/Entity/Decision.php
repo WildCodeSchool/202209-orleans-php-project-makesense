@@ -60,6 +60,9 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
+     #[ORM\ManyToOne]
+    private ?Category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +172,18 @@ class Decision
     public function setFinalDecisionEndDate(?\DateTimeInterface $finalDecisionEndDate): self
     {
         $this->finalDecisionEndDate = $finalDecisionEndDate;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
