@@ -8,36 +8,39 @@
 {% endblock %}
 {% block body %}
 	<main>
-		<div class="container py-5 rounded-4 mt-5 mb-5 bg-tertiary">
-			<div class="row py-3">
+		<div class="container py-5 rounded-4 mt-5 bg-tertiary position-relative">
+			<div class="row py-5 mb-5">
 				<h1 class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
 
 				<div class="col-md-4 text-white d-flex pt-4">
-					<img class="mx-2 pictureCreator" src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
+					<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
 					<div class="ms-2 py-3 pe-2">par</div>
 					<div class="text-uppercase fw-bold py-3"></div>
 				</div>
 			</div>
-		</div>
+		
 
-		<div class="container rounded-4 border">
+
+		<div class="container rounded-4 border shadow bg-light">
 			<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="">Dates à retenir</h2>
 			<div class="row text-center justify-content-around">
-				<div class="col-2 border rounded-4 pt-2">Prise de décision commencée</div>
-				<div class="col-2 border rounded-4">Fin de la première décision prise et début des conflits</div>
-				<div class="col-2 border rounded-4 pt-2">Fin des conflits et début de la décision finale</div>
-				<div class="col-2 border rounded-4 pt-4">Fin de la décision</div>
+				<div class="col-2 border border-dark rounded-4 pt-3">Prise de décision commencée</div>
+				<div class="col-2 border border-dark rounded-4">Fin de la première décision prise et début des conflits</div>
+				<div class="col-2 border border-dark rounded-4 pt-2">Fin des conflits et début de la décision finale</div>
+				<div class="col-2 border border-dark rounded-4 pt-4">Fin de la décision</div>
 			</div>
 			<div class="row justify-content-center"><img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline"></div>
 			<div class="row text-center justify-content-around pb-5">
-				<div class="col-2 fw-bold">{{ decision.decisionStartTime|date("d-m-Y") }}</div>
-				<div class="col-2 fw-bold">{{ decision.firstDecisionEndDate|date("d-m-Y") }}</div>
-				<div class="col-2 fw-bold">{{ decision.conflictEndDate|date("d-m-Y") }}</div>
-				<div class="col-2 fw-bold">{{ decision.finalDecisionEndDate|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold fs-5">{{ decision.decisionStartTime|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold fs-5">{{ decision.firstDecisionEndDate|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold fs-5">{{ decision.conflictEndDate|date("d-m-Y") }}</div>
+				<div class="col-2 fw-bold fs-5">{{ decision.finalDecisionEndDate|date("d-m-Y") }}</div>
 			</div>
 		</div>
+		</div>
 
-		<div class="container">
+
+		<div class="container mt-5">
 			<div class="row py-5 rounded-4 bg-tertiary">
 
 				<div class="col-md-4 text-white fs-5 order-first pb-5">
