@@ -39,28 +39,27 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Decision[] Returns an array of Decision objects
+    //     */
+    public function decisionSearch(?string $searchedValue): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.title LIKE :searchedValue')
+            ->setParameter('searchedValue', '%' . $searchedValue . '%')
+            ->orderBy('d.decisionStartTime', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Decision
+    //    {
+    //        return $this->createQueryBuilder('d')
+    //            ->andWhere('d.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
