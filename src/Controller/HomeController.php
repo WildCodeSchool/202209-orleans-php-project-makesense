@@ -26,12 +26,14 @@ class HomeController extends AbstractController
         }
         $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
         $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
+        $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input'] ?? '');
 
         return $this->renderForm(
             'home/index.html.twig',
             [
                 'decisions' => $decisions,
                 'decisionsFinished' => $decisionsFinished,
+                'decisionsEndingSoon' => $decisionsEndingSoon,
                 'form' => $form
             ],
         );

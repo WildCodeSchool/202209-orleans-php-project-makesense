@@ -43,6 +43,7 @@ class DecisionRepository extends ServiceEntityRepository
     //    /**
     //     * @return Decision[] Returns an array of Decision objects
     //     */
+
     public function decisionSearch(?string $searchedValue): array
     {
         $queryBuilder = $this->createQueryBuilder('d');
@@ -60,6 +61,23 @@ class DecisionRepository extends ServiceEntityRepository
     public function findDecisionFinished(DateTime $today, ?string $searchedValue = ''): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
+            ->andWhere('d.finalDecisionEndDate < :today')
+            ->setParameter('today', $today);
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+
+        $queryBuilder->orderBy('d.finalDecisionEndDate', 'DESC')
+            ->setMaxResults(3);
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
+    public function findDecisionFinishedSoon(DateTime $today, ?string $searchedValue = ''): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
             ->andWhere('d.finalDecisionEndDate > :today')
             ->setParameter('today', $today);
         if ($searchedValue) {
@@ -73,7 +91,6 @@ class DecisionRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()
             ->getResult();
     }
-
 
     //    public function findOneBySomeField($value): ?Decision
     //    {
