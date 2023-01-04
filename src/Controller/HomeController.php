@@ -31,6 +31,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $decisions = $decisionRepository->decisionSearch($data['input']);
+            $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input']);
         }
 
         return $this->renderForm(
