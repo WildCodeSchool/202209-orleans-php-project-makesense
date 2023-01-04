@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Decision;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -49,6 +50,17 @@ class DecisionRepository extends ServiceEntityRepository
             ->setParameter('searchedValue', '%' . $searchedValue . '%')
             ->orderBy('d.decisionStartTime', 'DESC')
             ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findDecisionFinished(DateTime $today): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.finalDecisionEndDate > :searchedValue')
+            ->setParameter('searchedValue', $today)
+            ->orderBy('d.finalDecisionEndDate', 'ASC')
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }
