@@ -3,11 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Comment;
+use App\Entity\Interaction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormTypeInterface;
 
-class CommentType extends AbstractType
+
+class CommentType extends AbstractType 
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,7 +20,7 @@ class CommentType extends AbstractType
             ->add('isInConflict')
             ->add('conflictColor')
             ->add('commentColor')
-            ->add('interaction')
+            ->add('interaction', Interaction::class)
         ;
     }
 
