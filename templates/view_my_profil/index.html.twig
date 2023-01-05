@@ -20,9 +20,7 @@
 					<div class="row align-items-center">
 						<div class="ViewMyprofil col-sm-4 d-flex justify-content-center align-items-center flex-column gap-4">
 							<img src="{{ vich_uploader_asset(user) }}" class="border border-primary rounded rounded-circle ratio ratio-1x1 " alt="Profil">
-
 							{{ form_start(profileForm) }}
-
 							<div class="d-flex justify-content-center align-items-center flex-column gap-4">
 								{{ form_widget(profileForm.posterFile, {'attr':{'class':'form-control'}}
 								) }}
@@ -36,15 +34,11 @@
 						</div>
 						<h2 class="col-sm-8 text-center rounded-4">{{ user.email }}</h2>
 					</div>
-
-
 				</div>
 			</div>
-
 			<div class="d-flex justify-content-center">
 				<a href="/" class="text-decoration-none btn bg-secondary mt-3 w-25 ml-5 fw-bold">Retour</a>
 			</div>
-
 		</div>
 	</main>
 {% endblock %}
