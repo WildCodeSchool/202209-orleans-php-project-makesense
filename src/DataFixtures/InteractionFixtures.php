@@ -14,6 +14,8 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
     {
 
 
+
+
         for ($i = 0; $i < 100; $i++) {
             $interraction = new Interaction();
 

@@ -14,4 +14,10 @@ class DecisionController extends AbstractController
     {
         return $this->render('decisions/decisionView.html.twig', ['decision' => $decision,]);
     }
+
+    #[Route('decision/{decision}/avis', methods: ['GET'], name: 'app_decision_comment')]
+    public function comment(Decision $decision): Response
+    {
+        return $this->render('decisions/commentView.html.twig', ['decision' => $decision,]);
+    }
 }

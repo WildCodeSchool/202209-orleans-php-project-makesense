@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Decision
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionView') }}
+{% endblock %}
+{% block body %}
+	<main>
+		{% include "components/_formDecisionComment.html.twig" %}
+	</main>
+{% endblock %}
