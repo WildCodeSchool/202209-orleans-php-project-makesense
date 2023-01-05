@@ -3,7 +3,10 @@
 {% block title %}Home
 {% endblock %}
 
-
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionView') }}
+{% endblock %}
 {% block body %}
 	<main class="bg-primary">
 		<div class="container-fluid">

@@ -9,19 +9,20 @@ use Doctrine\Persistence\ObjectManager;
 class CategoryFixtures extends Fixture
 {
     public const CATEGORIES = [
-        'RH',
-        'Administratif',
-        'Finance',
-        'R&D',
-        'Juridique',
-        'Marketing',
+        'RH' => '#9B084F',
+        'Administratif' => '#24673A',
+        'Finance'=> '#E36164',
+        'R&D'=> '#474136',
+        'Juridique'=> '#70AF90',
+        'Marketing'=> '#C1E94E',
     ];
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::CATEGORIES as $categoryName) {
+        foreach (self::CATEGORIES as $categoryName => $color) {
             $category = new Category();
             $category->setName($categoryName);
+            $category->setColor($color);
             $this->addReference('category_' . $categoryName, $category);
 
             $manager->persist($category);
@@ -29,4 +30,5 @@ class CategoryFixtures extends Fixture
 
         $manager->flush();
     }
+    
 }

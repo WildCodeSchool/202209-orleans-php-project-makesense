@@ -24,7 +24,7 @@ class DecisionFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        foreach (CategoryFixtures::CATEGORIES as $categoryName) {
+        foreach (CategoryFixtures::CATEGORIES as $categoryName => $color) {
             for ($i = 0; $i < 10; $i++) {
                 $decision = new Decision();
 
