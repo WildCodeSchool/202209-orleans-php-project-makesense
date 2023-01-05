@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Decision;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
