@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class DecisionCreationType extends AbstractType
 {
@@ -20,25 +21,25 @@ class DecisionCreationType extends AbstractType
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
             ])
-            ->add('details', TextareaType::class, [
+            ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',
                 'attr' => [
                     'rows' => 10,
                 ]
             ])
-            ->add('impact', TextareaType::class, [
+            ->add('impact', CKEditorType::class, [
                 'label' => 'Impacts de la décision :',
                 'attr' => [
                     'rows' => 10,
                 ]
             ])
-            ->add('gain', TextareaType::class, [
+            ->add('gain', CKEditorType::class, [
                 'label' => 'Bénéfices de la décision :',
                 'attr' => [
                     'rows' => 10,
                 ]
             ])
-            ->add('risk', TextareaType::class, [
+            ->add('risk', CKEditorType::class, [
                 'label' => 'Risques potentiels de la décision :',
                 'attr' => [
                     'rows' => 10,

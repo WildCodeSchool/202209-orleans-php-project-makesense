@@ -44,19 +44,19 @@
 						<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
 							<div id="detail" class="pb-5">
 								<h2 class="fw-bold">Détails de la décision</h2>
-								<p>{{ decision.details }}</p>
+								<p>{{ decision.details|raw }}</p>
 							</div>
 							<div id="impacto" class="py-5">
 								<h3 class="ps-3 class=" fw-bold"">Impact sur l'organisation</h3>
-								<p class="ps-3">{{ decision.impact }}</p>
+								<p class="ps-3">{{ decision.impact|raw }}</p>
 							</div>
 							<div id="bene" class="py-5">
 								<h3 class="ps-3 class=" fw-bold"">Bénéfices</h3>
-								<p class="ps-3">{{ decision.gain }}</p>
+								<p class="ps-3">{{ decision.gain|raw }}</p>
 							</div>
 							<div id="rissk" class="py-5">
 								<h3 class="ps-3 class=" fw-bold"">Risques potentiels</h3>
-								<p class="ps-3">{{ decision.risk }}</p>
+								<p class="ps-3">{{ decision.risk|raw }}</p>
 							</div>
 						</div>
 					</div>
