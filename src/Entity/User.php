@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private ?string $isApproved = null;
+    private ?bool $isApproved = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -127,12 +127,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsApproved(): ?string
+    public function getIsApproved(): ?bool
     {
         return $this->isApproved;
     }
 
-    public function setIsApproved(string $isApproved): self
+    public function setIsApproved(bool $isApproved): self
     {
         $this->isApproved = $isApproved;
 
