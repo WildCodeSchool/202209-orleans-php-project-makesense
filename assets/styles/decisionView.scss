@@ -20,12 +20,15 @@
 #state1 {
     grid-area: a;
 }
+
 #state2 {
     grid-area: b;
 }
+
 #state3 {
     grid-area: c;
 }
+
 #state4 {
     grid-area: d;
 }
@@ -38,14 +41,17 @@
     grid-area: f;
     justify-self: start;
 }
+
 #date2 {
     grid-area: g;
     justify-self: center;
 }
+
 #date3 {
     grid-area: h;
     justify-self: center;
 }
+
 #date4 {
     grid-area: i;
     justify-self: end;
@@ -55,14 +61,15 @@
 @media screen and (max-width: 991px) {
 
     #timelineGrid {
-        grid-template-areas: "f a"
-                             "g b"
-                             "g b"
-                             "h c"
-                             "h c"
-                             "i d";
+        grid-template-areas: 
+            "f a a"
+            "g b b"
+            "g b b"
+            "h c c"
+            "h c c"
+            "i d d";
         grid-template-rows: repeat(6, 5rem);
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         row-gap: 1rem;
         column-gap: 1.5rem;
     }
@@ -93,4 +100,23 @@
         justify-self: center;
     }
 
+}
+
+@media screen and (max-width: 500px) {
+
+    #timelineGrid {
+        grid-template-areas: 
+            "f f f"
+            "a a a"
+            "g g g"
+            "b b b"
+            "h h h"
+            "c c c"
+            "i i i"
+            "d d d";
+        grid-template-rows: repeat(8, 6rem);
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 1rem;
+        column-gap: 0;
+    }
 }
