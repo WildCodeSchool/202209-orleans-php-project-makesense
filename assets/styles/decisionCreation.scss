@@ -1,3 +1,24 @@
+@import "_theme";
+
 .form-spacing{
     margin-block-start: 100px;
+}
+
+.cke_1.cke_chrome, .cke_2.cke_chrome, .cke_3.cke_chrome, .cke_4.cke_chrome{
+    border:none;
+}
+
+.cke_top{
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+}
+
+.cke_bottom{
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    box-shadow: $gray-500 1px 2px 3px;
+}
+
+.cke_inner{
+    border-radius: 30px 30px 30px 30px;
 }

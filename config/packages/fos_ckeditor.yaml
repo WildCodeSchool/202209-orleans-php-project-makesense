@@ -8,6 +8,46 @@ fos_ck_editor:
     base_path: "build/ckeditor"
     js_path: "build/ckeditor/ckeditor.js"
     configs:
-        my_config:
-            toolbar: basic
+        decision_creation_config:
+            toolbar:
+                [
+                    [
+                        "Cut",
+                        "Copy",
+                        "Paste",
+                        "PasteText",
+                        "PasteFromWord",
+                        "-",
+                        "Undo",
+                        "Redo",
+                    ],
+                    ["Link", "Unlink", "Anchor"],
+                    ["Source"],
+                    ["Maximize"],
+                    , "/",
+                    ["Bold", "Italic", "Strike", "-", "RemoveFormat"],
+                    [
+                        "NumberedList",
+                        "BulletedList",
+                        "Blockquote",
+                        "-",
+                        "Outdent",
+                        "Indent",
+                    ],
+                    ["Styles"],
+                ]
             uiColor: "#3B8AA6"
+            stylesSet: "decision_creation"
+    styles:
+        decision_creation:
+            - { name: "Titre", element: "h2", styles: { color: "#0D3944" , font-family: "'Raleway', sans-serif", font-weight: "550" } }
+            - {
+                  name: "Sous-titre",
+                  element: "h3",
+                  styles: {color: "#0D3944", font-family: "'Raleway', sans-serif", font-weight: "475"}
+              }
+            - {
+                  name: "Contenu",
+                  element: "span",
+                  styles: {color: "#000", font-family: "'Raleway', sans-serif", font-weight: "400"}
+              }
