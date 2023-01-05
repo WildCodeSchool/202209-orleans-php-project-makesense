@@ -1,7 +1,15 @@
 @import "_theme";
 
-.form-spacing{
+.date-label{
+    padding-left : 40px;
+}
+
+.first-form-spacing{
     margin-block-start: 100px;
+}
+
+.form-spacing{
+    margin-block-start: 150px;
 }
 
 .cke_1.cke_chrome, .cke_2.cke_chrome, .cke_3.cke_chrome, .cke_4.cke_chrome{

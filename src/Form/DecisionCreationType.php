@@ -19,6 +19,7 @@ class DecisionCreationType extends AbstractType
             ->add('decision_start_time', DateType::class, [
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
+                'label_attr' => ['class' => 'date-label'],
             ])
             ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',
