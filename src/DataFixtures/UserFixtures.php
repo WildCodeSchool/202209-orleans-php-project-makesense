@@ -23,7 +23,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
         $count = 0;
-        while ($count < 5) {
+        while ($count <= 5) {
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
@@ -31,6 +31,8 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $user->setIsApproved('0');
+            $this->addReference('user_' . $count, $user);
+
             $manager->persist($user);
             $count++;
         }
