@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -72,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
+        $this->decisions = new ArrayCollection();
     }
 
     public function __serialize(): array
@@ -82,6 +85,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'password' => $this->password,
         ];
     }
+
+
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
+    private Collection $decisions;
 
 
     public function getId(): ?int
@@ -215,5 +222,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPoster(): ?string
     {
         return $this->poster;
+    }
+    /**
+     * @return Collection<int, Decision>
+     */
+    public function getDecisions(): Collection
+    {
+        return $this->decisions;
+    }
+
+    public function addDecision(Decision $decision): self
+    {
+        if (!$this->decisions->contains($decision)) {
+            $this->decisions->add($decision);
+            $decision->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecision(Decision $decision): self
+    {
+        if ($this->decisions->removeElement($decision)) {
+            // set the owning side to null (unless already changed)
+            if ($decision->getCreator() === $this) {
+                $decision->setCreator(null);
+            }
+        }
+
+        return $this;
     }
 }

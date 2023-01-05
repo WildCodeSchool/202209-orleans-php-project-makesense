@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $faker = Factory::create();
 
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
@@ -33,6 +33,8 @@ class UserFixtures extends Fixture
             $user->setLastname($faker->lastName());
             $user->setPoster('person.svg');
             $user->setIsApproved(false);
+            $this->addReference('user_' . $i, $user);
+
             $manager->persist($user);
         }
 
