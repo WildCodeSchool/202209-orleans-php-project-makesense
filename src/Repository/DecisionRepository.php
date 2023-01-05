@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Decision;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Decision>
@@ -39,28 +40,65 @@ class DecisionRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Decision[] Returns an array of Decision objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Decision[] Returns an array of Decision objects
+    //     */
 
-//    public function findOneBySomeField($value): ?Decision
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function decisionSearch(?string $searchedValue): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d');
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+        $queryBuilder->orderBy('d.decisionStartTime', 'DESC')
+            ->setMaxResults(12);
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
+    public function findDecisionFinished(DateTime $today, ?string $searchedValue = ''): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->andWhere('d.finalDecisionEndDate < :today')
+            ->setParameter('today', $today);
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+
+        $queryBuilder->orderBy('d.finalDecisionEndDate', 'DESC')
+            ->setMaxResults(3);
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
+    public function findDecisionFinishedSoon(DateTime $today, ?string $searchedValue = ''): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->andWhere('d.finalDecisionEndDate > :today')
+            ->setParameter('today', $today);
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+
+        $queryBuilder->orderBy('d.finalDecisionEndDate', 'ASC')
+            ->setMaxResults(3);
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
+    //    public function findOneBySomeField($value): ?Decision
+    //    {
+    //        return $this->createQueryBuilder('d')
+    //            ->andWhere('d.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
