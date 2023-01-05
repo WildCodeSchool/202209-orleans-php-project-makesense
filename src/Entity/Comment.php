@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentsRepository;
+use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommentsRepository::class)]
-class Comments
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
+class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,7 +20,7 @@ class Comments
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $commentTimedate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'comment')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Interaction $interaction = null;
 
@@ -31,7 +31,7 @@ class Comments
     private ?string $conflictColor = null;
 
     #[ORM\Column(length: 7)]
-    private ?string $commentsColor = null;
+    private ?string $commentColor = null;
 
     public function getId(): ?int
     {
@@ -98,14 +98,14 @@ class Comments
         return $this;
     }
 
-    public function getCommentsColor(): ?string
+    public function getCommentColor(): ?string
     {
-        return $this->commentsColor;
+        return $this->commentColor;
     }
 
-    public function setCommentsColor(string $commentsColor): self
+    public function setCommentColor(string $commentColor): self
     {
-        $this->commentsColor = $commentsColor;
+        $this->commentColor = $commentColor;
 
         return $this;
     }

@@ -29,12 +29,12 @@ class Interaction
     #[ORM\Column]
     private ?bool $vote = null;
 
-    #[ORM\OneToMany(mappedBy: 'interaction', targetEntity: Comments::class)]
-    private Collection $comments;
+    #[ORM\OneToMany(mappedBy: 'interaction', targetEntity: Comment::class)]
+    private Collection $comment;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,26 +91,26 @@ class Interaction
     }
 
     /**
-     * @return Collection<int, Comments>
+     * @return Collection<int, Comment>
      */
-    public function getComments(): Collection
+    public function getComment(): Collection
     {
-        return $this->comments;
+        return $this->comment;
     }
 
-    public function addComment(Comments $comment): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
+        if (!$this->comment->contains($comment)) {
+            $this->comment->add($comment);
             $comment->setInteraction($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comments $comment): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getInteraction() === $this) {
                 $comment->setInteraction(null);
