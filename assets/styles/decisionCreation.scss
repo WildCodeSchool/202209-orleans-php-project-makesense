@@ -16,11 +16,11 @@
 .cke_bottom{
     border-bottom-left-radius: 30px 30px;
     border-bottom-right-radius: 30px 30px;
-    box-shadow: $gray-500 1px 2px 3px;
 }
 
 .cke_inner{
     border-radius: 30px 30px 30px 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 }
 
 .cke_contents{
