@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Form\DecisionSearchType;
 use App\Repository\DecisionRepository;
-use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,25 +19,20 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        $decisions = $decisionRepository->findBy(
-            [],
-            ['decisionStartTime' => 'DESC'],
-            12
-        );
-
         $today = new DateTime('today');
-        $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $decisions = $decisionRepository->decisionSearch($data['input']);
-            $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input']);
         }
+        $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
+        $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
+        $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input'] ?? '');
 
         return $this->renderForm(
             'home/index.html.twig',
             [
                 'decisions' => $decisions,
+                'decisionsFinished' => $decisionsFinished,
                 'decisionsEndingSoon' => $decisionsEndingSoon,
                 'form' => $form
             ],
