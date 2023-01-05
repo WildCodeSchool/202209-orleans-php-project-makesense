@@ -1,3 +1,5 @@
+@import "_theme";
+
 .form-spacing{
     margin-block-start: 100px;
 }
@@ -19,4 +21,8 @@
 
 .cke_inner{
     border-radius: 30px 30px 30px 30px;
+}
+
+.cke_contents{
+    height : 800px;
 }

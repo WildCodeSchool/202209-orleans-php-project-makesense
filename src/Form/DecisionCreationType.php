@@ -22,27 +22,15 @@ class DecisionCreationType extends AbstractType
             ])
             ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
             ->add('impact', CKEditorType::class, [
                 'label' => 'Impacts de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
             ->add('gain', CKEditorType::class, [
                 'label' => 'Bénéfices de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
             ->add('risk', CKEditorType::class, [
                 'label' => 'Risques potentiels de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ]);
     }
 
