@@ -8,8 +8,9 @@ use App\Service\AutomatedDates;
 use App\Repository\DecisionRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class DecisionFixtures extends Fixture
+class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const LOOP_COUNT = 100;
 
@@ -36,10 +37,20 @@ class DecisionFixtures extends Fixture
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
+            $decision->setCreator($this->getReference('user_' . rand(0, 5)));
 
             $manager->persist($decision);
             $index++;
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+
+            UserFixtures::class,
+
+        ];
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Decision;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,14 +19,18 @@ class DecisionController extends AbstractController
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
-        AutomatedDates $automatedDates
+        AutomatedDates $automatedDates,
+        Security $security
     ): Response {
         $decision = new Decision();
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
-
+        /** @var \App\Entity\User */
+        $user = $security->getUser();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $decision->setCreator($user);
+
             $decision->setFirstDecisionEndDate(
                 $automatedDates->firstDecisionEndDateCalculation($decision)
             );
