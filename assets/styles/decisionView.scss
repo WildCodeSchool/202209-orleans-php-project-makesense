@@ -3,86 +3,86 @@
     width: 4rem;
 }
 
-.arrow {
-    height: 12rem;
-    width: 65rem;
-}
-
-
 #timelineGrid {
     display: grid;
     grid-template-areas: "a b c d"
                          "e e e e"
                          "f g h i";
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 4rem 1fr 6rem;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1rem;
+    column-gap: 3rem;
 }
 
-.state {
-    height: 4rem;
-    width: 4rem;
-}
+
 #state1 {
     grid-area: a;
-    background-color: #8ca0ff;
     justify-self: start;
 }
 #state2 {
     grid-area: b;
-    background-color: #495591;
     justify-self: center;
 }
 #state3 {
     grid-area: c;
-    background-color: #2264b5;
     justify-self: center;
 }
 #state4 {
     grid-area: d;
-    background-color: #392195;
     justify-self: end;
 }
 
 #arrow {
     grid-area: e;
-    background-color: #1faf69;
 }
 
 #date1 {
     grid-area: f;
-    background-color: #ff8cf7;
     justify-self: start;
 }
 #date2 {
     grid-area: g;
-    background-color: #50089d;
     justify-self: center;
 }
 #date3 {
     grid-area: h;
-    background-color: #971735;
     justify-self: center;
 }
 #date4 {
     grid-area: i;
-    background-color: #5b1d65;
     justify-self: end;
 }
 
 
 @media screen and (max-width: 768px) {
-    .arrow {
-        transform: rotate(90deg);
-    }
 
     #timelineGrid {
-        grid-template-areas: "e f a"
-                             "e g b"
-                             "e h c"
-                             "e i d";
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "f a"
+                             "g b"
+                             "h c"
+                             "i d";
+        grid-template-rows: repeat(4, 6rem);
+        grid-template-columns: 2fr 3fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
        
+    }
+
+    .arrow {
+        display: none;
+    }
+
+    .state {
+        display: flex;
+        height: 6rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .state2 {
+        display: flex;
+        text-align: center;
+        align-items: center;
     }
 
     #state1 {

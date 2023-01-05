@@ -23,46 +23,55 @@
 				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="">Dates à retenir</h2>
 
 				<div id="timelineGrid">
-					<div id="state1" class="state"></div>
-					<div id="state2" class="state"></div>
-					<div id="state3" class="state"></div>
-					<div id="state4" class="state"></div>
+					<div id="state1" class="state">Prise de décision commencée</div>
+					<div id="state2" class="state">Fin de la première décision prise et début des conflits</div>
+					<div id="state3" class="state">Fin des conflits et début de la décision finale</div>
+					<div id="state4" class="state">Fin de la décision</div>
 					<div id="arrow">
+						{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
+							<img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline">
+						{% elseif "now"|date("Y/m/d") <= decision.conflictEndDate|date("Y/m/d") %}
+							<img class="arrow" src="{{ asset('build/images/icons/arrow2.svg') }}" alt="Fleche de la timeline">
+						{% elseif "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+							<img class="arrow" src="{{ asset('build/images/icons/arrow3.svg') }}" alt="Fleche de la timeline">
+						{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
+							<img class="arrow" src="{{ asset('build/images/icons/arrow4.svg') }}" alt="Fleche de la timeline">
+						{% endif %}
 					</div>
-					<div id="date1" class="state"></div>
-					<div id="date2" class="state"></div>
-					<div id="date3" class="state"></div>
-					<div id="date4" class="state"></div>
+					<div id="date1" class="state2 fw-bold fs-5">{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+					<div id="date2" class="state2 fw-bold fs-5">{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+					<div id="date3" class="state2 fw-bold fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+					<div id="date4" class="state2 fw-bold fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 				</div>
 			</div>
 		</div>
 
 		{# <div class="container rounded-4 border shadow bg-light">
-																<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="">Dates à retenir</h2>
-																<div class="row text-center justify-content-around">
-																	<div class="col-md-2 border border-dark rounded-4 p-2 align-self-center">Prise de décision commencée</div>
-																	<div class="col-md-2 border border-dark rounded-4">Fin de la première décision prise et début des conflits</div>
-																	<div class="col-md-2 border border-dark rounded-4 pt-2">Fin des conflits et début de la décision finale</div>
-																	<div class="col-md-2 border border-dark rounded-4 p-3 align-self-center">Fin de la décision</div>
-																</div>
-												
-																{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
-																	<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline"></div>
-																{% elseif "now"|date("Y/m/d") <= decision.conflictEndDate|date("Y/m/d") %}
-																	<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow2.svg') }}" alt="Fleche de la timeline"></div>
-																{% elseif "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-																	<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow3.svg') }}" alt="Fleche de la timeline"></div>
-																{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
-																	<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow4.svg') }}" alt="Fleche de la timeline"></div>
-																{% endif %}
-												
-																<div class="row text-center justify-content-around pb-5">
-																	<div class="col-md-2 fw-bold fs-5">{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-																	<div class="col-md-2 fw-bold fs-5">{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-																	<div class="col-md-2 fw-bold fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-																	<div class="col-md-2 fw-bold fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-																</div>
-															</div> #}
+																		<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="">Dates à retenir</h2>
+																		<div class="row text-center justify-content-around">
+																			<div class="col-md-2 border border-dark rounded-4 p-2 align-self-center">Prise de décision commencée</div>
+																			<div class="col-md-2 border border-dark rounded-4">Fin de la première décision prise et début des conflits</div>
+																			<div class="col-md-2 border border-dark rounded-4 pt-2">Fin des conflits et début de la décision finale</div>
+																			<div class="col-md-2 border border-dark rounded-4 p-3 align-self-center">Fin de la décision</div>
+																		</div>
+														
+																		{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
+																			<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline"></div>
+																		{% elseif "now"|date("Y/m/d") <= decision.conflictEndDate|date("Y/m/d") %}
+																			<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow2.svg') }}" alt="Fleche de la timeline"></div>
+																		{% elseif "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+																			<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow3.svg') }}" alt="Fleche de la timeline"></div>
+																		{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
+																			<div class="row justify-content-center col-6 col-md-12 float-sm-start float-md-none"><img class="arrow" src="{{ asset('build/images/icons/arrow4.svg') }}" alt="Fleche de la timeline"></div>
+																		{% endif %}
+														
+																		<div class="row text-center justify-content-around pb-5">
+																			<div class="col-md-2 fw-bold fs-5">{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+																			<div class="col-md-2 fw-bold fs-5">{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+																			<div class="col-md-2 fw-bold fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+																			<div class="col-md-2 fw-bold fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+																		</div>
+																	</div> #}
 
 		<div class="container mt-5">
 			<div class="row py-5 rounded-4 bg-tertiary">
