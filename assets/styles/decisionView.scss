@@ -1,3 +1,5 @@
+@import "_theme";
+
 .pictureCreator {
     height: 4rem;
     width: 4rem;
@@ -8,7 +10,7 @@
     grid-template-areas: "a b c d"
                          "e e e e"
                          "f g h i";
-    grid-template-rows: 4rem 1fr 6rem;
+    grid-template-rows: 6rem 1fr 6rem;
     grid-template-columns: repeat(4, 1fr);
     row-gap: 1rem;
     column-gap: 3rem;
@@ -17,19 +19,15 @@
 
 #state1 {
     grid-area: a;
-    justify-self: start;
 }
 #state2 {
     grid-area: b;
-    justify-self: center;
 }
 #state3 {
     grid-area: c;
-    justify-self: center;
 }
 #state4 {
     grid-area: d;
-    justify-self: end;
 }
 
 #arrow {
@@ -54,18 +52,19 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
 
     #timelineGrid {
         grid-template-areas: "f a"
                              "g b"
+                             "g b"
+                             "h c"
                              "h c"
                              "i d";
-        grid-template-rows: repeat(4, 6rem);
-        grid-template-columns: 2fr 3fr;
+        grid-template-rows: repeat(6, 5rem);
+        grid-template-columns: 1fr 1fr;
         row-gap: 1rem;
-        column-gap: 1rem;
-       
+        column-gap: 1.5rem;
     }
 
     .arrow {
@@ -74,7 +73,7 @@
 
     .state {
         display: flex;
-        height: 6rem;
+        height: auto;
         text-align: center;
         align-items: center;
     }
@@ -83,14 +82,7 @@
         display: flex;
         text-align: center;
         align-items: center;
-    }
-
-    #state1 {
-        justify-self: center;
-    }
-
-    #state4 {
-        justify-self: center;
+        padding-inline: 2rem;
     }
 
     #date1 {
@@ -100,7 +92,5 @@
     #date4 {
         justify-self: center;
     }
-
-
 
 }
