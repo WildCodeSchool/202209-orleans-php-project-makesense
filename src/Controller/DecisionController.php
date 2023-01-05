@@ -37,10 +37,9 @@ class DecisionController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $commentRepository->save($comment, true);
         }
-        return $this->redirectToRoute('app_home');
+
 
 
 
