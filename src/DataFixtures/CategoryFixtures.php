@@ -11,10 +11,10 @@ class CategoryFixtures extends Fixture
     public const CATEGORIES = [
         'RH' => '#9B084F',
         'Administratif' => '#24673A',
-        'Finance'=> '#E36164',
-        'R&D'=> '#474136',
-        'Juridique'=> '#70AF90',
-        'Marketing'=> '#C1E94E',
+        'Finance' => '#E36164',
+        'R&D' => '#474136',
+        'Juridique' => '#70AF90',
+        'Marketing' => '#C1E94E',
     ];
 
     public function load(ObjectManager $manager): void
@@ -30,5 +30,4 @@ class CategoryFixtures extends Fixture
 
         $manager->flush();
     }
-    
 }
