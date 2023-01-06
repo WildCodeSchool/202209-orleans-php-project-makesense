@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('ViewMyProfil') }}
+{% endblock %}
+
+
+{% block body %}
+	<main class="ViewMyProfil-background bg-primary">
+		<div class="container mt-5 p-5 ">
+			<div class="row">
+				<h1 class="title-register col-sm-8 offset-sm-2 fw-bold text-secondary">{{ user.firstname }}
+					{{ user.lastname }}</h1>
+				<div class="card col-sm-8 m-auto bg-light rounded-4 py-4 ">
+					<div class="row align-items-center">
+						<div class="ViewMyprofil col-sm-4 d-flex justify-content-center align-items-center flex-column gap-4">
+							<img src="{{ vich_uploader_asset(user) }}" class="border border-primary rounded rounded-circle ratio ratio-1x1 " alt="Profil">
+							{{ form_start(profileForm) }}
+							<div class="d-flex justify-content-center align-items-center flex-column gap-4">
+								{{ form_widget(profileForm.posterFile, {'attr':{'class':'form-control'}}
+								) }}
+								{{ form_errors(profileForm.posterFile, {'attr':{'class':'form-control'}}
+								) }}
+								<button class="rounded-pill btn  border border-dark" name="send">
+									Modifier
+								</button>
+							</div>
+							{{ form_end(profileForm) }}
+						</div>
+						<h2 class="col-sm-8 text-center rounded-4">{{ user.email }}</h2>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a href="/" class="text-decoration-none btn bg-secondary mt-3 w-25 ml-5 fw-bold">Retour</a>
+			</div>
+		</div>
+	</main>
+{% endblock %}

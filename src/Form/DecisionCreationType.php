@@ -15,7 +15,9 @@ class DecisionCreationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ['label' => 'Titre :'])
+            ->add('title', TextType::class, [
+                'label' => 'Titre :',
+            ])
             ->add('decision_start_time', DateType::class, [
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
