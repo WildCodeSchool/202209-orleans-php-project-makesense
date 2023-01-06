@@ -15,7 +15,13 @@ class DecisionCreationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ['label' => 'Titre :'])
+            ->add('title', TextType::class, [
+                'label' => 'Titre :',
+                'attr' => [
+                    'placeholder' =>
+                    'Passer une partie du parc automobile en électrique...'
+                ]
+            ])
             ->add('decision_start_time', DateType::class, [
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
@@ -24,24 +30,33 @@ class DecisionCreationType extends AbstractType
                 'label' => 'Détails de la décision :',
                 'attr' => [
                     'rows' => 10,
+                    'placeholder' =>
+                    'Réduire le nombre de Véhicule thermique pour 
+                    les livreurs et les salariés possédant un véhicule de fonction...'
                 ]
             ])
             ->add('impact', TextareaType::class, [
                 'label' => 'Impacts de la décision :',
                 'attr' => [
                     'rows' => 10,
+                    'placeholder' =>
+                    'L\'infrastructure devra être adaptée, avec notamment l\'installation de bornes de recharges...'
                 ]
             ])
             ->add('gain', TextareaType::class, [
                 'label' => 'Bénéfices de la décision :',
                 'attr' => [
                     'rows' => 10,
+                    'placeholder' =>
+                    'Diminuer l\'émission de gaz à effet de serre, ne pas être impacté par la pénurie de carburants...'
                 ]
             ])
             ->add('risk', TextareaType::class, [
                 'label' => 'Risques potentiels de la décision :',
                 'attr' => [
                     'rows' => 10,
+                    'placeholder' =>
+                    'Augmenter les frais d\'entretien des véhicules...'
                 ]
             ]);
     }
