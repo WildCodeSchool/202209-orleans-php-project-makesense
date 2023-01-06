@@ -60,6 +60,10 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'decisions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +173,18 @@ class Decision
     public function setFinalDecisionEndDate(?\DateTimeInterface $finalDecisionEndDate): self
     {
         $this->finalDecisionEndDate = $finalDecisionEndDate;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
 
         return $this;
     }

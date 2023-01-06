@@ -2,17 +2,23 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet email')]
+#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -27,6 +33,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email]
     private ?string $email = null;
 
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $posterFile = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $poster = null;
+
     #[ORM\Column(length: 255)]
     #[Assert\Length(max: 255)]
     #[Assert\Type('string')]
@@ -40,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private ?string $isApproved = null;
+    private ?bool $isApproved = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -50,6 +67,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $updatedAt = null;
+
+    public function __construct()
+    {
+        $this->updatedAt = new DateTimeImmutable();
+        $this->decisions = new ArrayCollection();
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+    }
+
+
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
+    private Collection $decisions;
+
 
     public function getId(): ?int
     {
@@ -92,12 +132,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsApproved(): ?string
+    public function getIsApproved(): ?bool
     {
         return $this->isApproved;
     }
 
-    public function setIsApproved(string $isApproved): self
+    public function setIsApproved(bool $isApproved): self
     {
         $this->isApproved = $isApproved;
 
@@ -156,5 +196,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setPosterFile(?File $posterFile = null): void
+    {
+        $this->posterFile = $posterFile;
+
+        if (null !== $posterFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function setPoster(?string $poster): void
+    {
+        $this->poster = $poster;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+    /**
+     * @return Collection<int, Decision>
+     */
+    public function getDecisions(): Collection
+    {
+        return $this->decisions;
+    }
+
+    public function addDecision(Decision $decision): self
+    {
+        if (!$this->decisions->contains($decision)) {
+            $this->decisions->add($decision);
+            $decision->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDecision(Decision $decision): self
+    {
+        if ($this->decisions->removeElement($decision)) {
+            // set the owning side to null (unless already changed)
+            if ($decision->getCreator() === $this) {
+                $decision->setCreator(null);
+            }
+        }
+
+        return $this;
     }
 }
