@@ -41,14 +41,14 @@ fos_ck_editor:
             height: 600px
     styles:
         decision_creation:
-            - { name: "Titre", element: "h2", styles: { color: "#0D3944" , font-family: "'Raleway', sans-serif", font-weight: "550" } }
+            - { name: "Titre", element: "h3", styles: { color: "#0D3944" , font-family: "'Raleway', sans-serif", font-weight: "550",font-size: "1.60rem" } }
             - {
                   name: "Sous-titre",
-                  element: "h3",
-                  styles: {color: "#0D3944", font-family: "'Raleway', sans-serif", font-weight: "475"}
+                  element: "h4",
+                  styles: {color: "#0D3944", font-family: "'Raleway', sans-serif", font-weight: "475",font-size: "1.45rem"}
               }
             - {
                   name: "Contenu",
-                  element: "span",
-                  styles: {color: "#000", font-family: "'Raleway', sans-serif", font-weight: "400"}
+                  element: "p",
+                  styles: {color: "#000", font-family: "'Raleway', sans-serif", font-weight: "400",font-size: "1.2rem"}
               }
