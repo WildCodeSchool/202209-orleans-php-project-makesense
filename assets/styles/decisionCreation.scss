@@ -1,3 +1,37 @@
-.form-spacing{
+@import "_theme";
+
+.date-label{
+    padding-left : 40px;
+    margin : 0;
+}
+
+.first-form-spacing{
     margin-block-start: 100px;
+}
+
+.form-spacing{
+    margin-block-start: 150px;
+}
+
+.cke_1.cke_chrome, .cke_2.cke_chrome, .cke_3.cke_chrome, .cke_4.cke_chrome{
+    border:none;
+}
+
+.cke_top{
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+}
+
+.cke_bottom{
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+}
+
+.cke_inner{
+    border-radius: 30px 30px 30px 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+.cke_contents{
+    height : 800px;
 }
