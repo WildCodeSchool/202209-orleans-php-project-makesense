@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class ProfileController extends AbstractController
 {
-    #[Route('/profil/mon-profil', name: 'app_view_my_profil')]
+    #[Route('/mon-profil', name: 'app_view_my_profil')]
     public function index(
         Request $request,
         UserRepository $userRepository,
