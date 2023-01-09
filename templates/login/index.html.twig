@@ -30,7 +30,7 @@
 					<p class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
 				{% endif %}
 				<form action="{{ path('app_login') }}" method="post" class="w-100">
-					<div class="form-group py-5 w-50 m-auto d-flex flex-column gap-3">
+					<div class="form-group py-2 w-50 m-auto d-flex flex-column gap-3">
 
 						<label for="username">Email</label>
 						<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" required>
@@ -40,19 +40,15 @@
 
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 						<input type="hidden" name="_target_path" value="/">
-					</div>
-					<div class="mt-3 me-5">
-						<a href='/register' class="text-decoration-none d-flex justify-content-end opacity-50">
+						<button class="btn btn-tertiary fw-bold d-flex justify-content-center mt-3 mx-auto" type="submit">
+							Se connecter
+						</button>
+						<a type="button" href='/register' class="btn btn-outline-tertiary d-flex justify-content-center mx-auto opacity-25">
 							S'inscrire
 						</a>
 					</div>
 				</div>
-				<div class="d-flex justify-content-start btn-register">
-					<button class="btn bg-light fw-bold d-flex justify-content-evenly mt-3" type="submit">
-						Se connecter
-					</button>
-				</form>
-			</div>
+			</form>
 		</div>
 	</main>
 {% endblock %}
