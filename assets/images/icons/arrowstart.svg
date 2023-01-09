@@ -2,8 +2,13 @@
 <svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1365.01 199.44">
   <defs>
     <style>
-      .cls-1, .cls-2 {
+      .cls-1 {
         fill: #66e31c;
+      }
+
+      .cls-2 {
+        fill: #050;
+        stroke: #050;
       }
 
       .cls-2, .cls-3, .cls-4 {
@@ -12,7 +17,6 @@
       }
 
       .cls-2, .cls-4 {
-        stroke: #66e31c;
         stroke-linecap: round;
       }
 
@@ -23,16 +27,22 @@
       .cls-3, .cls-4 {
         fill: none;
       }
+
+      .cls-4 {
+        stroke: #66e31c;
+      }
     </style>
   </defs>
-  <g id="Calque_1-2" data-name="Calque 1">
-    <g>
-      <path class="cls-3" d="m38.5,102.64c394.33-1,788.67-2,1183-3"/>
+  <g id="Calque_2-2" data-name="Calque 2">
+    <g id="Calque_1-2" data-name="Calque 1-2">
       <g>
-        <path class="cls-4" d="m38.5,102.64c394.33-1,788.67-2,1183-3"/>
-        <polygon class="cls-1" points="1192.57 199.44 1365.01 99.29 1192.07 0 1192.57 199.44"/>
+        <path class="cls-3" d="m38.5,102.64c394.33-1,788.67-2,1183-3"/>
+        <g>
+          <path class="cls-4" d="m38.5,102.64c394.33-1,788.67-2,1183-3"/>
+          <polygon class="cls-1" points="1192.57 199.44 1365.01 99.29 1192.07 0 1192.57 199.44"/>
+        </g>
       </g>
+      <circle class="cls-2" cx="39" cy="102.14" r="29"/>
     </g>
-    <circle class="cls-2" cx="39" cy="102.14" r="29"/>
   </g>
 </svg>
