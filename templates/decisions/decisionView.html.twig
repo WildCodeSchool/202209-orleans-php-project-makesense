@@ -68,9 +68,9 @@
 							<nav class="nav nav-pills bg-tertiary rounded-4 py-3">
 								<a class="nav-link  fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="">Détails de la décision</a>
 								<nav class="nav nav-pills">
-									<a class="nav-link ps-5 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
-									<a class="nav-link ps-5 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
-									<a class="nav-link ps-5 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
+									<a class="nav-link ps-5 my-1" href="#impact"><img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
+									<a class="nav-link ps-5 my-1" href="#benefice"><img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
+									<a class="nav-link ps-5 my-1" href="#risk"><img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
 								</nav>
 								<nav class="nav nav-pills">
 									<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="">Première décision</a>
@@ -85,15 +85,15 @@
 								<h2 class="fw-bold pb-4">Détails de la décision</h2>
 								<p>{{ decision.details|raw }}</p>
 							</div>
-							<div id="impacto" class="py-5 text-dark">
+							<div id="impact" class="py-5 text-dark">
 								<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
 								<p>{{ decision.impact|raw  }}</p>
 							</div>
-							<div id="bene" class="py-5 text-dark">
+							<div id="benefice" class="py-5 text-dark">
 								<h3 class=" fw-bold pb-4">Bénéfices</h3>
 								<p>{{ decision.gain|raw  }}</p>
 							</div>
-							<div id="rissk" class="py-5 text-dark">
+							<div id="risk" class="py-5 text-dark">
 								<h3 class=" fw-bold pb-4">Risques potentiels</h3>
 								<p>{{ decision.risk|raw  }}</p>
 							</div>
