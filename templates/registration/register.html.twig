@@ -19,7 +19,7 @@
 			<div class="bk-form bg-light py-4 d-flex flex-column justify-content-around align-items-center">
 				{{ form_start(registrationForm) }}
 
-				<div class="form-group py-4 w-50 m-auto d-flex flex-column gap-3">
+				<div class="form-group py-4 w-50 m-auto d-flex flex-column">
 					{{ form_label(registrationForm.firstname, 'Prénom') }}
 
 					{{ form_widget(registrationForm.firstname, {'attr':{'class':'form-control'}}
@@ -28,14 +28,14 @@
 					) }}
 
 
-					{{ form_label(registrationForm.lastname, 'Nom') }}
+					{{ form_label(registrationForm.lastname, 'Nom', {'label_attr':{'class':'mt-4'}})}}
 
 					{{ form_widget(registrationForm.lastname, {'attr':{'class':'form-control'}}
 					) }}
 					{{ form_errors(registrationForm.lastname, {'attr':{'class':'form-control'}}
 					) }}
 
-					{{ form_label(registrationForm.email, 'Email') }}
+					{{ form_label(registrationForm.email, 'Email', {'label_attr':{'class':'mt-4'}}) }}
 
 					{{ form_widget(registrationForm.email, {'attr':{'class':'form-control'}}
 					) }}
@@ -43,14 +43,14 @@
 					) }}
 
 
-					{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+					{{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr':{'class':'mt-4'}}) }}
 
 					{{ form_widget(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
 					) }}
 					{{ form_errors(registrationForm.plainPassword, {'attr':{'class':'form-control'}}
 					) }}
 				</div>
-				<div class="mt-3">
+				<div class="mt-5">
 					<p>
 						<strong>*</strong>
 						Votre compte va être approuver par un administrateur dans les plus brefs délais, merci pour votre patience.
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 
-			<div class="d-flex justify-content-evenly">
+			<div class="d-flex justify-content-evenly mt-2">
 				<button type="submit" class="btn bg-light fw-bold mt-3 w-25">S'inscrire</button>
 				{{ form_end(registrationForm) }}
 				<a href="/login" class="text-decoration-none btn bg-secondary mt-3 w-25 ml-5 fw-bold ">Retour</a>
