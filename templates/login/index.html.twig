@@ -35,7 +35,7 @@
 						<label for="username">Email</label>
 						<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" required>
 
-						<label for="password">Mot de passe</label>
+						<label for="password" class="mt-3">Mot de passe</label>
 						<input type="password" id="password" name="_password" class="form-control" required>
 
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
