@@ -64,17 +64,32 @@
 				<div class="row py-5 rounded-4 bg-light">
 
 					<div class="col-md-4 text-white fs-5 order-first pb-5">
-						<nav id="navbar-decision" class=" align-items-stretch pe-4 border-end sticky-top">
-							<nav class="nav nav-pills bg-tertiary rounded-4 py-3">
-								<a class="nav-link  fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="Icone de la section détail de la décision décision">Détails de la décision</a>
+						<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-4">
+							<nav class="nav nav-pills bg-tertiary rounded-4 p-3">
+								<img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="Icone de la section détail de la décision décision"><a class="nav-link lo fw-bold" href="#detail">Détails de la décision</a>
 								<nav class="nav nav-pills">
-									<a class="nav-link ps-5 my-1" href="#impact"><img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="Icone de la section sur l'impact sur l'organisation ">Impact sur l'organisation</a>
-									<a class="nav-link ps-5 my-1" href="#benefice"><img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="Icone de la section Bénéfices">Bénéfices</a>
-									<a class="nav-link ps-5 my-1" href="#risk"><img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="Icone de la section sur les risques protentions">Risques potentiels</a>
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="Icone de la section sur l'impact sur l'organisation ">
+										<a class="nav-link my-1" href="#impact">Impact sur l'organisation</a>
+									</div>
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="Icone de la section Bénéfices">
+										<a class="nav-link my-1" href="#benefice">Bénéfices</a>
+									</div>
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="Icone de la section sur les risques protentions">
+										<a class="nav-link my-1" href="#risk">Risques potentiels</a>
+									</div>
 								</nav>
-								<nav class="nav nav-pills">
-									<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="Icone de la section première décision">Première décision</a>
-									<a class="nav-link fw-bold" href="#flDecision"><img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="Icone de la section décision finale">Décision finale</a>
+								<nav class="nav nav-pills mt-3">
+									<div class="d-flex w-100">
+										<img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="Icone de la section première décision">
+										<a class="nav-link fw-bold" href="#fsDecision">Première décision</a>
+									</div>
+									<div class="d-flex w-100 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="Icone de la section décision finale">
+										<a class="nav-link fw-bold" href="#flDecision">Décision finale</a>
+									</div>
 								</nav>
 							</nav>
 						</nav>
