@@ -66,8 +66,8 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 
 .decisionCard{
     box-shadow: $lightShadow 7px 7px;
-    height: 300px;
     transition: 0.2s ease-in-out;
+    min-height: 400px;
 }
 
 .decisionCard:hover {
@@ -83,11 +83,6 @@ p, h1, h2, h3, h4, h5, ul, li, div {
     transform: scale(1);
 }
 
-
-
-.card-body{
-    height: 300px;  
-}
 
 .navtitle {
 transition: 0.2s ease-in-out;
