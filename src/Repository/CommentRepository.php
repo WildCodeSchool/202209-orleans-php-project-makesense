@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Comment;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Decision;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Comment>
@@ -41,17 +43,7 @@ class CommentRepository extends ServiceEntityRepository
 
 
 
-   public function findByExampleField($value): array
-   {
-       return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-           ->setMaxResults(10)
-           ->getQuery()
-            ->getResult()
-      ;
-   }
+
 
 // public function findByExampleField($value): array
 //    {

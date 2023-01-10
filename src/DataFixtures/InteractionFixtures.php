@@ -20,7 +20,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
 
             $interraction->setRole('');
             $interraction->setVote(true);
-            $interraction->setUser($this->getReference('user_' . rand(0, 5)));
+            $interraction->setUser($this->getReference('user_' . rand(0, 8)));
             $interraction->setDecision($this->getReference('decision_' . $i));
             $this->addReference('interaction_' . $i, $interraction);
             $manager->persist($interraction);

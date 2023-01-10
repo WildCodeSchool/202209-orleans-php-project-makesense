@@ -3,25 +3,22 @@
 namespace App\Form;
 
 use App\Entity\Comment;
-use App\Entity\Interaction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-
-class CommentType extends AbstractType 
+class CommentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('comment')
-            ->add('commentTimedate')
-            ->add('isInConflict')
-            ->add('conflictColor')
-            ->add('commentColor')
-            ->add('interaction', Interaction::class)
-        ;
+            ->add('comment', TextareaType::class, [
+                'label' => '',
+                'attr' => [
+                    'rows' => 20,
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

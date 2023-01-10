@@ -7,9 +7,8 @@
 	{{ encore_entry_link_tags('decisionView') }}
 {% endblock %}
 {% block body %}
-	
-	
-	
+
+
 	<main>
 		<div class="container py-5 rounded-4 mt-5 mb-5 bg-quatro">
 			<div class="row py-3">
@@ -26,8 +25,13 @@
 			<div class="container">
 				<div class="row py-5 rounded-4 bg-quatro">
 
-					<div class="col-md-4 text-white fs-5 order-first pb-5">
-						{% include "components/_formDecisionComment.html.twig" %}
+					<div class="col-md-12 text-white fs-5 order-first pb-5">
+
+						{{form_start(commentForm)}}
+
+						<button>Submit</button>
+						{{form_end(commentForm)}}
+
 					</div>
 
 				</div>

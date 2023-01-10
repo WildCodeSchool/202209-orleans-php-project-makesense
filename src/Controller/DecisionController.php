@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Decision;
-use App\Entity\Interaction;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use App\Repository\InteractionRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,27 +29,45 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
-        InteractionRepository $interactionRepository
+        InteractionRepository $interactRepository,
+        Security $security,
     ): Response {
 
+        /**  @var \App\Entity\User */
+        $user = $security->getUser();
+        $userId = $user->getId();
 
-       /*  $interaction = $interactionRepository->findBy(['interaction' => 'id']); */
+
+
+        $decisionId =  $decision->getId();
+
+
+
+        $interaction = $interactRepository->findByUserAndDecision($userId, $decisionId);
+
+
 
         $comment = new Comment();
 
-/* dd($decision->getId());
-        $decision->getId(); */
+
 
 
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
-        
-        
-        
-        
+
+
+
+        if ($interaction) {
+            $comment->setInteraction($interaction[0]);
+        } else {
+            $interactRepository->findByUserAndDecision($userId, $decisionId);
+        }
+
+
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-          /*   $comment->setInteraction($interaction); */
             $commentRepository->save($comment, true);
         }
 
