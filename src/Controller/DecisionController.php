@@ -24,7 +24,7 @@ class DecisionController extends AbstractController
     }
 
 
-    #[Route('decision/{decision}/avis', methods: ['GET'], name: 'app_decision_comment')]
+    #[Route('decision/{decision}/avis', methods: ['POST'], name: 'app_decision_comment')]
     public function comment(
         Decision $decision,
         Request $request,
