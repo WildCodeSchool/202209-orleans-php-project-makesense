@@ -37,25 +37,15 @@ class DecisionController extends AbstractController
         $user = $security->getUser();
         $userId = $user->getId();
 
-
-
         $decisionId =  $decision->getId();
-
-
 
         $interaction = $interactRepository->findByUserAndDecision($userId, $decisionId);
 
-
-
         $comment = new Comment();
-
-
-
 
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
-
 
 
         if ($interaction) {
@@ -64,16 +54,9 @@ class DecisionController extends AbstractController
             $interactRepository->findByUserAndDecision($userId, $decisionId);
         }
 
-
-
-
         if ($form->isSubmitted() && $form->isValid()) {
             $commentRepository->save($comment, true);
         }
-
-
-
-
 
         return $this->render('decisions/commentView.html.twig', [
             'decision' => $decision,

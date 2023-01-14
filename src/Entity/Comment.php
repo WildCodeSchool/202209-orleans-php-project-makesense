@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -24,14 +25,10 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Interaction $interaction = null;
 
-    #[ORM\Column]
-    private ?bool $isInConflict = null;
-
-    #[ORM\Column(length: 7)]
-    private ?string $conflictColor = null;
-
-    #[ORM\Column(length: 7)]
-    private ?string $commentColor = null;
+    public function __construct()
+    {
+        $this->commentTimedate = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -70,42 +67,6 @@ class Comment
     public function setInteraction(?Interaction $interaction): self
     {
         $this->interaction = $interaction;
-
-        return $this;
-    }
-
-    public function isIsInConflict(): ?bool
-    {
-        return $this->isInConflict;
-    }
-
-    public function setIsInConflict(bool $isInConflict): self
-    {
-        $this->isInConflict = $isInConflict;
-
-        return $this;
-    }
-
-    public function getConflictColor(): ?string
-    {
-        return $this->conflictColor;
-    }
-
-    public function setConflictColor(string $conflictColor): self
-    {
-        $this->conflictColor = $conflictColor;
-
-        return $this;
-    }
-
-    public function getCommentColor(): ?string
-    {
-        return $this->commentColor;
-    }
-
-    public function setCommentColor(string $commentColor): self
-    {
-        $this->commentColor = $commentColor;
 
         return $this;
     }

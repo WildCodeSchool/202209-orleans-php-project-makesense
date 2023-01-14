@@ -18,9 +18,6 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             $comment = new Comment();
             $comment->setComment($faker->text());
             $comment->setCommentTimedate($faker->dateTimeBetween('-20 week', '+10 week'));
-            $comment->setIsInConflict(false);
-            $comment->setConflictColor('#FF0000');
-            $comment->setCommentColor('#00FF00');
             $comment->setInteraction($this->getReference('interaction_' . $i));
             $manager->persist($comment);
         }
