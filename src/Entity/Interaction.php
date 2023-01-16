@@ -20,7 +20,7 @@ class Interaction
     #[ORM\ManyToOne(inversedBy: 'interactions')]
     private ?Decision $decision = null;
 
-    #[ORM\Column(length: 45, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $decisionRole = null;
 
     public const DECISION_ROLE = ['impacted', 'expert'];
@@ -61,7 +61,7 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if (!in_array($decisionRole, array(self::DECISION_ROLE, self::DECISION_ROLE))) {
+        if (!in_array($decisionRole, array(self::DECISION_ROLE, true))) {
             throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
         }
 
