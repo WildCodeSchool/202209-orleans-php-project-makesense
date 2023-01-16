@@ -6,6 +6,7 @@ use App\Entity\Decision;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
+use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,8 +50,16 @@ class DecisionController extends AbstractController
         ]);
     }
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
-    public function index(Decision $decision): Response
+    public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
-        return $this->render('decisions/decisionView.html.twig', ['decision' => $decision,]);
+        $impactedUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => 'impacted'
+        ]);
+
+        return $this->render('decisions/decisionView.html.twig', [
+            'decision' => $decision,
+            'impactedUsers' => $impactedUsers
+        ]);
     }
 }
