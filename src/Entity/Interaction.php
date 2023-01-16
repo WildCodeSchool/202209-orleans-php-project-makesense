@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\InteractionRepository;
+use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InteractionRepository;
 
 #[ORM\Entity(repositoryClass: InteractionRepository::class)]
 class Interaction
@@ -60,6 +61,10 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
+        if (!in_array($decisionRole, array(self::DECISION_ROLE, self::DECISION_ROLE))) {
+            throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
+        }
+
         $this->decisionRole = $decisionRole;
 
         return $this;
