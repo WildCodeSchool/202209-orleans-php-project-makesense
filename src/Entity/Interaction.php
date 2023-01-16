@@ -22,6 +22,8 @@ class Interaction
     #[ORM\Column(length: 45, nullable: true)]
     private ?string $decisionRole = null;
 
+    public const DECISION_ROLE = ['impacted', 'expert'];
+
     public function getId(): ?int
     {
         return $this->id;
