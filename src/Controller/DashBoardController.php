@@ -19,7 +19,7 @@ class DashBoardController extends AbstractController
     {
         $user = $this->getUser();
 
-        $myDecisions = $decisionRepository->findBy(['creator' => $user]);
+        $myDecisions = $decisionRepository->findBy(['creator' => $user], ['decisionStartTime' => 'DESC'], 12);
 
         return $this->render(
             'dashboard/index.html.twig',

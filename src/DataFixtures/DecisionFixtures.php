@@ -13,6 +13,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const LOOP_COUNT = 100;
+    public const USER_DECISION_NUMBER = 20;
 
     public AutomatedDates $automatedDates;
 
@@ -37,11 +38,12 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-            $decision->setCreator($this->getReference('user_' . rand(0, 5)));
+            $decision->setCreator($this->getReference('user_' . rand(0, 7)));
 
             $manager->persist($decision);
             $index++;
         }
+
         $manager->flush();
     }
 

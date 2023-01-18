@@ -52,6 +52,7 @@ class UserFixtures extends Fixture
         $user->setLastname('Doe');
         $user->setIsApproved(true);
         $user->setPoster('person.svg');
+        $this->addReference('user_7', $user);
         $manager->persist($user);
 
         $user = new User();
