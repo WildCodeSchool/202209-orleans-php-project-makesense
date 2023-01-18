@@ -61,7 +61,7 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if (!$decisionRole == self::DECISION_IMPACTED) {
+        if ($decisionRole !== self::DECISION_IMPACTED) {
             throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
         }
 
