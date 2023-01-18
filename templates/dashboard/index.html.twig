@@ -3,17 +3,11 @@
 {% block title %}Dashboard
 {% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('dashboard') }}
-{% endblock %}
-
 {% block body %}
 	<main class="bg-tertiary">
 		<div class="container-fluid">
-			<p class="huge-subtitle m-0">Mes</p>
-			<h1 class="huge-title">DECISIONS</h1>
-
+			<h1 class="huge-title text-start">
+				Mes DECISIONS</h1>
 			<h2 id="fini" class="text-secondary px-4 pt-5 fw-bolder">
 				Mes décisions proposées
 			</h2>

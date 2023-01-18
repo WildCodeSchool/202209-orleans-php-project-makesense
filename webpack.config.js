@@ -46,7 +46,6 @@ Encore
     .addStyleEntry('loginStyle', './assets/styles/login.scss')
     .addStyleEntry('decisionCreation', './assets/styles/decisionCreation.scss')
     .addStyleEntry('ViewMyProfil', './assets/styles/ViewMyProfil.scss')
-    .addStyleEntry('dashboard', './assets/styles/dashboard.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
