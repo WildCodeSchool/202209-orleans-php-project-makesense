@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
+use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
@@ -54,7 +55,7 @@ class DecisionController extends AbstractController
     {
         $impactedUsers = $interactionRepo->findBy([
             'decision' => $decision,
-            'decisionRole' => 'impacted'
+            'decisionRole' => Interaction::DECISION_IMPACTED,
         ]);
 
         return $this->render('decisions/decisionView.html.twig', [

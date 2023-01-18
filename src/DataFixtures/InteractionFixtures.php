@@ -26,7 +26,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
                     $this->getReference('user_' . $faker->numberBetween(0, UserFixtures::GENERIC_USER_ACCOUNT))
                 );
                 $interaction->setDecision($this->getReference('decision_' . $i));
-                $interaction->setDecisionRole(Interaction::DECISION_ROLE[0]);
+                $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
 
                 $manager->persist($interaction);
             }
@@ -39,9 +39,9 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
                 $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
             );
             $interaction->setDecision(
-                $this->getReference('decision_' . $faker->numberBetween(0, DecisionFixtures::DECISION_NUMBER))
+                $this->getReference('decision_' . $faker->unique()->numberBetween(0, DecisionFixtures::DECISION_NUMBER))
             );
-            $interaction->setDecisionRole(Interaction::DECISION_ROLE[0]);
+            $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
 
             $manager->persist($interaction);
         }

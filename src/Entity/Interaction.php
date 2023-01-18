@@ -23,7 +23,7 @@ class Interaction
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $decisionRole = null;
 
-    public const DECISION_ROLE = ['impacted', 'expert'];
+    public const DECISION_IMPACTED = 'impacté';
 
     public function getId(): ?int
     {
@@ -61,12 +61,10 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if (!in_array($decisionRole, array(self::DECISION_ROLE, true))) {
-            throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
+        if ($decisionRole === self::DECISION_IMPACTED) {
+            $this->decisionRole = $decisionRole;
+            return $this;
         }
-
-        $this->decisionRole = $decisionRole;
-
-        return $this;
+        throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
     }
 }
