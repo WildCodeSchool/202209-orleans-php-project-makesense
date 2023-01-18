@@ -1,4 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.56 19.55">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+        stroke-width: .25px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3 {
+        stroke-width: .5px;
+      }
+    </style>
+  </defs>
+  <g id="Calque_1-2" data-name="Calque 1">
+    <ellipse class="cls-2" cx="9.28" cy="10" rx="8.77" ry="9.24"/>
+    <path class="cls-3" d="m12.42,7.76c0,1.86-1.43,3.36-3.19,3.36s-3.19-1.51-3.19-3.36,1.43-3.36,3.19-3.36,3.19,1.51,3.19,3.36Z"/>
+    <path class="cls-1" d="m.12,9.77C.12,4.44,4.22.12,9.28.12s9.16,4.32,9.16,9.65-4.1,9.65-9.16,9.65S.12,15.1.12,9.77ZM9.28,1.33c-4.42,0-8.01,3.78-8.01,8.44,0,1.92.62,3.77,1.75,5.27.81-1.38,2.6-2.86,6.26-2.86s5.44,1.48,6.26,2.86c2.76-3.64,2.2-8.96-1.26-11.87-1.42-1.2-3.18-1.85-5-1.85Z"/>
+  </g>
 </svg>
