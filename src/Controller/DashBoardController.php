@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class DashBoardController extends AbstractController
 {
-    #[Route('/dashboard/{user}', name: 'app_dashboard')]
+    #[Route('/tbd/{user}', name: 'app_dashboard')]
     public function index(DecisionRepository $decisionRepository, User $user): Response
     {
         $user = $this->getUser();
