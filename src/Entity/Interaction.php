@@ -24,6 +24,7 @@ class Interaction
     private ?string $decisionRole = null;
 
     public const DECISION_IMPACTED = 'impacté';
+    public const DECISION_EXPERT = 'expert';
 
     public function getId(): ?int
     {
@@ -61,7 +62,7 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if ($decisionRole !== self::DECISION_IMPACTED) {
+        if ($decisionRole !== self::DECISION_IMPACTED && $decisionRole !== self::DECISION_EXPERT) {
             throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
         }
 
