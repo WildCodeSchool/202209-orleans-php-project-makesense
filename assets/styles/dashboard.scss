@@ -1,0 +1,8 @@
+@import "_theme";
+
+.huge-subtitle{
+    opacity: 0.5;
+    color: $light;
+    font-size: clamp(2rem, 15vw, 22rem);
+    font-weight: 800;
+}
