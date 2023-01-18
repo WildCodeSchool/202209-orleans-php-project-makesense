@@ -66,36 +66,23 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 
 .decisionCard{
     box-shadow: $lightShadow 7px 7px;
-    height: 300px;
     transition: 0.2s ease-in-out;
+    min-height: 400px;
 }
 
 .decisionCard:hover {
-    transform: translateX(-1%);
     transform: scale(1.05);
     box-shadow: $lightShadow 10px 10px 1px;
 }
 
 .decisionCard h3 {
-    transition: 0.5s;
+    transition: 0.2s ease-in-out;
 }
 
 .decisionCard:hover h3 {
-    transform: translateX(3%);
-    transform: scale(1.05);
+    transform: scale(1);
 }
 
-.hoverauthor {
-transition: 0.4s;
-}
-
-.decisionCard:hover .hoverauthor {
-transform: scale(1.05);
-}
-
-.card-body{
-    height: 300px;  
-}
 
 .navtitle {
 transition: 0.2s ease-in-out;

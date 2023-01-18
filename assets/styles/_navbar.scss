@@ -6,4 +6,5 @@
 .navbar {
    width:calc(100vw - 3rem);
    z-index: 5;
+   box-shadow: $gray-500 0px 1px 3px;
 }

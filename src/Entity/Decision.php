@@ -60,8 +60,13 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
+
      #[ORM\ManyToOne]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'decisions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator = null;
 
     public function getId(): ?int
     {
@@ -176,6 +181,7 @@ class Decision
         return $this;
     }
 
+
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -184,6 +190,17 @@ class Decision
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
 
         return $this;
     }

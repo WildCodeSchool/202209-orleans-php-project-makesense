@@ -8,41 +8,32 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class DecisionCreationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ['label' => 'Titre :'])
+            ->add('title', TextType::class, [
+                'label' => 'Titre :',
+            ])
             ->add('decision_start_time', DateType::class, [
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
+                'label_attr' => ['class' => 'date-label'],
             ])
-            ->add('details', TextareaType::class, [
+            ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
-            ->add('impact', TextareaType::class, [
+            ->add('impact', CKEditorType::class, [
                 'label' => 'Impacts de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
-            ->add('gain', TextareaType::class, [
+            ->add('gain', CKEditorType::class, [
                 'label' => 'Bénéfices de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ])
-            ->add('risk', TextareaType::class, [
+            ->add('risk', CKEditorType::class, [
                 'label' => 'Risques potentiels de la décision :',
-                'attr' => [
-                    'rows' => 10,
-                ]
             ]);
     }
 

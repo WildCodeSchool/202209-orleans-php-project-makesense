@@ -1,0 +1,54 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+
+fos_ck_editor:
+    base_path: "build/ckeditor"
+    js_path: "build/ckeditor/ckeditor.js"
+    configs:
+        decision_creation_config:
+            toolbar:
+                [
+                    [
+                        "Cut",
+                        "Copy",
+                        "Paste",
+                        "PasteText",
+                        "PasteFromWord",
+                        "-",
+                        "Undo",
+                        "Redo",
+                    ],
+                    ["Link", "Unlink", "Anchor"],
+                    ["Source"],
+                    ["Maximize"],
+                    , "/",
+                    ["Bold", "Italic", "Strike", "-", "RemoveFormat"],
+                    [
+                        "NumberedList",
+                        "BulletedList",
+                        "Blockquote",
+                        "-",
+                        "Outdent",
+                        "Indent",
+                    ],
+                    ["Styles"],
+                ]
+            uiColor: "#3B8AA6"
+            stylesSet: "decision_creation"
+            height: 600px
+    styles:
+        decision_creation:
+            - { name: "Titre", element: "h3", styles: { color: "#0D3944" , font-family: "'Raleway', sans-serif", font-weight: "550",font-size: "1.60rem" } }
+            - {
+                  name: "Sous-titre",
+                  element: "h4",
+                  styles: {color: "#0D3944", font-family: "'Raleway', sans-serif", font-weight: "475",font-size: "1.45rem"}
+              }
+            - {
+                  name: "Contenu",
+                  element: "p",
+                  styles: {color: "#000", font-family: "'Raleway', sans-serif", font-weight: "400",font-size: "1.2rem"}
+              }
