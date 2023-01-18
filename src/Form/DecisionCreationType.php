@@ -3,12 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Decision;
+use App\Form\InteractionType;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class DecisionCreationType extends AbstractType
 {
@@ -22,6 +24,10 @@ class DecisionCreationType extends AbstractType
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
                 'label_attr' => ['class' => 'date-label'],
+            ])
+            ->add('interactions', CollectionType::class, [
+                'entry_type' => InteractionType::class,
+                'entry_options' => ['label' => true],
             ])
             ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',

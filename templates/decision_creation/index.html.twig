@@ -42,6 +42,20 @@
 					{{form_errors(form.decision_start_time)}}
 				</div>
 			</div>
+
+			<div class="text-center">
+				{{ form_label(form.interactions) }}
+				{{ form_errors(form.interactions) }}
+
+				<ul>
+					{% for interactionField in form.interactions %}
+						<li>
+							{{ form_errors(interactionField) }}
+							{{ form_widget(emailFinteractionFieldield) }}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
 			<div class="first-form-spacing text-center">
 				{{ form_row(form.details) }}
 			</div>
