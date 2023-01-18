@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Decision;
 use App\Service\AutomatedDates;
-use App\Repository\DecisionRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
