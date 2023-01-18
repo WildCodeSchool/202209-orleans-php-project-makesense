@@ -12,7 +12,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const LOOP_COUNT = 100;
+    public const DECISION_NUMBER = 100;
 
     public AutomatedDates $automatedDates;
 
@@ -25,11 +25,8 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-
-        foreach (CategoryFixtures::CATEGORIES as $categoryName => $color) {
-            for ($i = 0; $i < 10; $i++) {
-                $decision = new Decision();
-
+        for ($i = 0; $i < self::DECISION_NUMBER; $i++) {
+            $decision = new Decision();
             $decision->setTitle($faker->sentence(rand(15, 45)));
             $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
             $decision->setDetails($faker->paragraph(rand(2, 10)));
@@ -40,23 +37,11 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
             $decision->setCreator($this->getReference('user_' . rand(0, 5)));
+            $decision->setCategory($this->getReference('category_' . rand(0, 5)));
 
-
-                $decision->setTitle($faker->sentence(rand(15, 45)));
-                $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
-                $decision->setDetails($faker->paragraph(rand(2, 10)));
-                $decision->setImpact($faker->paragraph(rand(2, 10)));
-                $decision->setGain($faker->paragraph(rand(2, 10)));
-                $decision->setRisk($faker->paragraph(rand(2, 10)));
-                $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
-                $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
-                $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-                $decision->setCategory($this->getReference('category_' . $categoryName));
-
-
-                $manager->persist($decision);
-            }
+            $manager->persist($decision);
         }
+
         $manager->flush();
     }
 
@@ -65,6 +50,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
         return [
 
             UserFixtures::class,
+            CategoryFixtures::class,
 
         ];
     }
