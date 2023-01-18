@@ -12,6 +12,8 @@ class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
 
+    public const GENERIC_USER_ACCOUNT = 100;
+
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -23,15 +25,13 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
-
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i <= self::GENERIC_USER_ACCOUNT; $i++) {
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
             $user->setPassword($faker->password());
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setPoster('person.svg');
             $user->setIsApproved(false);
             $this->addReference('user_' . $i, $user);
 
@@ -39,8 +39,8 @@ class UserFixtures extends Fixture
         }
 
 
+        //Role User
         $user = new User();
-
         $user->setEmail('tedyDoe@gmail.com');
         $user->setRoles([]);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -51,10 +51,11 @@ class UserFixtures extends Fixture
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
         $user->setIsApproved(true);
-        $user->setPoster('person.svg');
-        $this->addReference('user_7', $user);
+        $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 1), $user);
         $manager->persist($user);
 
+
+        //Role Admin
         $user = new User();
         $user->setEmail('admin@make-sense.ms');
         $user->setRoles([]);
@@ -65,8 +66,8 @@ class UserFixtures extends Fixture
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
         $user->setLastname('MakeSense');
-        $user->setPoster('person.svg');
         $user->setIsApproved(true);
+        $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 2), $user);
         $manager->persist($user);
 
         $manager->flush();

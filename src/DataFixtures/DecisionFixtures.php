@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Decision;
+use App\Entity\User;
 use App\Service\AutomatedDates;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -11,8 +12,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const LOOP_COUNT = 100;
-    public const USER_DECISION_NUMBER = 20;
+    public const DECISION_NUMBER = 100;
 
     public AutomatedDates $automatedDates;
 
@@ -24,8 +24,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        $index = 0;
-        while ($index < self::LOOP_COUNT) {
+        for ($i = 0; $i <= self::DECISION_NUMBER; $i++) {
             $decision = new Decision();
 
             $decision->setTitle($faker->sentence(rand(15, 45)));
@@ -37,10 +36,10 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-            $decision->setCreator($this->getReference('user_' . rand(0, 7)));
+            $decision->setCreator($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT + 2))));
+            $this->addReference('decision_' . $i, $decision);
 
             $manager->persist($decision);
-            $index++;
         }
 
         $manager->flush();

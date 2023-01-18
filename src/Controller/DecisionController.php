@@ -3,15 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Decision;
+use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
+use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[IsGranted('ROLE_USER')]
 class DecisionController extends AbstractController
 {
     #[Route('/decision/creation', name: 'app_decision_creation')]
@@ -49,8 +53,16 @@ class DecisionController extends AbstractController
         ]);
     }
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
-    public function index(Decision $decision): Response
+    public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
-        return $this->render('decisions/decisionView.html.twig', ['decision' => $decision,]);
+        $impactedUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => Interaction::DECISION_IMPACTED,
+        ]);
+
+        return $this->render('decisions/decisionView.html.twig', [
+            'decision' => $decision,
+            'impactedUsers' => $impactedUsers
+        ]);
     }
 }
