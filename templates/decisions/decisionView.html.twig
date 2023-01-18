@@ -64,6 +64,8 @@
 								{% for impactedUser in impactedUsers %}
 									<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
 								{% endfor %}
+							{% else %}
+								Aucun salarié n'est impacté par cette décision pour l'instant.
 							{% endif %}
 						</div>
 					</div>
