@@ -14,6 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class HomeController extends AbstractController
 {
+    public function navbarTop(): Response
+    {
+        $user = $this->getUser();
+        return $this->render('components/_navbartop.html.twig', [
+
+            'user' => $user
+
+        ]);
+    }
+
     #[Route('/', name: 'app_home')]
     public function index(DecisionRepository $decisionRepository, Request $request): Response
     {
