@@ -61,10 +61,12 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if ($decisionRole === self::DECISION_IMPACTED) {
-            $this->decisionRole = $decisionRole;
-            return $this;
+        if (!$decisionRole == self::DECISION_IMPACTED) {
+            throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
         }
-        throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
+
+        $this->decisionRole = $decisionRole;
+
+        return $this;
     }
 }
