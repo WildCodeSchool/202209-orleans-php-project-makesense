@@ -14,12 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class DashBoardController extends AbstractController
 {
-    #[Route('/tbd/{user}', name: 'app_dashboard')]
+    public const DECISION_LIMIT = 12;
+
+    #[Route('/tableau-de-bord/{user}', name: 'app_dashboard')]
     public function index(DecisionRepository $decisionRepository, User $user): Response
     {
         $user = $this->getUser();
 
-        $myDecisions = $decisionRepository->findBy(['creator' => $user], ['decisionStartTime' => 'DESC'], 12);
+        $myDecisions = $decisionRepository->findBy(
+            ['creator' => $user],
+            ['decisionStartTime' => 'DESC'],
+            self::DECISION_LIMIT
+        );
 
         return $this->render(
             'dashboard/index.html.twig',
