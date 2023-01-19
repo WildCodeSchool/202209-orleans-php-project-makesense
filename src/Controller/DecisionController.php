@@ -60,9 +60,15 @@ class DecisionController extends AbstractController
             'decisionRole' => Interaction::DECISION_IMPACTED,
         ]);
 
+        $expertUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => Interaction::DECISION_EXPERT,
+        ]);
+
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'impactedUsers' => $impactedUsers
+            'impactedUsers' => $impactedUsers,
+            'expertUsers' => $expertUsers
         ]);
     }
 }
