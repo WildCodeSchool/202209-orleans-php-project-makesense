@@ -35,11 +35,12 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-            $decision->setCreator($this->getReference('user_' . rand(0, 5)));
+            $decision->setCreator($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT + 2))));
             $this->addReference('decision_' . $i, $decision);
 
             $manager->persist($decision);
         }
+
         $manager->flush();
     }
 
