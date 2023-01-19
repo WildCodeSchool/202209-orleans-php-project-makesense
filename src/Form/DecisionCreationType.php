@@ -29,16 +29,16 @@ class DecisionCreationType extends AbstractType
                 'label' => 'Ajouter des salariés impactés ou experts de la décision :',
                 'entry_type' => InteractionType::class,
                 'allow_add' => true,
+                'allow_extra_fields' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'prototype_name' => 'interactions',
                 'attr' => [
                     'data-entry-add-label' => 'Ajouter un salarié',
                     'data-entry-remove-label' => 'Retirer le salarié',
                 ],
                 'entry_options' => [
                     'label' => false,
-                ],
+                ]
             ])
             ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',

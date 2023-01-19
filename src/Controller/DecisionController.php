@@ -31,6 +31,7 @@ class DecisionController extends AbstractController
         $form = $this->createForm(DecisionCreationType::class, $decision);
         /** @var \App\Entity\User */
         $user = $security->getUser();
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
@@ -53,6 +54,7 @@ class DecisionController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
