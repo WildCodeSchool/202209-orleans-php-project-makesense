@@ -7,13 +7,21 @@
 	{{ encore_entry_link_tags('decisionView') }}
 {% endblock %}
 {% block body %}
-	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
+
+	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
 		{% set statusColor = 'bg-tertiary' %}
+		{% set arrowStatus = 'arrowstart.svg' %}
 	{% elseif "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
 		{% set statusColor = 'bg-cinco' %}
-	{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
+		{% set arrowStatus = 'arrow2.svg' %}
+	{% elseif "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+		{% set arrowStatus = 'arrow3.svg' %}
+	{% elseif  "now"|date("Y/m/d") > decision.finalDecisionEndDate|date("Y/m/d") %}
 		{% set statusColor = 'bg-primary' %}
+		{% set arrowStatus = 'arrow4.svg' %}
 	{% endif %}
+
+
 	<main class="{{statusColor}}">
 
 		<div class="container py-5 rounded-4 mt-5 bg-light">
