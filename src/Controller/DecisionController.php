@@ -9,6 +9,7 @@ use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +35,18 @@ class DecisionController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $interactions = $decision->getInteractions()->toArray();
+            $interactionUsers = [];
+            foreach ($interactions as $interaction) {
+                $interactionUsers[] = $interaction->getUser()->getId();
+            }
+
+            foreach (array_count_values($interactionUsers) as $userIteration) {
+                if ($userIteration >= 2) {
+                    throw new Exception('Un salarié doit avoir un rôle unique et ne pas être en doublon.');
+                }
+            }
+
             $decision->setCreator($user);
 
             $decision->setFirstDecisionEndDate(
