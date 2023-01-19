@@ -3,6 +3,9 @@
 .pictureCreator {
     height: 6rem;
     width: 6rem;
+}
+
+#timelineGrid {
     display: grid;
     grid-template-areas: "a b c d"
                          "e e e e"
