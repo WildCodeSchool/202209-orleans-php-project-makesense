@@ -8,152 +8,55 @@
 {% endblock %}
 {% block body %}
 	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
-		<main class="bg-tertiary">
-		{% elseif "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
-			<main class="bg-cinco">
-			{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
-				<main class="bg-primary">
-				{% endif %}
+		{% set statusColor = 'bg-tertiary' %}
+	{% elseif "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
+		{% set statusColor = 'bg-cinco' %}
+	{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
+		{% set statusColor = 'bg-primary' %}
+	{% endif %}
+	<main class="{{statusColor}}">
 
-				<div class="container py-5 rounded-4 mt-5 bg-light">
-					<div class="container">
-						{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
-							<div class="row py-5 mb-5 bg-tertiary rounded-4">
-							{% elseif "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
-								<div class="row py-5 mb-5 bg-cinco rounded-4">
-								{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
-									<div class="row py-5 mb-5 bg-primary rounded-4">
-									{% endif %}
+		<div class="container py-5 rounded-4 mt-5 bg-light">
+			<div class="container">
+				<div class="{{statusColor}} row py-5 mb-5 rounded-4">
+					<h1 class="text-secondary fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
 
-									<h1 class="text-secondary fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
+					<div class="col-md-4 text-white d-flex pt-4">
+						<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
+						<div class="ms-2 py-3 pe-2">par</div>
+						<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
+					</div>
+				</div>
+			</div>
 
-									<div class="col-md-4 text-white d-flex pt-4">
-										<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
-										<div class="ms-2 py-3 pe-2">par</div>
-										<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
-									</div>
-								</div>
-							</div>
+			<div class="container rounded-4 border shadow bg-light">
+				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="Icone de la section dates à retenir">Dates à retenir</h2>
+				{% include "components/_timeline.html.twig" %}
+				<div class="d-flex justify-content-around">
+					<div>
+						<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
+						<div class="d-flex justify-content-center my-3">
+							{% if impactedUsers %}
+								{% for impactedUser in impactedUsers %}
+									<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+								{% endfor %}
+							{% else %}
+								Aucun salarié n'est impacté par cette décision pour l'instant.
+							{% endif %}
+						</div>
+					</div>
+					<div>
+						<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
+						<div class="d-flex justify-content-center my-3">
+							<img class="arrow profil-icons" src="{{ asset('build/images/icons/person.svg') }}" alt="User profile pictures">
+						</div>
+					</div>
+				</div>
+			</div>
 
-							<div class="container rounded-4 border shadow bg-light">
-								<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="Icone de la section dates à retenir">Dates à retenir</h2>
-								<div id="timelineGrid">
-									<div id="state1" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Prise de décision commencée</div>
-									{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
-										<div id="state2" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin de la première décision et début des conflits</div>
-									{% elseif "now"|date("Y/m/d") >= decision.firstDecisionEndDate|date("Y/m/d") %}
-										<div id="state2" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin de la première décision et début des conflits</div>
-									{% endif %}
-									{% if "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
-										<div id="state3" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin des conflits et début de la décision finale</div>
-									{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
-										<div id="state3" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin des conflits et début de la décision finale</div>
-									{% endif %}
-									{% if  "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-										<div id="state4" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-3 py-2">Fin du processus de décision</div>
-									{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
-										<div id="state4" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-3 py-2">Fin du processus de décision</div>
-									{% endif %}
-									<div id="arrow">
-										{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
-											<img class="arrow" src="{{ asset('build/images/icons/arrowstart.svg') }}" alt="Fleche de la timeline">
-										{% elseif "now"|date("Y/m/d") <= decision.conflictEndDate|date("Y/m/d") %}
-											<img class="arrow" src="{{ asset('build/images/icons/arrow2.svg') }}" alt="Fleche de la timeline">
-										{% elseif "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-											<img class="arrow" src="{{ asset('build/images/icons/arrow3.svg') }}" alt="Fleche de la timeline">
-										{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
-											<img class="arrow" src="{{ asset('build/images/icons/arrow4.svg') }}" alt="Fleche de la timeline">
-										{% endif %}
-									</div>
-									<div id="date1" class="state2 fw-bold text-center fs-5">{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-									<div id="date2" class="state2 fw-bold text-center fs-5">{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-									<div id="date3" class="state2 fw-bold text-center fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-									<div id="date4" class="state2 fw-bold text-center fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
-								</div>
-								<div class="d-flex justify-content-around">
-									<div>
-										<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
-										<div class="d-flex justify-content-center my-3">
-											{% if impactedUsers %}
-												{% for impactedUser in impactedUsers %}
-													<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-												{% endfor %}
-											{% else %}
-												Aucun salarié n'est impacté par cette décision pour l'instant.
-											{% endif %}
-										</div>
-									</div>
-									<div>
-										<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
-										<div class="d-flex justify-content-center my-3">
-											<img class="arrow profil-icons" src="{{ asset('build/images/icons/person.svg') }}" alt="User profile pictures">
-										</div>
-									</div>
-								</div>
-							</div>
+			<div class="container mt-5">
+				{% include "components/_decisionSection.html.twig" %}
+			</div>
 
-							<div class="container mt-5">
-								<div class="row py-5 rounded-4 bg-light">
-									<div class="col-md-4 fs-5 order-first pb-5">
-										<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-4">
-											{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
-												<nav class="nav nav-pills bg-tertiary rounded-4 p-3">
-												{% elseif "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
-													<nav class="nav nav-pills bg-cinco rounded-4 p-3">
-													{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
-														<nav class="nav nav-pills bg-primary rounded-4 p-3">
-														{% endif %}
-														<img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="Icone de la section détail de la décision décision"><a class="nav-link lo fw-bold" href="#detail">Détails de la décision</a>
-														<nav class="nav nav-pills">
-															<div class="d-flex w-100 ps-4 mt-2">
-																<img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="Icone de la section sur l'impact sur l'organisation ">
-																<a class="nav-link my-1 text-white" href="#impact">Impact sur l'organisation</a>
-															</div>
-															<div class="d-flex w-100 ps-4 mt-2">
-																<img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="Icone de la section Bénéfices">
-																<a class="nav-link my-1 text-white" href="#benefice">Bénéfices</a>
-															</div>
-															<div class="d-flex w-100 ps-4 mt-2">
-																<img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="Icone de la section sur les risques protentions">
-																<a class="nav-link my-1 text-white" href="#risk">Risques potentiels</a>
-															</div>
-														</nav>
-														<nav class="nav nav-pills mt-3">
-															<div class="d-flex w-100">
-																<img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="Icone de la section première décision">
-																<a class="nav-link fw-bold text-white" href="#fsDecision">Première décision</a>
-															</div>
-															<div class="d-flex w-100 mt-2">
-																<img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="Icone de la section décision finale">
-																<a class="nav-link fw-bold text-white" href="#flDecision">Décision finale</a>
-															</div>
-														</nav>
-													</nav>
-												</nav>
-											</div>
-											<div class="col-md-8 text-white order-last px-5">
-												<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
-													<div id="detail" class="pb-5 text-dark">
-														<h2 class="fw-bold pb-4">Détails de la décision</h2>
-														<p>{{ decision.details|raw }}</p>
-													</div>
-													<div id="impact" class="py-5 text-dark">
-														<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
-														<p>{{ decision.impact|raw  }}</p>
-													</div>
-													<div id="benefice" class="py-5 text-dark">
-														<h3 class=" fw-bold pb-4">Bénéfices</h3>
-														<p>{{ decision.gain|raw  }}</p>
-													</div>
-													<div id="risk" class="py-5 text-dark">
-														<h3 class=" fw-bold pb-4">Risques potentiels</h3>
-														<p>{{ decision.risk|raw  }}</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</main>
-						{% endblock %}
+		</main>
+	{% endblock %}
