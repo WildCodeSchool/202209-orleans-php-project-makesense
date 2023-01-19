@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Decision;
 use App\Service\AutomatedDates;
-use App\Repository\DecisionRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -36,8 +35,9 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-            $decision->setCreator($this->getReference('user_' . rand(0, 5)));
             $decision->setCategory($this->getReference('category_' . rand(0, 5)));
+            $decision->setCreator($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT + 2))));
+            $this->addReference('decision_' . $i, $decision);
 
             $manager->persist($decision);
         }

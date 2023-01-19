@@ -23,7 +23,6 @@
 
 			<div class="container rounded-4 border shadow bg-light">
 				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="Icone de la section dates à retenir">Dates à retenir</h2>
-
 				<div id="timelineGrid">
 					<div id="state1" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Prise de décision commencée</div>
 					{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
@@ -57,12 +56,39 @@
 					<div id="date3" class="state2 fw-bold text-center fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 					<div id="date4" class="state2 fw-bold text-center fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 				</div>
+				<div class="d-flex justify-content-around align-items-center">
+					<div>
+						<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
+						<div class="d-flex justify-content-center my-3">
+							{% if impactedUsers %}
+								{% for impactedUser in impactedUsers %}
+									<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+								{% endfor %}
+							{% else %}
+								Aucun salarié n'est impacté par cette décision pour l'instant.
+							{% endif %}
+						</div>
+					</div>
+					<div>
+						<div class="d-flex justify-content-center my-3">
+							<div>
+								<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
+								<div class="d-flex justify-content-center my-3">
+									{% if expertUsers %}
+										{% for expertUser in expertUsers %}
+											<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+										{% endfor %}
+									{% else %}
+										Aucun salarié expert n'est attribué à cette décision pour l'instant.
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
 			<div class="container mt-5">
 				<div class="row py-5 rounded-4 bg-light">
-
 					<div class="col-md-4 text-white fs-5 order-first pb-5">
 						<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-4">
 							<nav class="nav nav-pills bg-tertiary rounded-4 p-3">
@@ -117,6 +143,5 @@
 				</div>
 			</div>
 		</div>
-
 	</main>
 {% endblock %}

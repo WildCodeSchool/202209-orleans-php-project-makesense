@@ -10,7 +10,7 @@
 					<a class="nav-link text-primary fs-5 fw-bolder py-auto me-1" href="{{ path("app_home") }}">Accueil</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-primary fw-bolder fs-5" href="#">Tableau de bord</a>
+					<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_dashboard', {user:app.user.id}) }}">Tableau de bord</a>
 				</li>
 			</ul>
 			<div class="navbar-nav">
