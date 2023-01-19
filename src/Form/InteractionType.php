@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InteractionType extends AbstractType
@@ -19,8 +20,20 @@ class InteractionType extends AbstractType
                 EntityType::class,
                 [
                     'class' => User::class,
+                    'label' => 'Nom de famille',
                     'choice_label' => 'lastname'
                 ],
+            )
+            ->add(
+                'decisionRole',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'impacté' => 'impacté',
+                        'expert' => 'expert',
+                    ],
+                    'label' => 'Impacté ou expert ?'
+                ]
             );
     }
 

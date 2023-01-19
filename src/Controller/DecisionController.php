@@ -27,10 +27,7 @@ class DecisionController extends AbstractController
         Security $security
     ): Response {
         $decision = new Decision();
-        //$interaction = new Interaction();
 
-        //$interaction->setUser($this->getUser());
-        //$decision->addInteraction($interaction);
         $form = $this->createForm(DecisionCreationType::class, $decision);
         /** @var \App\Entity\User */
         $user = $security->getUser();

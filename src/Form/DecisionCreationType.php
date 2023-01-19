@@ -26,14 +26,18 @@ class DecisionCreationType extends AbstractType
                 'label_attr' => ['class' => 'date-label'],
             ])
             ->add('interactions', CollectionType::class, [
+                'label' => 'Ajouter des salariés impactés ou experts de la décision :',
                 'entry_type' => InteractionType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'prototype_name' => 'interactions',
                 'attr' => [
-                    'data-entry-add-label' => 'Ajouter un salarié impacté',
-                    'data-entry-remove-label' => 'Retirer le salarié impacté',
-                    'data-prototype-name' => 'interactions'
+                    'data-entry-add-label' => 'Ajouter un salarié',
+                    'data-entry-remove-label' => 'Retirer le salarié',
+                ],
+                'entry_options' => [
+                    'label' => false,
                 ],
             ])
             ->add('details', CKEditorType::class, [
