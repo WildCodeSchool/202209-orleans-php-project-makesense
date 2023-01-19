@@ -27,7 +27,14 @@ class DecisionCreationType extends AbstractType
             ])
             ->add('interactions', CollectionType::class, [
                 'entry_type' => InteractionType::class,
-                'entry_options' => ['label' => true],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'attr' => [
+                    'data-entry-add-label' => 'Ajouter un salarié impacté',
+                    'data-entry-remove-label' => 'Retirer le salarié impacté',
+                    'data-prototype-name' => 'interactions'
+                ],
             ])
             ->add('details', CKEditorType::class, [
                 'label' => 'Détails de la décision :',

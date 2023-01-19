@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use A2lix\AutoFormBundle\Form\Type\AutoFormType;
 use App\Entity\Decision;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
@@ -26,7 +27,10 @@ class DecisionController extends AbstractController
         Security $security
     ): Response {
         $decision = new Decision();
+        //$interaction = new Interaction();
 
+        //$interaction->setUser($this->getUser());
+        //$decision->addInteraction($interaction);
         $form = $this->createForm(DecisionCreationType::class, $decision);
         /** @var \App\Entity\User */
         $user = $security->getUser();
