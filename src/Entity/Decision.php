@@ -231,7 +231,7 @@ class Decision
     }
 
     #[Assert\Callback]
-    public function checkDuplicateInteraction(ExecutionContextInterface $context): void
+    public function checkDuplicateInteraction(ExecutionContextInterface $context): ?bool
     {
         $interactions = $this->getInteractions();
         $interactionUsers = [];
@@ -246,5 +246,6 @@ class Decision
                     ->addViolation();
             }
         }
+        return true;
     }
 }
