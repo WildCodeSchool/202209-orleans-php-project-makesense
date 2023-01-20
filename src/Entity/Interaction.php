@@ -15,6 +15,7 @@ class Interaction
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
+
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
