@@ -7,21 +7,22 @@
 	{{ encore_entry_link_tags('decisionView') }}
 {% endblock %}
 {% block body %}
-	<main>
-		<div class="container py-5 rounded-4 mt-5 bg-tertiary">
-			<div class="row py-5 mb-5">
-				<h1 class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
+	<main class="bg-tertiary">
+		<div class="container py-5 rounded-4 mt-5 bg-light">
+			<div class="container">
+				<div class="row py-5 mb-5 bg-tertiary rounded-4">
+					<h1 class="text-secondary fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
 
-				<div class="col-md-4 text-white d-flex pt-4">
-					<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
-					<div class="ms-2 py-3 pe-2">par</div>
-					<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
+					<div class="col-md-4 text-white d-flex pt-4">
+						<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
+						<div class="ms-2 py-3 pe-2">par</div>
+						<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="container rounded-4 border shadow bg-light">
-				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="">Dates à retenir</h2>
-
+				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="Icone de la section dates à retenir">Dates à retenir</h2>
 				<div id="timelineGrid">
 					<div id="state1" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Prise de décision commencée</div>
 					{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
@@ -55,50 +56,92 @@
 					<div id="date3" class="state2 fw-bold text-center fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 					<div id="date4" class="state2 fw-bold text-center fs-5">{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="container mt-5">
-			<div class="row py-5 rounded-4 bg-tertiary">
-
-				<div class="col-md-4 text-white fs-5 order-first pb-5">
-					<nav id="navbar-decision" class=" align-items-stretch pe-4 border-end sticky-top">
-						<nav class="nav nav-pills ">
-							<a class="nav-link fw-bold" href="#detail"><img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="">Détails de la décision</a>
-							<nav class="nav nav-pills">
-								<a class="nav-link ps-5 my-1" href="#impacto"><img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="">Impact sur l'organisation</a>
-								<a class="nav-link ps-5 my-1" href="#bene"><img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">Bénéfices</a>
-								<a class="nav-link ps-5 my-1" href="#rissk"><img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="">Risques potentiels</a>
-							</nav>
-							<nav class="nav nav-pills">
-								<a class="nav-link fw-bold" href="#fsDecision"><img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="">Première décision</a>
-								<a class="nav-link fw-bold" href="#flDecision"><img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="">Décision finale</a>
-							</nav>
-						</nav>
-					</nav>
-				</div>
-				<div class="col-md-8 text-white order-last px-5">
-					<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
-						<div id="detail" class="pb-5">
-							<h2 class="fw-bold pb-4">Détails de la décision</h2>
-							<p>{{ decision.details|raw }}</p>
+				<div class="d-flex justify-content-around align-items-center">
+					<div>
+						<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
+						<div class="d-flex justify-content-center my-3">
+							{% if impactedUsers %}
+								{% for impactedUser in impactedUsers %}
+									<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+								{% endfor %}
+							{% else %}
+								Aucun salarié n'est impacté par cette décision pour l'instant.
+							{% endif %}
 						</div>
-						<div id="impacto" class="py-5">
-							<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
-							<p>{{ decision.impact|raw  }}</p>
-						</div>
-						<div id="bene" class="py-5">
-							<h3 class=" fw-bold pb-4">Bénéfices</h3>
-							<p>{{ decision.gain|raw  }}</p>
-						</div>
-						<div id="rissk" class="py-5">
-							<h3 class=" fw-bold pb-4">Risques potentiels</h3>
-							<p>{{ decision.risk|raw  }}</p>
+					</div>
+					<div>
+						<div class="d-flex justify-content-center my-3">
+							<div>
+								<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
+								<div class="d-flex justify-content-center my-3">
+									{% if expertUsers %}
+										{% for expertUser in expertUsers %}
+											<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+										{% endfor %}
+									{% else %}
+										Aucun salarié expert n'est attribué à cette décision pour l'instant.
+									{% endif %}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-
+			</div>
+			<div class="container mt-5">
+				<div class="row py-5 rounded-4 bg-light">
+					<div class="col-md-4 text-white fs-5 order-first pb-5">
+						<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-4">
+							<nav class="nav nav-pills bg-tertiary rounded-4 p-3">
+								<img class="me-3" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt="Icone de la section détail de la décision décision"><a class="nav-link lo fw-bold" href="#detail">Détails de la décision</a>
+								<nav class="nav nav-pills">
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt="Icone de la section sur l'impact sur l'organisation ">
+										<a class="nav-link my-1" href="#impact">Impact sur l'organisation</a>
+									</div>
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="Icone de la section Bénéfices">
+										<a class="nav-link my-1" href="#benefice">Bénéfices</a>
+									</div>
+									<div class="d-flex w-100 ps-4 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt="Icone de la section sur les risques protentions">
+										<a class="nav-link my-1" href="#risk">Risques potentiels</a>
+									</div>
+								</nav>
+								<nav class="nav nav-pills mt-3">
+									<div class="d-flex w-100">
+										<img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="Icone de la section première décision">
+										<a class="nav-link fw-bold" href="#fsDecision">Première décision</a>
+									</div>
+									<div class="d-flex w-100 mt-2">
+										<img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="Icone de la section décision finale">
+										<a class="nav-link fw-bold" href="#flDecision">Décision finale</a>
+									</div>
+								</nav>
+							</nav>
+						</nav>
+					</div>
+					<div class="col-md-8 text-white order-last px-5">
+						<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
+							<div id="detail" class="pb-5 text-dark">
+								<h2 class="fw-bold pb-4">Détails de la décision</h2>
+								<p>{{ decision.details|raw }}</p>
+							</div>
+							<div id="impact" class="py-5 text-dark">
+								<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
+								<p>{{ decision.impact|raw  }}</p>
+							</div>
+							<div id="benefice" class="py-5 text-dark">
+								<h3 class=" fw-bold pb-4">Bénéfices</h3>
+								<p>{{ decision.gain|raw  }}</p>
+							</div>
+							<div id="risk" class="py-5 text-dark">
+								<h3 class=" fw-bold pb-4">Risques potentiels</h3>
+								<p>{{ decision.risk|raw  }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</main>{% endblock %}
+	</main>
+{% endblock %}

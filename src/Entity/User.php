@@ -75,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->updatedAt = new DateTimeImmutable();
         $this->decisions = new ArrayCollection();
+        $this->interactions = new ArrayCollection();
     }
 
     public function __serialize(): array
@@ -89,6 +90,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
     private Collection $decisions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class)]
+    private Collection $interactions;
 
 
     public function getId(): ?int
@@ -247,6 +251,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($decision->getCreator() === $this) {
                 $decision->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interaction>
+     */
+    public function getInteractions(): Collection
+    {
+        return $this->interactions;
+    }
+
+    public function addInteraction(Interaction $interaction): self
+    {
+        if (!$this->interactions->contains($interaction)) {
+            $this->interactions->add($interaction);
+            $interaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteraction(Interaction $interaction): self
+    {
+        if ($this->interactions->removeElement($interaction)) {
+            // set the owning side to null (unless already changed)
+            if ($interaction->getUser() === $this) {
+                $interaction->setUser(null);
             }
         }
 

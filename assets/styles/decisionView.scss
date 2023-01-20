@@ -16,7 +16,6 @@
     column-gap: 3rem;
 }
 
-
 #state1 {
     grid-area: a;
 }
@@ -39,7 +38,6 @@
 
 #date1 {
     grid-area: f;
-    justify-self: start;
 }
 
 #date2 {
@@ -54,10 +52,18 @@
 
 #date4 {
     grid-area: i;
-    justify-self: end;
 }
 
+.profil-icons{
+ width : 50px;
+ height : 50px;
+ border-radius: 50%;
+}
 
+.profil-icons:not(first-of-type){
+margin-inline-start: -15px;
+}
+   
 @media screen and (max-width: 991px) {
 
     #timelineGrid {
@@ -120,3 +126,4 @@
         column-gap: 0;
     }
 }
+
