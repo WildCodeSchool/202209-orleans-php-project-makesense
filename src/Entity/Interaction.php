@@ -5,6 +5,9 @@ namespace App\Entity;
 use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InteractionRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: InteractionRepository::class)]
 class Interaction
@@ -15,9 +18,15 @@ class Interaction
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
+    #[Assert\NotBlank(
+        message: 'Le champ est obligatoire.'
+    )]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
+    #[Assert\NotBlank(
+        message: 'Le champ est obligatoire.'
+    )]
     private ?Decision $decision = null;
 
     #[ORM\Column(length: 100, nullable: true)]

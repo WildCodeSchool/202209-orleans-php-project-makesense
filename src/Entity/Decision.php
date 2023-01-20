@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\DecisionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DecisionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
@@ -70,7 +71,7 @@ class Decision
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class)]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['persist'])]
     private Collection $interactions;
 
     public function __construct()
@@ -243,5 +244,24 @@ class Decision
         }
 
         return $this;
+    }
+
+    #[Assert\Callback]
+    public function checkDuplicateInteraction(ExecutionContextInterface $context): ?bool
+    {
+        $interactions = $this->getInteractions();
+        $interactionUsers = [];
+        foreach ($interactions as $interaction) {
+            $interactionUsers[] = $interaction->getUser()->getId();
+        }
+
+        foreach (array_count_values($interactionUsers) as $userIteration) {
+            if ($userIteration >= 2) {
+                $context->buildViolation('Vous ne pouvez pas mettre une personne en doublon ou lui attribuer 2 rôles.')
+                    ->atPath('interactions')
+                    ->addViolation();
+            }
+        }
+        return true;
     }
 }
