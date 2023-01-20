@@ -1,25 +1,13 @@
 <div id="timelineGrid">
-	<div id="state1" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Prise de décision commencée</div>
-	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d") %}
-		<div id="state2" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin de la première décision et début des conflits</div>
-	{% elseif "now"|date("Y/m/d") >= decision.firstDecisionEndDate|date("Y/m/d") %}
-		<div id="state2" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin de la première décision et début des conflits</div>
-	{% endif %}
-	{% if "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d") %}
-		<div id="state3" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin des conflits et début de la décision finale</div>
-	{% elseif "now"|date("Y/m/d") >= decision.conflictEndDate|date("Y/m/d") %}
-		<div id="state3" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin des conflits et début de la décision finale</div>
-	{% endif %}
-	{% if  "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-		<div id="state4" class="state bg-tertiary text-secondary text-center justify-content-center rounded-4 px-3 py-2">Fin du processus de décision</div>
-	{% elseif  "now"|date("Y/m/d") >= decision.finalDecisionEndDate|date("Y/m/d") %}
-		<div id="state4" class="state bg-primary text-secondary text-center justify-content-center rounded-4 px-3 py-2">Fin du processus de décision</div>
-	{% endif %}
+	<div id="state1" class="state {{timelineStartStatus}} text-secondary text-center justify-content-center rounded-4 px-2 py-2">Prise de décision commencée</div>
+	<div id="state2" class="state {{timelineConflictStatus}} text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin de la première décision et début des conflits</div>
+	<div id="state3" class="state {{timelineAfterConflictStatus}} text-secondary text-center justify-content-center rounded-4 px-2 py-2">Fin des conflits et début de la décision finale</div>
+	<div id="state4" class="state {{timelineFinalStatus}} text-secondary text-center justify-content-center rounded-4 px-3 py-2">Fin du processus de décision</div>
+
 	<div id="arrow">
-
 		<img class="arrow" src="{{ asset('build/images/icons/' ~ arrowStatus) }}" alt="Fleche de la timeline">
-
 	</div>
+	
 	<div id="date1" class="state2 fw-bold text-center fs-5">{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 	<div id="date2" class="state2 fw-bold text-center fs-5">{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 	<div id="date3" class="state2 fw-bold text-center fs-5">{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
