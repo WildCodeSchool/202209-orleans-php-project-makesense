@@ -12,12 +12,14 @@
 			<div class="container">
 				<div class="row py-5 mb-5 bg-tertiary rounded-4">
 					<h1 class="text-secondary fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
-
 					<div class="col-md-4 text-white d-flex pt-4">
 						<img class="mx-2 pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
 						<div class="ms-2 py-3 pe-2">par</div>
 						<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
 					</div>
+					{% if decision.creator == app.user %}
+						<a class="btn btn-secondary text-primary fw-bold w-50 m-auto mt-4" href="{{ path('app_decision_edit', {decision:decision.id}) }}">Modifier ou faire avancer la décision</a>
+					{% endif %}
 				</div>
 			</div>
 
