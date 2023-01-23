@@ -30,6 +30,7 @@ class InteractionType extends AbstractType
                 [
                     'choices' => [
                         Interaction::DECISION_IMPACTED => Interaction::DECISION_IMPACTED,
+                        Interaction::DECISION_EXPERT => Interaction::DECISION_EXPERT,
                     ],
                     'label' => 'Impacté ou expert ?'
                 ]
