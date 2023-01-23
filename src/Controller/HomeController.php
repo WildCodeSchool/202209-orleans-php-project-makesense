@@ -40,4 +40,10 @@ class HomeController extends AbstractController
             ],
         );
     }
+
+    #[Route('/toutesDecisions', name: 'app_allDecisions')]
+    public function showAll(DecisionRepository $decisionRepository, Request $request): Response
+    {
+        return $this->renderForm('decisions/allDecisions.html.twig', ['decisions' => $decisionRepository->findAll()]);
+    }
 }
