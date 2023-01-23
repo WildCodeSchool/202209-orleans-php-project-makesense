@@ -2,39 +2,41 @@
 
 {% block title %}Liste des membres
 {% endblock %}
-
 {% block body %}
-	<main class="m-4">
-		<h1>Liste des membres</h1>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Email</th>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Roles</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for user in users %}
-					<tr>
-						<td>{{ user.email }}</td>
-						<td>{{ user.firstname }}</td>
-						<td>{{ user.lastname }}</td>
-						<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-						<td>
-							<a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
-							<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
-						</td>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="10">no records found</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+	<main class="bg-quatro">
+		<h1 class="fw-bold text-secondary">Liste des membres</h1>
+		<div class="p-5 container">
+			<div class="bg-white rounded">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Émail</th>
+							<th>Prénom</th>
+							<th>Nom</th>
+							<th>Roles</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.email }}</td>
+								<td>{{ user.firstname }}</td>
+								<td>{{ user.lastname }}</td>
+								<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+								<td>
+									<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Voir</a>
+									<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Editer</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="10">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</main>
 {% endblock %}

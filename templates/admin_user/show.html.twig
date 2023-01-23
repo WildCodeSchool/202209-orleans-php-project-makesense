@@ -1,37 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil 
+{% block title %}Profil
 {% endblock %}
 
 {% block body %}
-	<main class="m-4">
-		<h1>Profil de {{ user.firstname }} {{ user.lastname }}</h1>
+	<main class="bg-quatro">
+		<h1 class="fw-bold text-secondary">Profil de
+			{{ user.firstname }}
+			{{ user.lastname }}</h1>
+		<div class="p-5 container">
+			<div class="bg-white rounded">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Email</th>
+							<td>{{ user.email }}</td>
+						</tr>
+						<tr>
+							<th>Firstname</th>
+							<td>{{ user.firstname }}</td>
+						</tr>
+						<tr>
+							<th>Lastname</th>
+							<td>{{ user.lastname }}</td>
+						</tr>
+						<tr>
+							<th>Roles</th>
+							<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+						</tr>
+					</tbody>
+				</table>
 
-		<table class="table">
-			<tbody>
-				<tr>
-					<th>Email</th>
-					<td>{{ user.email }}</td>
-				</tr>
-				<tr>
-					<th>Firstname</th>
-					<td>{{ user.firstname }}</td>
-				</tr>
-				<tr>
-					<th>Lastname</th>
-					<td>{{ user.lastname }}</td>
-				</tr>
-				<tr>
-					<th>Roles</th>
-					<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-				</tr>
-			</tbody>
-		</table>
+				<a href="{{ path('app_admin_user_index') }}" class="btn btn-tertiary fw-bold">Retour</a>
 
-		<a href="{{ path('app_admin_user_index') }}">back to list</a>
+				<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Éditer</a>
 
-		<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
-
-		{{ include('admin_user/_delete_form.html.twig') }}
+				{{ include('admin_user/_delete_form.html.twig') }}
+			</div>
+		</div>
 	</main>
 {% endblock %}
