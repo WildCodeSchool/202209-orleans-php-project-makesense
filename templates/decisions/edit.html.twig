@@ -17,7 +17,7 @@
 			</svg>Retour</a>
 		<h1 class="text-secondary text-center fw-bold pt-4">Décision #{{decision.id}}</h1>
 		<div class="text-light fw-bold fs-2 w-75 m-auto text-center">
-			{% if error is not empty %}
+			{% if error is defined %}
 				<p class="text-danger">{{error}}</p>
 			{% endif %}
 			{{ form_start(form) }}
