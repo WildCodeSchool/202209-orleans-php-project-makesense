@@ -31,9 +31,8 @@
 			<div class="container-fluid">
 				<div class="row g-3">
 					{% for interaction in impactedInteractions %}
-						{% set decision = interaction.decision %}
 						<div class="col-md-6 col-lg-4 col-xl-3">
-							{% include "components/_decisionCards.html.twig" %}
+							{% include "components/_decisionCards.html.twig" with {'decision': interaction.decision} %}
 						</div>
 					{% endfor %}
 				</div>
