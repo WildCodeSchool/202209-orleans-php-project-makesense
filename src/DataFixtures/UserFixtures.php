@@ -25,7 +25,6 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create();
 
-
         for ($i = 0; $i <= self::GENERIC_USER_ACCOUNT; $i++) {
             $user = new User();
             $user->setEmail($faker->email());

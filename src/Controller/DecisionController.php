@@ -30,6 +30,7 @@ class DecisionController extends AbstractController
         $form = $this->createForm(DecisionCreationType::class, $decision);
         /** @var \App\Entity\User */
         $user = $security->getUser();
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
@@ -52,6 +53,7 @@ class DecisionController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
@@ -60,9 +62,15 @@ class DecisionController extends AbstractController
             'decisionRole' => Interaction::DECISION_IMPACTED,
         ]);
 
+        $expertUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => Interaction::DECISION_EXPERT,
+        ]);
+
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'impactedUsers' => $impactedUsers
+            'impactedUsers' => $impactedUsers,
+            'expertUsers' => $expertUsers
         ]);
     }
 }

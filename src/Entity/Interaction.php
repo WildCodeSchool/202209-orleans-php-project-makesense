@@ -5,6 +5,9 @@ namespace App\Entity;
 use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InteractionRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: InteractionRepository::class)]
 class Interaction
@@ -15,15 +18,22 @@ class Interaction
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
+    #[Assert\NotBlank(
+        message: 'Le champ est obligatoire.'
+    )]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'interactions')]
+    #[Assert\NotBlank(
+        message: 'Le champ est obligatoire.'
+    )]
     private ?Decision $decision = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $decisionRole = null;
 
     public const DECISION_IMPACTED = 'impacté';
+    public const DECISION_EXPERT = 'expert';
 
     public function getId(): ?int
     {
@@ -61,7 +71,7 @@ class Interaction
 
     public function setDecisionRole(?string $decisionRole): self
     {
-        if ($decisionRole !== self::DECISION_IMPACTED) {
+        if ($decisionRole !== self::DECISION_IMPACTED && $decisionRole !== self::DECISION_EXPERT) {
             throw new InvalidArgumentException("Le rôle que vous attribuez n'existe pas");
         }
 

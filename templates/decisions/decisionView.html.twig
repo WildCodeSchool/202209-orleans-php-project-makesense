@@ -75,17 +75,26 @@
 						</div>
 					</div>
 					<div>
-						<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
 						<div class="d-flex justify-content-center my-3">
-							<img class="arrow profil-icons" src="{{ asset('build/images/icons/person.svg') }}" alt="User profile pictures">
+							<div class="d-none d-lg-block">
+								<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
+								<div class="d-flex justify-content-center my-3">
+									{% if expertUsers %}
+										{% for expertUser in expertUsers %}
+											<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+										{% endfor %}
+									{% else %}
+										Aucun salarié expert n'est attribué à cette décision pour l'instant.
+									{% endif %}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="container mt-5">
 				{% include "components/_decisionSection.html.twig" %}
 			</div>
-
-		</main>
-	{% endblock %}
+		</div>
+	</main>
+{% endblock %}

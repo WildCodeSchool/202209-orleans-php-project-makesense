@@ -42,6 +42,12 @@
 					{{form_errors(form.decision_start_time)}}
 				</div>
 			</div>
+
+			<div class="text-center">
+				{{ form_label(form.interactions) }}
+				{{ form_errors(form) }}
+				{{ form_widget(form.interactions) }}
+			</div>
 			<div class="first-form-spacing text-center">
 				{{ form_row(form.details) }}
 			</div>

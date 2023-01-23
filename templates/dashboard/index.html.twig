@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('dashboardView') }}
+{% endblock %}
+
+{% block body %}
+	<main class="bg-tertiary">
+		<div class="container-fluid pb-5">
+			<h1 class="tbdTitle huge-title text-start">
+				{{ 'Mes décisions'|upper }}</h1>
+			<h2 id="fini" class="text-secondary px-4 pt-5 fw-bolder">
+				Mes décisions proposées
+			</h2>
+			<div class="container-fluid">
+				<div class="row g-3">
+					{% for decision in myDecisions %}
+						<div class="col-xl-4">
+							{% include "components/_decisionCards.html.twig" %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

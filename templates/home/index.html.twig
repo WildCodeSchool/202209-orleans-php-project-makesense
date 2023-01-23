@@ -3,7 +3,6 @@
 {% block title %}Home
 {% endblock %}
 
-
 {% block body %}
 	<main class="bg-primary">
 		<div class="container-fluid">
@@ -30,37 +29,37 @@
 					<a href="#toutes" class="navtitle text-decoration-none text-light">Toutes les décisions</a>
 				</h2>
 			</div>
-			<h2 id="fini" class="text-secondary px-4 pt-5 fw-bolder">
+			<h2 id="fini" class="text-secondary px-4 pb-4 fw-bolder">
 				Les décisions bientôt finies
 			</h2>
 			<div class="container-fluid">
 				<div class="row g-3">
 					{% for decision in decisionsEndingSoon %}
-						<div class="col-xl-4">
+						<div class="col-md-6 col-lg-4 col-xl-3">
 							{% include "components/_decisionCards.html.twig" %}
 						</div>
 					{% endfor %}
 				</div>
 			</div>
-			<h2 id="recent" class="text-secondary px-4 pt-4 fw-bolder">
+			<h2 id="recent" class="text-secondary px-4 pt-4 mt-4 mb-3 fw-bolder">
 				Les décisions récemment terminées
 			</h2>
 			<div class="container-fluid">
 				<div class="row g-3">
 					{% for decision in decisionsFinished %}
-						<div class="col-xl-4">
+						<div class="col-md-6 col-lg-4 col-xl-3">
 							{% include "components/_decisionCards.html.twig" %}
 						</div>
 					{% endfor %}
 				</div>
 			</div>
-			<h2 id="toutes" class="text-secondary px-4 pt-4 fw-bolder">
+			<h2 id="toutes" class="text-secondary px-4 pt-4 mt-4 mb-3  fw-bolder">
 				Toutes les décisions
 			</h2>
 			<div class="container-fluid">
-				<div class="row g-3">
+				<div class="row g-3 pb-5">
 					{% for decision in decisions %}
-						<div class="col-xl-4">
+						<div class="col-md-6 col-lg-4 col-xl-3">
 							{% include "components/_decisionCards.html.twig" %}
 						</div>
 					{% endfor %}
