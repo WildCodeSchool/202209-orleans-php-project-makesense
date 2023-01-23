@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil 
+{% endblock %}
+
+{% block body %}
+	<main class="m-4">
+		<h1>Profil de {{ user.firstname }} {{ user.lastname }}</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Email</th>
+					<td>{{ user.email }}</td>
+				</tr>
+				<tr>
+					<th>Firstname</th>
+					<td>{{ user.firstname }}</td>
+				</tr>
+				<tr>
+					<th>Lastname</th>
+					<td>{{ user.lastname }}</td>
+				</tr>
+				<tr>
+					<th>Roles</th>
+					<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('app_admin_user_index') }}">back to list</a>
+
+		<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+
+		{{ include('admin_user/_delete_form.html.twig') }}
+	</main>
+{% endblock %}

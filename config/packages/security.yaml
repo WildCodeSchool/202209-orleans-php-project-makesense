@@ -26,7 +26,10 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
-
+    role_hierarchy:
+        ROLE_PENDING: ROLE_PENDING
+        ROLE_USER: ROLE_PENDING
+        ROLE_ADMIN: ROLE_USER
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
