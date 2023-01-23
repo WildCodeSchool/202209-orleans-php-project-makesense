@@ -87,20 +87,22 @@ class DecisionController extends AbstractController
         /**  @var \App\Entity\User */
         $user = $this->getUser();
         $userId = $user->getId();
-
         $decisionId =  $decision->getId();
 
-        $interaction = $interactRepository->findByUserAndDecision($userId, $decisionId);
+        $interaction = $interactRepository->findOneBy(
+            [
+                'user' => $userId,
+                'decision' => $decisionId
+            ]
+        );
 
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
-
         $form->handleRequest($request);
 
-
         if ($interaction) {
-            $comment->setInteraction($interaction[0]);
+            $comment->setInteraction($interaction);
         } else {
             $interaction = new Interaction();
             $interaction->setUser($user);
@@ -110,7 +112,9 @@ class DecisionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentRepository->save($comment, true);
+            return $this->redirectToRoute('app_home');
         }
+
 
         return $this->render('decisions/commentView.html.twig', [
             'decision' => $decision,
