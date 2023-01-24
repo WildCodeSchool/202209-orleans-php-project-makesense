@@ -37,9 +37,7 @@ class CategoryControllerTest extends WebTestCase
     public function testNew(): void
     {
         $originalNumObjectsInRepository = count($this->repository->findAll());
-
-        $this->client->request('GET', sprintf('%snew',$this->path));
-
+        $this->client->request('GET', sprintf('%snew', $this->path));
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
@@ -54,7 +52,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testShow(): void
     {
-        
         $fixture = new Category();
         $fixture->setName('My Title');
         $fixture->setColor('My Title');
@@ -71,7 +68,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
-        
         $fixture = new Category();
         $fixture->setName('My Title');
         $fixture->setColor('My Title');
@@ -95,8 +91,6 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
-        
-
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Category();
