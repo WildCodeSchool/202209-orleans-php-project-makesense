@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Decision;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
@@ -75,22 +76,11 @@ class DecisionController extends AbstractController
     #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
     public function edit(Decision $decision, Request $request, DecisionRepository $decisionRepository,): Response
     {
-        $form = $this->createForm(DecisionCreationType::class, $decision);
-        $decisionStartTime = $decision->getDecisionStartTime();
+        $form = $this->createForm(DecisionEditionType::class, $decision);
 
         $form->handleRequest($request);
-        $error = '';
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($decision->getDecisionStartTime() !== $decisionStartTime) {
-                $error = 'Vous ne pouvez pas modifier la date de départ de la décision !';
-                return $this->renderForm('decisions/edit.html.twig', [
-                    'decision' => $decision,
-                    'form' => $form,
-                    'error' => $error
-                ]);
-            }
-
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);

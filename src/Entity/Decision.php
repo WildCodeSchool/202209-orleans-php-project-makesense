@@ -64,7 +64,7 @@ class Decision
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
 
-     #[ORM\ManyToOne]
+    #[ORM\ManyToOne]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
