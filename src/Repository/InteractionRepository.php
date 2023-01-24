@@ -39,17 +39,6 @@ class InteractionRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByUserAndDecision(int $userId, int $decisionId): array
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.user = :userId')
-            ->setParameter('userId', $userId)
-            ->andWhere('i.decision = :decisionId')
-            ->setParameter('decisionId', $decisionId)
-            ->getQuery()
-            ->getResult();
-    }
-
     //    /**
     //     * @return Interaction[] Returns an array of Interaction objects
     //     */
