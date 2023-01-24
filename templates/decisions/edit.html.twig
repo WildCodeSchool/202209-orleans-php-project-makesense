@@ -16,39 +16,6 @@
 				<path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"/>
 			</svg>Retour</a>
 		<h1 class="text-secondary text-center fw-bold pt-4">Décision #{{decision.id}}</h1>
-		<div class="text-light fw-bold fs-2 w-75 m-auto text-center">
-			{% if error is defined %}
-				<p class="text-danger">{{error}}</p>
-			{% endif %}
-			{{ form_start(form) }}
-			<div class="my-5 row align-items-center text-center">
-				<div class="col-md-2 col-sm-3">
-					{{ form_label(form.title) }}
-				</div>
-				<div class="col-md-10 col-sm-12">
-					{{ form_widget(form.title, {'attr': {'class': 'py-2 fs-1'}}) }}
-				</div>
-				{{form_errors(form.title)}}
-			</div>
-			<div class="text-center">
-				{{ form_label(form.interactions) }}
-				{{ form_errors(form) }}
-				{{ form_widget(form.interactions) }}
-			</div>
-			<div class="first-form-spacing text-center">
-				{{ form_row(form.details) }}
-			</div>
-			<div class="form-spacing text-center">
-				{{ form_row(form.impact) }}
-			</div>
-			<div class="form-spacing text-center">
-				{{ form_row(form.gain) }}
-			</div>
-			<div class="form-spacing text-center">
-				{{ form_row(form.risk) }}
-			</div>
-			<button type="submit" class="btn btn-light text-primary fw-bold my-5 text-center">Modifier la décision</button>
-			{{ form_end(form) }}
-		</div>
+		{% include "components/_editDecisionForm.html.twig" %}
 	</main>
 {% endblock %}
