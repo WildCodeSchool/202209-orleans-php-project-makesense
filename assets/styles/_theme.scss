@@ -49,8 +49,16 @@ main{
     font-weight: 800;
 }
 
+.notSoHugeTitle {
+    opacity: 0.5;
+    color: $light;
+    font-size: clamp(2rem, 12vw, 22rem);
+    text-align: center;
+    font-weight: 800;
+}
+
 .title {
-    background-color: #3B8AA6;
+    background-color: $tertiary;
     font-size: 3.12rem;
 }
 
