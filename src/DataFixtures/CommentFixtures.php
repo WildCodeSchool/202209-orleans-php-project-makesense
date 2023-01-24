@@ -24,7 +24,8 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 
                 $comment->setCommentTimedate($faker->dateTimeBetween('-20 week', '+10 week'));
 
-                $comment->setInteraction($this->getReference('interaction_' . $i));
+                $comment->setUser($this->getReference('user_' . $i));
+                $comment->setDecision($this->getReference('decision_' . $i));
                 $manager->persist($comment);
             }
         }

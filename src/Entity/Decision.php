@@ -69,9 +69,13 @@ class Decision
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class)]
     private Collection $interactions;
 
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -223,6 +227,36 @@ class Decision
             // set the owning side to null (unless already changed)
             if ($interaction->getDecision() === $this) {
                 $interaction->setDecision(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getDecision() === $this) {
+                $comment->setDecision(null);
             }
         }
 

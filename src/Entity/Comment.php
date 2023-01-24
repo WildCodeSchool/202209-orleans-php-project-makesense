@@ -21,9 +21,11 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $commentTimedate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comment', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Interaction $interaction = null;
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    private ?Decision $decision = null;
 
     public function __construct()
     {
@@ -59,14 +61,26 @@ class Comment
         return $this;
     }
 
-    public function getInteraction(): ?Interaction
+    public function getUser(): ?User
     {
-        return $this->interaction;
+        return $this->user;
     }
 
-    public function setInteraction(?Interaction $interaction): self
+    public function setUser(?User $user): self
     {
-        $this->interaction = $interaction;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDecision(): ?Decision
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?Decision $decision): self
+    {
+        $this->decision = $decision;
 
         return $this;
     }

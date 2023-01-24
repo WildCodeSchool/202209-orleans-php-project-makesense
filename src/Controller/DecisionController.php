@@ -81,38 +81,22 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
-        InteractionRepository $interactRepository,
     ): Response {
 
         /**  @var \App\Entity\User */
         $user = $this->getUser();
-        $userId = $user->getId();
-        $decisionId =  $decision->getId();
-
-        $interaction = $interactRepository->findOneBy(
-            [
-                'user' => $userId,
-                'decision' => $decisionId
-            ]
-        );
 
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($interaction) {
-            $comment->setInteraction($interaction);
-        } else {
-            $interaction = new Interaction();
-            $interaction->setUser($user);
-            $interaction->setDecision($decision);
-            $comment->setInteraction($interaction);
-        }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($user);
+            $comment->setDecision($decision);
             $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
 
 
