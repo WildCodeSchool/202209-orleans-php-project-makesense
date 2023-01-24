@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('dashboardView') }}
+{% endblock %}
+
+{% block body %}
+<main class="bg-tertiary pb-5">
+    <h1 class="text-secondary px-4 pb-4 fw-bolder mt-5">Toutes les décisions qui m'impactent</h1>
+	<div class="container-fluid">
+		<div class="row g-3">
+			{% for interaction in impactedInteractions %}
+				<div class="col-md-6 col-lg-4 col-xl-3">
+					{% include "components/_decisionCards.html.twig" with {'decision': interaction.decision} %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+    </main>
+{% endblock %}

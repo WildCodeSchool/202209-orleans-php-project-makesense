@@ -45,4 +45,28 @@ class DashBoardController extends AbstractController
             ],
         );
     }
+
+    #[Route('/tableau-de-bord/{user}/toutesmesdecisionsimpactee', name: 'app_AllMyImpactedDecisions')]
+    public function showAllImpactedDecisions(
+        User $user,
+        InteractionRepository $interactionRepo
+    ): Response {
+
+        $impactedInteractions = $interactionRepo->findBy(
+            [
+                'user' => $user,
+                'decisionRole' => Interaction::DECISION_IMPACTED,
+            ],
+            [
+                'decision' => 'DESC',
+            ]
+        );
+
+        return $this->render(
+            'dashboard/allImpactedDecisionsView.html.twig',
+            [
+                'impactedInteractions' => $impactedInteractions
+            ],
+        );
+    }
 }

@@ -28,6 +28,9 @@
 			<h2 id="fini" class="text-secondary px-4 pt-5 fw-bolder">
 				Les décisions qui m'impactent
 			</h2>
+			<div class="text-end">
+				<a type="button" class="btn btn-secondary mb-2 me-3" href="{{ path("app_AllMyImpactedDecisions", {user: app.user.id}) }}">Voir toutes</a>
+				</div>
 			<div class="container-fluid">
 				<div class="row g-3">
 					{% for interaction in impactedInteractions %}
