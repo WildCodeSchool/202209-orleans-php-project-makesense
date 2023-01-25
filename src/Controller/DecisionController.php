@@ -28,12 +28,12 @@ class DecisionController extends AbstractController
         Security $security,
         MailerInterface $mailer,
         InteractionRepository $interactionRepo,
-        Interaction $interaction
     ): Response {
 
         $decision = new Decision();
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
+
         /** @var \App\Entity\User */
         $user = $security->getUser();
 
@@ -54,7 +54,7 @@ class DecisionController extends AbstractController
             $decisionRepository->save($decision, true);
 
             foreach ($impactedUsers as $impactedUser) {
-                if ($interaction->getDecisionRole() === 'impacté') {
+                if ($impactedUser->getDecisionRole() === Interaction::DECISION_IMPACTED) {
                     $email = (new Email())
 
                         ->from($this->getParameter('mailer_from'))
