@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\Decision;
 
-class DecisionVote
+class Voting
 {
     public function countUpVotes(Decision $decision): int
     {

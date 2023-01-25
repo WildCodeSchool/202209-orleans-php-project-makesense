@@ -2,21 +2,19 @@
 
 namespace App\Controller;
 
+use App\Service\Voting;
 use App\Entity\Decision;
-use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
-use App\Service\DecisionVote;
+use App\Security\DecisionVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use function PHPUnit\Framework\isEmpty;
 
 #[IsGranted('ROLE_USER')]
 class DecisionController extends AbstractController
@@ -65,7 +63,8 @@ class DecisionController extends AbstractController
         Decision $decision,
         InteractionRepository $interactionRepo,
         Request $request,
-        DecisionVote $decisionVote
+        Voting $voting,
+        DecisionVoter $decisionVoter
     ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
@@ -95,8 +94,9 @@ class DecisionController extends AbstractController
 
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'upVotes' => $decisionVote->countUpVotes($decision),
-            'downVotes' => $decisionVote->countDownVotes($decision)
+            'upVotes' => $voting->countUpVotes($decision),
+            'downVotes' => $voting->countDownVotes($decision),
+            'canVote' => $decisionVoter->canVote($decision, $user)
         ]);
     }
 }

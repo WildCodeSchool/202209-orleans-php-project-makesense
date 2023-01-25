@@ -54,7 +54,7 @@ class DecisionVoter extends Voter
         return $user === $decision->getCreator();
     }
 
-    private function canVote(Decision $decision, User $user): bool
+    public function canVote(Decision $decision, User $user): bool
     {
         $interactions = $this->interactionRepo->findBy(
             [
