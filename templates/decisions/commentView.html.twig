@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Avis
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('commentView') }}
+{% endblock %}
+
+{% block body %}
+
+	
+
+	{% if comment.commentTimedate|date("Y/m/d") < comment.decision.firstDecisionEndDate|date("Y/m/d")  %}
+		{% set backgroundColor = 'bg-tertiary' %}
+
+	{% elseif comment.commentTimedate|date("Y/m/d") > comment.decision.firstDecisionEndDate|date("Y/m/d") and "now"|date("Y/m/d") <= comment.decision.conflictEndDate|date("Y/m/d")  %}
+		{% set backgroundColor = 'bg-cinco' %}
+
+	{% elseif comment.commentTimedate|date("Y/m/d") > comment.decision.conflictEndDate|date("Y/m/d") and comment.commentTimedate|date("Y/m/d") <= comment.decision.finalDecisionEndDate|date("Y/m/d") %}
+		{% set backgroundColor = 'bg-primary' %}
+	{% endif %}
+
+	<main>
+		<div class="mt-5 container text-center">
+			<h1 class="fs-1 fw-bold py-3">Avis</h1>
+		</div>
+
+
+		<div class="container-fluid">
+			<div class="bg-tertiary py-4 rounded-top">
+				<div class="border-bottom border-white border-3 mb-3 mx-5">
+					<h2 class="text-center text-white mt-3">Début de la période pour donner votre avis</h2>
+				</div>
+			</div>
+
+
+			{% include "components/_comment.html.twig" %}
+
+		</div>
+		<div class="container-fluid">
+			<div class="bg-cinco py-4">
+				<div class="border-bottom border-white border-3 mb-3 mx-5">
+					<h2 class="text-center text-white mt-3">Début de la période pour entrer en conflit
+					</h2>
+				</div>
+			</div>
+
+			{% include "components/_comment.html.twig" %}
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="bg-primary py-4">
+			<div class="border-bottom border-white border-3 mb-3 mx-5">
+				<h2 class="text-center text-white mt-3">Début de la période de décision définitive</h2>
+			</div>
+		</div>
+
+		{% include "components/_comment.html.twig" %}
+	</div>
+
+
+	<div class="container-fluid text-center mb-5">
+		<a class="btn btn-secondary mt-4" type="button" href="">Ecrire un avis</a>
+	</div>
+</main>{% endblock %}
