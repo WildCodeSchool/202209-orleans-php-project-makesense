@@ -26,7 +26,19 @@
 						</tr>
 						<tr>
 							<th>Rôle</th>
-							<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+							{% if user.roles|filter(role => role == "ROLE_ADMIN") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_ADMIN"] }}</td>
+
+							{% elseif user.roles|filter(role => role == "ROLE_USER") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+							{% elseif user.roles|filter(role => role == "ROLE_PENDING") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_PENDING"] }}</td>
+
+							{% else %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+							{% endif %}
 						</tr>
 					</tbody>
 				</table>

@@ -17,17 +17,27 @@
 							<th>Action</th>
 						</tr>
 					</thead>
-					
+
 					<tbody>
 						{% for user in users %}
 							<tr>
 								<td>{{ user.email }}</td>
 								<td>{{ user.firstname }}</td>
 								<td>{{ user.lastname }}</td>
-							
-								{% for unrole in user.roles %}
-									<td>{{ unrole ? unrole|json_encode : '' }}</td>
-								{% endfor %}
+
+								{% if user.roles|filter(role => role == "ROLE_ADMIN") %}
+									<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_ADMIN"] }}</td>
+
+								{% elseif user.roles|filter(role => role == "ROLE_USER") %}
+									<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+								{% elseif user.roles|filter(role => role == "ROLE_PENDING") %}
+									<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_PENDING"] }}</td>
+
+								{% else %}
+									<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+								{% endif %}
 								<td>
 									<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Voir</a>
 									<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Editer</a>

@@ -14,6 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
 {
+    public const ROLES = [
+        "ROLE_ADMIN" => "Administrateur",
+        "ROLE_USER" => "Approuvré",
+        "ROLE_PENDING" => "Non approuvré",
+
+    ];
+
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
