@@ -24,7 +24,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < self::DECISION_NUMBER; $i++) {
+        for ($i = 0; $i <= self::DECISION_NUMBER; $i++) {
             $decision = new Decision();
             $decision->setTitle($faker->sentence(rand(15, 45)));
             $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
