@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
     #[Route('/decision/creation', name: 'app_decision_creation')]

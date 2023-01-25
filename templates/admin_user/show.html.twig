@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil
+{% endblock %}
+
+{% block body %}
+	<main class="bg-quatro">
+		<h1 class="fw-bold text-secondary">Profil de
+			{{ user.firstname }}
+			{{ user.lastname }}</h1>
+		<div class="p-5 container">
+			<div class="bg-white rounded">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Email</th>
+							<td>{{ user.email }}</td>
+						</tr>
+						<tr>
+							<th>Prénom</th>
+							<td>{{ user.firstname }}</td>
+						</tr>
+						<tr>
+							<th>Nom</th>
+							<td>{{ user.lastname }}</td>
+						</tr>
+						<tr>
+							<th>Rôle</th>
+							{% if user.roles|filter(role => role == "ROLE_ADMIN") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_ADMIN"] }}</td>
+
+							{% elseif user.roles|filter(role => role == "ROLE_USER") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+							{% elseif user.roles|filter(role => role == "ROLE_PENDING") %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_PENDING"] }}</td>
+
+							{% else %}
+								<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_USER"] }}</td>
+
+							{% endif %}
+						</tr>
+					</tbody>
+				</table>
+
+				<a href="{{ path('app_admin_user_index') }}" class="btn btn-tertiary fw-bold">Retour</a>
+
+				<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Éditer</a>
+
+				{{ include('admin_user/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</main>
+{% endblock %}

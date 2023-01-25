@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_MEMBER')]
 class DashBoardController extends AbstractController
 {
     public const DECISION_LIMIT = 4;

@@ -89,10 +89,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class, cascade: ['remove'])]
     private Collection $decisions;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['remove'])]
     private Collection $interactions;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
@@ -170,7 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_PENDING';
 
         return array_unique($roles);
     }

@@ -65,6 +65,7 @@ class UserFixtures extends Fixture
         );
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setLastname('MakeSense');
         $user->setIsApproved(true);
         $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 2), $user);

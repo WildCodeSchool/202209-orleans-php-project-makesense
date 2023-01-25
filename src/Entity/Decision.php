@@ -71,7 +71,7 @@ class Decision
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['remove'])]
     private Collection $interactions;
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
