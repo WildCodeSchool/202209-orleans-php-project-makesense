@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
     private Collection $decisions;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['persist'])]
     private Collection $interactions;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]

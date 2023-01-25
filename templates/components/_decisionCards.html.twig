@@ -1,8 +1,14 @@
 <div class="card decisionCard mx-3 my-2 rounded-4 border-primary">
+	{% if decision.category %}
+		<div class="ms-3 mt-2">
+			<span style="--categoryColor: {{decision.category.color}}" class=" category fw-bold p-2 bg-light badge fs-6 border border-2 rounded-pill">{{decision.category.name}}</span>
+		</div>
+	{% endif %}
 	<div class="card-body d-flex flex-column justify-content-between">
 		<a class="stretched-link" href="{{ path("app_decision", {'decision': decision.id})}}"></a>
 		<h3 class="card-title text-primary fw-bolder">{{decision.title|u.truncate(80, '...')}}</h3>
 		<div class="d-flex align-items-center justify-content-end hoverauthor">
+
 			<img class="card-picture" src="{{ asset('build/images/icons/person.svg') }}" alt="profile picture of the creator of the decision">
 			<p class="card-text px-3 text-primary m-0">par
 				<b>{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</b>

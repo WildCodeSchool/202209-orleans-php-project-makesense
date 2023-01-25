@@ -4,13 +4,15 @@ $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
+$cinco : #26586A;
 $lightShadow : rgba(255, 255, 255, 75%);
 $font : 'Raleway', sans-serif;
 
 // Tableau de couleurs personalisées
 $custom-colors: (
     "tertiary": $tertiary,
-    "quatro": $quatro
+    "quatro": $quatro,
+    "cinco": $cinco
 );
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
@@ -47,8 +49,16 @@ main{
     font-weight: 800;
 }
 
+.notSoHugeTitle {
+    opacity: 0.5;
+    color: $light;
+    font-size: clamp(2rem, 12vw, 22rem);
+    text-align: center;
+    font-weight: 800;
+}
+
 .title {
-    background-color: #3B8AA6;
+    background-color: $tertiary;
     font-size: 3.12rem;
 }
 
@@ -89,3 +99,13 @@ transition: 0.2s ease-in-out;
 .navtitle:hover {
     opacity: 0.7;
 }
+.decisionCard .category {
+    
+    color: var(--categoryColor);
+    border-color: var(--categoryColor);
+}
+.category {
+    --bs-border-color: var(--categoryColor);
+    color: var(--categoryColor);
+    
+    }

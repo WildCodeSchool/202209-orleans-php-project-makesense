@@ -56,6 +56,7 @@ class DecisionController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
