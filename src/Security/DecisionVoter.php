@@ -9,12 +9,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class DecisionVoter extends Voter
 {
-    private const VIEW = 'view';
     private const EDIT = 'edit';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if (!in_array($attribute, [self::EDIT])) {
             return false;
         }
 
@@ -33,7 +32,7 @@ class DecisionVoter extends Voter
             return false;
         }
 
-        /** @var Decision $post */
+        /** @var Decision $decision */
         $decision = $subject;
 
         return match ($attribute) {
