@@ -8,12 +8,15 @@ use App\Service\AutomatedDates;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
+use App\Service\DecisionVote;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use function PHPUnit\Framework\isEmpty;
 
 #[IsGranted('ROLE_USER')]
 class DecisionController extends AbstractController
@@ -58,42 +61,27 @@ class DecisionController extends AbstractController
     }
 
     #[Route('decision/{decision}', methods: ['GET', 'POST'], name: 'app_decision')]
-    public function index(Decision $decision, InteractionRepository $interactionRepo, Request $request): Response
-    {
+    public function index(
+        Decision $decision,
+        InteractionRepository $interactionRepo,
+        Request $request,
+        DecisionVote $decisionVote
+    ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
 
-        $impactedUsers = $interactionRepo->findBy([
-            'decision' => $decision,
-            'decisionRole' => Interaction::DECISION_IMPACTED,
-        ]);
-
-        $expertUsers = $interactionRepo->findBy([
-            'decision' => $decision,
-            'decisionRole' => Interaction::DECISION_EXPERT,
-        ]);
-
-        $interactions = $interactionRepo->findBy([
-            'decision' => $decision,
-        ]);
-
-        $upVotes = 0;
-        $downVotes = 0;
-        foreach ($interactions as $interaction) {
-            if ($interaction->isVote() === true) {
-                $upVotes++;
-            } else {
-                $downVotes++;
-            }
-        }
-
         $interaction = $interactionRepo->findOneBy([
             'decision' => $decision,
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
 
         if ($this->isCsrfTokenValid('vote' . $user->getId(), $request->request->get('_token'))) {
-            if ($request->get(self::DOWN_VOTE) === '') {
+            if (
+                $request->get(self::DOWN_VOTE) === '' && $interaction->isVote() === false
+                || $request->get(self::UP_VOTE) === '' && $interaction->isVote() === true
+            ) {
+                $interaction->setVote(null);
+            } elseif ($request->get(self::DOWN_VOTE) === '') {
                 $interaction->setVote(false);
             } elseif ($request->get(self::UP_VOTE) === '') {
                 $interaction->setVote(true);
@@ -106,10 +94,8 @@ class DecisionController extends AbstractController
 
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'impactedUsers' => $impactedUsers,
-            'expertUsers' => $expertUsers,
-            'upVotes' => $upVotes,
-            'downVotes' => $downVotes
+            'upVotes' => $decisionVote->countUpVotes($decision),
+            'downVotes' => $decisionVote->countDownVotes($decision)
         ]);
     }
 }

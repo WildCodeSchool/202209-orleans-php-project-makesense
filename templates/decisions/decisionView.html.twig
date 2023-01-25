@@ -59,17 +59,15 @@
 			<div class="container rounded-4 border shadow bg-light">
 				<h2 class="fs-2 fw-bold py-3"><img class="me-1" src="{{ asset('build/images/icons/calendar.svg') }}" alt="Icone de la section dates à retenir">Dates à retenir</h2>
 				{% include "components/_timeline.html.twig" %}
-				<div class="d-flex justify-content-around">
+				<div class="d-flex justify-content-around align-items-center">
 					<div>
 						<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
 						<div class="d-flex justify-content-center my-3">
-							{% if impactedUsers %}
-								{% for impactedUser in impactedUsers %}
-									<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-								{% endfor %}
+							{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
+								<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
 							{% else %}
 								Aucun salarié n'est impacté par cette décision pour l'instant.
-							{% endif %}
+							{% endfor %}
 						</div>
 					</div>
 					<div>
@@ -77,13 +75,11 @@
 							<div class="d-none d-lg-block">
 								<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
 								<div class="d-flex justify-content-center my-3">
-									{% if expertUsers %}
-										{% for expertUser in expertUsers %}
-											<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-										{% endfor %}
+									{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
+										<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
 									{% else %}
 										Aucun salarié expert n'est attribué à cette décision pour l'instant.
-									{% endif %}
+									{% endfor %}
 								</div>
 							</div>
 						</div>
@@ -91,7 +87,7 @@
 				</div>
 			</div>
 			{% if "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-				<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}" onsubmit="return confirm('Êtes-vous sûr de votre choix ?');">
+				<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
 					<div class="row mt-5 justify-content-around g-3">
 						<button name="downVote" class="bg-light vote-button border border-3 border-danger rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
 							<p class="text-dark fw-bold m-0 display-4">{{downVotes}}</p>
