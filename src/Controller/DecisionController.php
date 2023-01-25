@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Decision;
+use App\Form\CommentType;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
+use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
     #[Route('/decision/creation', name: 'app_decision_creation')]
@@ -27,10 +30,11 @@ class DecisionController extends AbstractController
         $decision = new Decision();
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
+
         /** @var \App\Entity\User */
         $user = $this->getUser();
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
 
@@ -91,6 +95,37 @@ class DecisionController extends AbstractController
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
             'form' => $form
+        ]);
+    }
+
+
+    #[Route('decision/{decision}/avis', methods: ['GET', 'POST'], name: 'app_decision_comment')]
+    public function comment(
+        Decision $decision,
+        Request $request,
+        CommentRepository $commentRepository,
+    ): Response {
+
+        /**  @var \App\Entity\User */
+        $user = $this->getUser();
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($user);
+            $comment->setDecision($decision);
+            $commentRepository->save($comment, true);
+            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+        }
+
+
+        return $this->render('decisions/commentView.html.twig', [
+            'decision' => $decision,
+            'commentForm' => $form->createView(),
         ]);
     }
 }

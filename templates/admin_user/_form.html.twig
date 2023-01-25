@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+
+{{ form_label(form.email, 'Email')}}
+{{ form_widget(form.email)}}
+{{ form_errors(form.email) }}
+
+{{ form_label(form.firstname, 'Prénom')}}
+{{ form_widget(form.firstname) }}
+{{ form_errors(form.firstname) }}
+
+{{ form_label(form.lastname, 'Nom')}}
+{{ form_widget(form.lastname) }}
+{{ form_errors(form.lastname) }}
+
+{{ form_label(form.roles, 'Roles')}}
+{{ form_widget(form.roles) }}
+{{ form_errors(form.role) }}
+<button class="btn btn-tertiary fw-bold">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
