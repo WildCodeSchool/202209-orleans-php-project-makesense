@@ -76,6 +76,8 @@ class DecisionController extends AbstractController
     #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
     public function edit(Decision $decision, Request $request, DecisionRepository $decisionRepository,): Response
     {
+        $this->denyAccessUnlessGranted('edit', $decision);
+
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
         $form->handleRequest($request);
