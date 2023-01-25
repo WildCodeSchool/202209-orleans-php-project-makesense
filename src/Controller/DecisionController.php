@@ -26,8 +26,10 @@ class DecisionController extends AbstractController
         DecisionRepository $decisionRepository,
         AutomatedDates $automatedDates,
         Security $security,
-        MailerInterface $mailer
+        MailerInterface $mailer,
+        InteractionRepository $interactionRepo
     ): Response {
+
         $decision = new Decision();
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
@@ -35,9 +37,10 @@ class DecisionController extends AbstractController
         $user = $security->getUser();
 
         $form->handleRequest($request);
+        $impactedUsers = $form->getData()->getInteractions();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
-
             $decision->setFirstDecisionEndDate(
                 $automatedDates->firstDecisionEndDateCalculation($decision)
             );
@@ -49,18 +52,19 @@ class DecisionController extends AbstractController
             );
             $decisionRepository->save($decision, true);
 
-            $email = (new Email())
+            foreach ($impactedUsers as $impactedUser) {
+                $email = (new Email())
 
-            ->from($this->getParameter('mailer_from'))
+                    ->from($this->getParameter('mailer_from'))
 
-            ->to('your_email@example.com')
+                    ->to($impactedUser->getUser()->getEmail())
 
-            ->subject('Une nouvelle décision vient d\'être publiée !')
+                    ->subject('Une nouvelle décision vient d\'être publiée !')
 
-            ->html($this->renderView('email/base.html.twig', ['decision' => $decision]));
+                    ->html($this->renderView('email/base.html.twig', ['decision' => $decision]));
+                $mailer->send($email);
+            }
 
-
-            $mailer->send($email);
             return $this->redirectToRoute('app_home');
         }
 
