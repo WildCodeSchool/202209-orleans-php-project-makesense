@@ -15,7 +15,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment', CKEditorType::class, [
-                'label' => 'Détails de la décision',
+                'label' => 'Laisser un commentaire',
             ]);
     }
 
