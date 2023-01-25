@@ -76,6 +76,7 @@ class DecisionController extends AbstractController
         ]);
 
         if ($this->isCsrfTokenValid('vote' . $user->getId(), $request->request->get('_token'))) {
+            $this->denyAccessUnlessGranted('vote', $decision);
             if (
                 $request->get(self::DOWN_VOTE) === '' && $interaction->isVote() === false
                 || $request->get(self::UP_VOTE) === '' && $interaction->isVote() === true
