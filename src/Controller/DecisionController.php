@@ -27,7 +27,8 @@ class DecisionController extends AbstractController
         AutomatedDates $automatedDates,
         Security $security,
         MailerInterface $mailer,
-        InteractionRepository $interactionRepo
+        InteractionRepository $interactionRepo,
+        Interaction $interaction
     ): Response {
 
         $decision = new Decision();
@@ -53,16 +54,29 @@ class DecisionController extends AbstractController
             $decisionRepository->save($decision, true);
 
             foreach ($impactedUsers as $impactedUser) {
-                $email = (new Email())
+                if ($interaction->getDecisionRole() === 'impacté') {
+                    $email = (new Email())
 
-                    ->from($this->getParameter('mailer_from'))
+                        ->from($this->getParameter('mailer_from'))
 
-                    ->to($impactedUser->getUser()->getEmail())
+                        ->to($impactedUser->getUser()->getEmail())
 
-                    ->subject('Une nouvelle décision vient d\'être publiée !')
+                        ->subject('Une nouvelle décision vient d\'être publiée !')
 
-                    ->html($this->renderView('email/base.html.twig', ['decision' => $decision]));
-                $mailer->send($email);
+                        ->html($this->renderView('email/impact.html.twig', ['decision' => $decision]));
+                    $mailer->send($email);
+                } else {
+                    $email = (new Email())
+
+                        ->from($this->getParameter('mailer_from'))
+
+                        ->to($impactedUser->getUser()->getEmail())
+
+                        ->subject('Une nouvelle décision vient d\'être publiée !')
+
+                        ->html($this->renderView('email/expert.html.twig', ['decision' => $decision]));
+                    $mailer->send($email);
+                }
             }
 
             return $this->redirectToRoute('app_home');
