@@ -32,6 +32,9 @@ class Interaction
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $decisionRole = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $vote = null;
+
     public const DECISION_IMPACTED = 'impacté';
     public const DECISION_EXPERT = 'expert';
 
@@ -76,6 +79,18 @@ class Interaction
         }
 
         $this->decisionRole = $decisionRole;
+
+        return $this;
+    }
+
+    public function isVote(): ?bool
+    {
+        return $this->vote;
+    }
+
+    public function setVote(?bool $vote): self
+    {
+        $this->vote = $vote;
 
         return $this;
     }

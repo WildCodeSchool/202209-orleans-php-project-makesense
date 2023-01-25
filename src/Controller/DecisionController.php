@@ -18,6 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class DecisionController extends AbstractController
 {
+    private const UP_VOTE = "upVote";
+    private const DOWN_VOTE = "downVote";
+
     #[Route('/decision/creation', name: 'app_decision_creation')]
     public function new(
         Request $request,
@@ -29,7 +32,7 @@ class DecisionController extends AbstractController
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
         /** @var \App\Entity\User */
-        $user = $security->getUser();
+        $user = $this->getUser();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,9 +57,12 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
-    public function index(Decision $decision, InteractionRepository $interactionRepo): Response
+    #[Route('decision/{decision}', methods: ['GET', 'POST'], name: 'app_decision')]
+    public function index(Decision $decision, InteractionRepository $interactionRepo, Request $request): Response
     {
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+
         $impactedUsers = $interactionRepo->findBy([
             'decision' => $decision,
             'decisionRole' => Interaction::DECISION_IMPACTED,
@@ -67,10 +73,43 @@ class DecisionController extends AbstractController
             'decisionRole' => Interaction::DECISION_EXPERT,
         ]);
 
+        $interactions = $interactionRepo->findBy([
+            'decision' => $decision,
+        ]);
+
+        $upVotes = 0;
+        $downVotes = 0;
+        foreach ($interactions as $interaction) {
+            if ($interaction->isVote() === true) {
+                $upVotes++;
+            } else {
+                $downVotes++;
+            }
+        }
+
+        $interaction = $interactionRepo->findOneBy([
+            'decision' => $decision,
+            'user' => $this->getUser(),
+        ]);
+
+        if ($this->isCsrfTokenValid('vote' . $user->getId(), $request->request->get('_token'))) {
+            if ($request->get(self::DOWN_VOTE) === '') {
+                $interaction->setVote(false);
+            } elseif ($request->get(self::UP_VOTE) === '') {
+                $interaction->setVote(true);
+            }
+
+            $interactionRepo->save($interaction, true);
+
+            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+        }
+
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
             'impactedUsers' => $impactedUsers,
-            'expertUsers' => $expertUsers
+            'expertUsers' => $expertUsers,
+            'upVotes' => $upVotes,
+            'downVotes' => $downVotes
         ]);
     }
 }
