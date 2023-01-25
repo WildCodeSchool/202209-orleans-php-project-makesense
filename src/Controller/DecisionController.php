@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Decision;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use Symfony\Component\Mime\Email;
 use App\Form\DecisionCreationType;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +25,8 @@ class DecisionController extends AbstractController
         Request $request,
         DecisionRepository $decisionRepository,
         AutomatedDates $automatedDates,
-        Security $security
+        Security $security,
+        MailerInterface $mailer
     ): Response {
         $decision = new Decision();
 
@@ -46,6 +49,18 @@ class DecisionController extends AbstractController
             );
             $decisionRepository->save($decision, true);
 
+            $email = (new Email())
+
+            ->from($this->getParameter('mailer_from'))
+
+            ->to('your_email@example.com')
+
+            ->subject('Une nouvelle décision vient d\'être publiée !')
+
+            ->html($this->renderView('email/base.html.twig', ['decision' => $decision]));
+
+
+            $mailer->send($email);
             return $this->redirectToRoute('app_home');
         }
 
