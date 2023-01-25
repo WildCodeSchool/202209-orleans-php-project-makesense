@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Toutes les décisions
+{% endblock %}
+
+{% block body %}
+	<main class="bg-primary pb-5">
+		{{form_start(form, { 'attr': {'class': 'border border-2 rounded-4 d-flex justify-content-between mx-auto w-75 my-5'} })}}
+		{{ form_widget(form.input, { 'attr': {'class': 'bg-primary text-light border-primary rounded-4 py-2 fs-1'} }) }}
+		<button type="submit" class="btn d-flex align-items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFFF" class="bi bi-search" viewbox="0 0 16 16">
+				<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+			</svg>
+			<label class="btn text-light fw-bold ps-2 fs-3 d-none d-sm-block" for="input">Rechercher</label>
+		</button>
+		{{form_end(form)}}
+		<h1 class="text-secondary px-4 pb-4 fw-bolder mt-5">Toutes les décisions</h1>
+		<div class="container-fluid">
+			<div class="row g-3">
+				{% for decision in decisions %}
+					<div class="col-md-6 col-lg-4 col-xl-3">
+						{% include "components/_decisionCards.html.twig" %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+
+{% endblock %}

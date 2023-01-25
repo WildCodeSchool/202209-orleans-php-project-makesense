@@ -40,4 +40,23 @@ class HomeController extends AbstractController
             ],
         );
     }
+
+    #[Route('/toutes-les-decisions', name: 'app_allDecisions')]
+    public function showAll(DecisionRepository $decisionRepository, Request $request): Response
+    {
+        $form = $this->createForm(DecisionSearchType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+        }
+        $categorySearch = $decisionRepository->decisionSearchCategory($data['input'] ?? '');
+
+        return $this->renderForm('decisions/allDecisions.html.twig', [
+            'decisions' => $decisionRepository->findAll(),
+            'form' => $form,
+            'categorySearch' => $categorySearch,
+        ]);
+    }
 }

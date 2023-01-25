@@ -54,9 +54,12 @@
 				</div>
 			</div>
 			<h2 id="toutes" class="text-secondary px-4 pt-4 mt-4 mb-3  fw-bolder">
-				Toutes les décisions
+				Autres décisions
 			</h2>
 			<div class="container-fluid">
+				<div class="text-end">
+					<a type="button" class="btn btn-secondary mb-2 me-3" href="{{ path('app_allDecisions') }}">Voir toutes</a>
+				</div>
 				<div class="row g-3 pb-5">
 					{% for decision in decisions %}
 						<div class="col-md-6 col-lg-4 col-xl-3">

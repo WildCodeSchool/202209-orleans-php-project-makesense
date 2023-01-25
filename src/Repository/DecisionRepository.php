@@ -58,6 +58,20 @@ class DecisionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function decisionSearchCategory(?string $searchedValue): array
+    {
+        $queryBuilder = $this->createQueryBuilder('d');
+        if ($searchedValue) {
+            $queryBuilder->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+        $queryBuilder->orderBy('d.decisionStartTime', 'DESC')
+            ->setMaxResults(12);
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
     public function findDecisionFinished(DateTime $today, ?string $searchedValue = ''): array
     {
         $queryBuilder = $this->createQueryBuilder('d')
