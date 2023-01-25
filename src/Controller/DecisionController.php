@@ -77,7 +77,7 @@ class DecisionController extends AbstractController
         ]);
     }
 
-    #[Route('decision/{decision}/avis', methods: ['GET', 'POST'], name: 'app_decision_comment')]
+    #[Route('decision/{decision}/ecrire-un-avis', methods: ['GET', 'POST'], name: 'app_decision_comment')]
     public function comment(
         Decision $decision,
         Request $request,
@@ -101,7 +101,7 @@ class DecisionController extends AbstractController
         }
 
 
-        return $this->render('decisions/commentView.html.twig', [
+        return $this->render('decisions/commentCreateView.html.twig', [
             'decision' => $decision,
             'commentForm' => $form->createView(),
         ]);
