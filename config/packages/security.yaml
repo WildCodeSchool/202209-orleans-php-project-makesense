@@ -27,9 +27,9 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
     role_hierarchy:
-        ROLE_PENDING: ROLE_PENDING
-        ROLE_USER: ROLE_PENDING
-        ROLE_ADMIN: ROLE_USER
+        ROLE_USER: ROLE_USER
+        ROLE_MEMBER: ROLE_USER
+        ROLE_ADMIN: ROLE_MEMBER
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -40,7 +40,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/home, roles: ROLE_USER }
+        - { path: ^/home, roles: ROLE_MEMBER }
 
 when@test:
     security:
