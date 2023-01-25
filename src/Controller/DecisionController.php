@@ -63,7 +63,10 @@ class DecisionController extends AbstractController
 
                         ->subject('Une nouvelle décision vient d\'être publiée !')
 
-                        ->html($this->renderView('email/impact.html.twig', ['decision' => $decision]));
+                        ->html($this->renderView('email/impact.html.twig', [
+                            'decision' => $decision,
+                            'impactedUser' => $impactedUser,
+                        ]));
                     $mailer->send($email);
                 } else {
                     $email = (new Email())
@@ -74,10 +77,14 @@ class DecisionController extends AbstractController
 
                         ->subject('Une nouvelle décision vient d\'être publiée !')
 
-                        ->html($this->renderView('email/expert.html.twig', ['decision' => $decision]));
+                        ->html($this->renderView('email/expert.html.twig', [
+                            'decision' => $decision,
+                            'impactedUser' => $impactedUser,
+                        ]));
                     $mailer->send($email);
                 }
             }
+
 
             return $this->redirectToRoute('app_home');
         }

@@ -9,7 +9,11 @@
 		<title>Nouvelle décision</title>
 	</head>
 	<body>
-		<h1>Bonjour {{ user.firstname }} {{ user.lastname }} , une nouvelle decision où tu es impacté "
+		<h1>Bonjour
+
+			{{ impactedUser.user.firstname }}
+			{{ impactedUser.user.lastname }}
+			, une nouvelle decision où tu es impacté "
 			{{ decision.title }}
 			" vient tout juste d'être créée !
 
