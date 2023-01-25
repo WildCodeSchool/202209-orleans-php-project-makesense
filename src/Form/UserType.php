@@ -23,8 +23,10 @@ class UserType extends AbstractType
                     'choices'  => [
                         'Non Approuvé' => 'ROLE_PENDING',
                         'Approuvé' => 'ROLE_USER',
-                        'Admin'     => 'ROLE_ADMIN',
+                        'Admin' => 'ROLE_ADMIN',
                     ],
+                    'expanded' => true,
+                    'multiple' => false
                 ],
             ]);
     }

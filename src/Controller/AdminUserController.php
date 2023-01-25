@@ -36,13 +36,6 @@ class AdminUserController extends AbstractController
     {
 
         $form = $this->createForm(UserType::class, $user);
-        if ($form->getData() === 'ROLE_USER') {
-            $user->setRoles(["ROLE_USER"]);
-        } elseif ($form->getData() === 'ROLE_PENDING') {
-            $user->setRoles(["ROLE_PENDING"]);
-        } else {
-            $user->setRoles(["ROLE_ADMIN"]);
-        }
 
         $form->handleRequest($request);
 
