@@ -10,11 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DecisionEditionType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $resolver->setDefaults([
-            'data_class' => Decision::class,
-        ]);
+        $builder->remove('decisionStartTime');
     }
 
     public function getParent(): string
@@ -22,8 +20,10 @@ class DecisionEditionType extends AbstractType
         return DecisionCreationType::class;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $builder->remove('decisionStartTime');
+        $resolver->setDefaults([
+            'data_class' => Decision::class,
+        ]);
     }
 }
