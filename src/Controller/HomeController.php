@@ -61,7 +61,7 @@ class HomeController extends AbstractController
                 $categoryName = $data['category'];
                 $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $categoryName);
             } else {
-               return $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
+                $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
             }
         }
 
