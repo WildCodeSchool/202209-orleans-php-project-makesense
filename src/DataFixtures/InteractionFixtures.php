@@ -17,6 +17,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
     private const USER_ROLE_IMPACTED_DECISION_NUMBER = 20;
     private const USER_ROLE_EXPERT_DECISION_NUMBER = 1;
 
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -28,10 +29,13 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
                     $this->getReference('user_' . $faker->numberBetween(0, UserFixtures::GENERIC_USER_ACCOUNT))
                 );
                 $interaction->setDecision($this->getReference('decision_' . $i));
+
                 $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
 
                 $manager->persist($interaction);
             }
+
+            $this->addReference('interaction_' . $i, $interaction);
 
             for ($l = 0; $l < self::EXPERT_USER_PER_DECISION; $l++) {
                 $interaction = new Interaction();
@@ -39,6 +43,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
                     $this->getReference('user_' . $faker->numberBetween(0, UserFixtures::GENERIC_USER_ACCOUNT))
                 );
                 $interaction->setDecision($this->getReference('decision_' . $i));
+
                 $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
 
                 $manager->persist($interaction);
@@ -54,6 +59,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
             $interaction->setDecision(
                 $this->getReference('decision_' . $faker->unique()->numberBetween(0, DecisionFixtures::DECISION_NUMBER))
             );
+
             $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
 
             $manager->persist($interaction);
@@ -68,6 +74,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
             $interaction->setDecision(
                 $this->getReference('decision_' . $faker->unique()->numberBetween(0, DecisionFixtures::DECISION_NUMBER))
             );
+
             $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
 
             $manager->persist($interaction);

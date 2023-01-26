@@ -32,7 +32,6 @@ class UserFixtures extends Fixture
             $user->setPassword($faker->password());
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setIsApproved(false);
             $this->addReference('user_' . $i, $user);
 
             $manager->persist($user);
@@ -42,7 +41,7 @@ class UserFixtures extends Fixture
         //Role User
         $user = new User();
         $user->setEmail('tedyDoe@gmail.com');
-        $user->setRoles([]);
+        $user->setRoles(['ROLE_MEMBER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             'tedytedy'
@@ -50,7 +49,6 @@ class UserFixtures extends Fixture
         $user->setPassword($hashedPassword);
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
-        $user->setIsApproved(true);
         $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 1), $user);
         $manager->persist($user);
 
@@ -65,8 +63,8 @@ class UserFixtures extends Fixture
         );
         $user->setPassword($hashedPassword);
         $user->setFirstname('Admin');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setLastname('MakeSense');
-        $user->setIsApproved(true);
         $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 2), $user);
         $manager->persist($user);
 

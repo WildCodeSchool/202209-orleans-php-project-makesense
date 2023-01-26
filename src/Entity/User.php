@@ -56,9 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::BOOLEAN)]
-    private ?bool $isApproved = null;
-
     #[ORM\Column]
     private array $roles = [];
 
@@ -76,6 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updatedAt = new DateTimeImmutable();
         $this->decisions = new ArrayCollection();
         $this->interactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function __serialize(): array
@@ -88,11 +86,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class, cascade: ['remove'])]
     private Collection $decisions;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['remove'])]
     private Collection $interactions;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
+    private Collection $comments;
 
 
     public function getId(): ?int
@@ -135,19 +136,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getIsApproved(): ?bool
-    {
-        return $this->isApproved;
-    }
-
-    public function setIsApproved(bool $isApproved): self
-    {
-        $this->isApproved = $isApproved;
-
-        return $this;
-    }
-
 
     /**
      * A visual identifier that represents this user.
@@ -281,6 +269,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($interaction->getUser() === $this) {
                 $interaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 

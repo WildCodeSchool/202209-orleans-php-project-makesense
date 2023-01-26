@@ -3,7 +3,6 @@
 namespace App\Security;
 
 use App\Entity\Decision;
-use App\Entity\Interaction;
 use App\Entity\User;
 use App\Repository\InteractionRepository;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
