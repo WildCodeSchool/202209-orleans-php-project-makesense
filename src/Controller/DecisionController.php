@@ -98,7 +98,7 @@ class DecisionController extends AbstractController
             $comment->setUser($user);
             $comment->setDecision($decision);
             $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            return $this->redirectToRoute('app_decision_commentView', ['decision' => $decision->getId()]);
         }
 
 
@@ -120,19 +120,43 @@ class DecisionController extends AbstractController
             ]
         );
 
-        /* foreach ($comments as $comment) {
-            if ($comment->getCommentTimedate() < $decision->getFirstDecisionEndDate()) {
-                $commentsFirstPeriod[] = $comment;
-            } elseif ($comment->getCommentTimedate() > $decision->getFirstDecisionEndDate()
-            && $comment->getCommentTimedate() < $decision->getConflictEndDate()) {
-                $commentsConflictPeriod[] = $comment;
+        $commentsFirst = [];
+        $commentsConflict = [];
+        $commentsFinal = [];
+        foreach ($comments as $comment) {
+            if (
+                $comment->getCommentTimedate() > $decision->getDecisionStartTime()
+                && $comment->getCommentTimedate() <= $decision->getFirstDecisionEndDate()
+            ) {
+                $commentsFirst[] = $comment;
+            } elseif (
+                $comment->getCommentTimedate() > $decision->getFirstDecisionEndDate()
+                && $comment->getCommentTimedate() <= $decision->getConflictEndDate()
+            ) {
+                $commentsConflict[] = $comment;
+            } elseif (
+                $comment->getCommentTimedate() > $decision->getConflictEndDate()
+                &&  $comment->getCommentTimedate() <= $decision->getFinalDecisionEndDate()
+            ) {
+                $commentsFinal[] = $comment;
             }
-        }; */
+        };
+
+        $decisionFirst = $decision->getDecisionStartTime();
+        $decisionConflict = $decision->getFirstDecisionEndDate();
+        $decisionFinal = $decision->getConflictEndDate();
 
         return $this->render(
             'decisions/commentView.html.twig',
             [
+                'decision' => $decision,
                 'comments' => $comments,
+                'commentsFirstPeriods' => $commentsFirst,
+                'commentsConflictPeriods' => $commentsConflict,
+                'commentsFinalPeriods' => $commentsFinal,
+                'decisionFirstPeriod' => $decisionFirst,
+                'decisionConflictPeriod' => $decisionConflict,
+                'decisionFinalPeriod' => $decisionFinal,
             ]
         );
     }
