@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Decision;
 use App\Form\CommentType;
-use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
-use App\Form\FirstDecisionType;
 use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
@@ -123,7 +121,6 @@ class DecisionController extends AbstractController
             $commentRepository->save($comment, true);
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
-
 
         return $this->render('decisions/commentView.html.twig', [
             'decision' => $decision,

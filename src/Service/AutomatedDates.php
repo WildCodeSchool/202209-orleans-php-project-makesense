@@ -39,17 +39,16 @@ class AutomatedDates
         /** @var DateTime */
         $now = new Datetime('now');
         if (
-            $decision->getFirstDecisionEndDate() > $now
-            && $now < $decision->getConflictEndDate()
+            $now >= $decision->getDecisionStartTime()
+            && $now < $decision->getFirstDecisionEndDate()
         ) {
             $decisionStatus = Decision::FIRST_DECISION;
         } elseif (
-            $decision->getConflictEndDate() > $now
+            $now >= $decision->getConflictEndDate()
             && $now < $decision->getFinalDecisionEndDate()
         ) {
             $decisionStatus = Decision::FINAL_DECISION;
         }
-
         return $decisionStatus;
     }
 }
