@@ -37,15 +37,13 @@
 				<div>
 					<h3 class="text-light fw-bold text-center my-5">Personnes impactées</h3>
 					<div class="d-flex justify-content-center my-3">
-						{% if impactedUsers %}
-							{% for impactedUser in impactedUsers %}
-								<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-							{% endfor %}
+						{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
+							<img class="arrow profil-icons mb-5" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
 						{% else %}
-							<p class="fs-4 mb-5">
+							<p class="fs-5 my-3 mb-5">
 								Aucun salarié n'est impacté par cette décision pour l'instant.
 							</p>
-						{% endif %}
+						{% endfor %}
 					</div>
 				</div>
 				<div>
@@ -53,15 +51,13 @@
 						<div class="d-none d-lg-block">
 							<h3 class="text-light fw-bold text-center my-5">Personnes expertes</h3>
 							<div class="d-flex justify-content-center my-3">
-								{% if expertUsers %}
-									{% for expertUser in expertUsers %}
-										<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-									{% endfor %}
+								{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
+									<img class="arrow profil-icons mb-5" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
 								{% else %}
-									<p class="fs-4 mb-5">
+									<p class="fs-5 my-3 mb-5">
 										Aucun salarié expert n'est attribué à cette décision pour l'instant.
 									</p>
-								{% endif %}
+								{% endfor %}
 							</div>
 						</div>
 					</div>

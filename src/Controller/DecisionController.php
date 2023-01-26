@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Decision;
 use App\Form\CommentType;
+use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use App\Service\TimelineManager;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
 use App\Repository\CommentRepository;
@@ -59,11 +61,20 @@ class DecisionController extends AbstractController
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
+        $impactedUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => Interaction::DECISION_IMPACTED,
+        ]);
+
+        $expertUsers = $interactionRepo->findBy([
+            'decision' => $decision,
+            'decisionRole' => Interaction::DECISION_EXPERT,
+        ]);
 
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'impactedUsers' => $interactionRepo->findImpactedUsers($decision),
-            'expertUsers' => $interactionRepo->findExpertUsers($decision),
+            'impactedUsers' => $impactedUsers,
+            'expertUsers' => $expertUsers
         ]);
     }
 
@@ -72,12 +83,11 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         DecisionRepository $decisionRepository,
-        AutomatedDates $automatedDates,
-        InteractionRepository $interactionRepo
+        TimelineManager $timelineManager
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $automatedDates->getDecisionStatus($decision);
+        $decisionStatus = $timelineManager->getDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -92,9 +102,7 @@ class DecisionController extends AbstractController
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
             'form' => $form,
-            'decisionStatus' => $decisionStatus,
-            'impactedUsers' => $interactionRepo->findImpactedUsers($decision),
-            'expertUsers' => $interactionRepo->findExpertUsers($decision),
+            'decisionStatus' => $decisionStatus
         ]);
     }
 
