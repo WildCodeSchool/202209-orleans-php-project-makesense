@@ -1,19 +1,25 @@
 {{ form_start(form) }}
-
+<div class="my-3">
 {{ form_label(form.email, 'Email')}}
 {{ form_widget(form.email)}}
 {{ form_errors(form.email) }}
-
+</div>
+<div class="my-3">
 {{ form_label(form.firstname, 'Prénom')}}
 {{ form_widget(form.firstname) }}
 {{ form_errors(form.firstname) }}
-
+</div>
+<div class="my-3">
 {{ form_label(form.lastname, 'Nom')}}
 {{ form_widget(form.lastname) }}
 {{ form_errors(form.lastname) }}
-
+</div>
+<div class="my-3">
 {{ form_label(form.roles, 'Roles')}}
 {{ form_widget(form.roles) }}
 {{ form_errors(form.roles) }}
+</div>
+
 <button class="btn btn-tertiary fw-bold">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

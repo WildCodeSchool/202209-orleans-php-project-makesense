@@ -5,12 +5,14 @@
 
 {% block body %}
 	<main class="bg-quatro">
-		<h1 class="fw-bold text-secondary">Éditer
-			{{ user.firstname }}
-			{{ user.lastname }}</h1>
-		<div class="p-5 container">
-			<div class="bg-white rounded">
-				{{ include('admin_user/_form.html.twig', {'button_label': 'Update'}) }}
+		<div class="container text-start ps-5 mt-5">
+			<h1 class="fw-bold text-secondary mb-2">Éditer
+				{{ user.firstname }}
+				{{ user.lastname }}</h1>
+
+			<div class="p-5 container bg-white rounded-4">
+
+				{{ include('admin_user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
 				<a href="{{ path('app_admin_user_index') }}" class="btn btn-tertiary fw-bold">Retour</a>
 
