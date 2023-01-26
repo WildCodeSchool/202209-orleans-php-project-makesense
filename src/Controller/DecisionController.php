@@ -9,6 +9,7 @@ use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
+use App\Form\FirstDecisionType;
 use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
@@ -60,27 +61,25 @@ class DecisionController extends AbstractController
     #[Route('decision/{decision}', methods: ['GET'], name: 'app_decision')]
     public function index(Decision $decision, InteractionRepository $interactionRepo): Response
     {
-        $impactedUsers = $interactionRepo->findBy([
-            'decision' => $decision,
-            'decisionRole' => Interaction::DECISION_IMPACTED,
-        ]);
-
-        $expertUsers = $interactionRepo->findBy([
-            'decision' => $decision,
-            'decisionRole' => Interaction::DECISION_EXPERT,
-        ]);
 
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
-            'impactedUsers' => $impactedUsers,
-            'expertUsers' => $expertUsers
+            'impactedUsers' => $interactionRepo->findImpactedUsers($decision),
+            'expertUsers' => $interactionRepo->findExpertUsers($decision),
         ]);
     }
 
     #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
-    public function edit(Decision $decision, Request $request, DecisionRepository $decisionRepository,): Response
-    {
+    public function edit(
+        Decision $decision,
+        Request $request,
+        DecisionRepository $decisionRepository,
+        AutomatedDates $automatedDates,
+        InteractionRepository $interactionRepo
+    ): Response {
+
         $this->denyAccessUnlessGranted('edit', $decision);
+        $decisionStatus = $automatedDates->getDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -94,7 +93,10 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form
+            'form' => $form,
+            'decisionStatus' => $decisionStatus,
+            'impactedUsers' => $interactionRepo->findImpactedUsers($decision),
+            'expertUsers' => $interactionRepo->findExpertUsers($decision),
         ]);
     }
 

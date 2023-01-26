@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Decision;
 use App\Entity\Interaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,13 +55,25 @@ class InteractionRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Interaction
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findImpactedUsers(Decision $decision): ?array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.decision = :decision')
+            ->setParameter('decision', $decision)
+            ->andWhere('i.decisionRole = :decisionRole')
+            ->setParameter('decisionRole', Interaction::DECISION_IMPACTED)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findExpertUsers(Decision $decision): ?array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.decision = :decision')
+            ->setParameter('decision', $decision)
+            ->andWhere('i.decisionRole = :decisionRole')
+            ->setParameter('decisionRole', Interaction::DECISION_EXPERT)
+            ->getQuery()
+            ->getResult();
+    }
 }

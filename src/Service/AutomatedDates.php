@@ -31,4 +31,25 @@ class AutomatedDates
         $finalDecisionEndDate = clone $decision->getConflictEndDate();
         return $finalDecisionEndDate->add($dateinterval);
     }
+
+    public function getDecisionStatus(Decision $decision): ?string
+    {
+        $decisionStatus = '';
+
+        /** @var DateTime */
+        $now = new Datetime('now');
+        if (
+            $decision->getFirstDecisionEndDate() > $now
+            && $now < $decision->getConflictEndDate()
+        ) {
+            $decisionStatus = Decision::FIRST_DECISION;
+        } elseif (
+            $decision->getConflictEndDate() > $now
+            && $now < $decision->getFinalDecisionEndDate()
+        ) {
+            $decisionStatus = Decision::FINAL_DECISION;
+        }
+
+        return $decisionStatus;
+    }
 }
