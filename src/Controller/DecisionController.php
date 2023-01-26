@@ -8,6 +8,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use App\Service\TimelineManager;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
 use App\Repository\CommentRepository;
@@ -105,9 +106,15 @@ class DecisionController extends AbstractController
     }
 
     #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
-    public function edit(Decision $decision, Request $request, DecisionRepository $decisionRepository,): Response
-    {
+    public function edit(
+        Decision $decision,
+        Request $request,
+        DecisionRepository $decisionRepository,
+        TimelineManager $timelineManager
+    ): Response {
+
         $this->denyAccessUnlessGranted('edit', $decision);
+        $decisionStatus = $timelineManager->getDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -121,7 +128,8 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form
+            'form' => $form,
+            'decisionStatus' => $decisionStatus
         ]);
     }
 
@@ -148,7 +156,6 @@ class DecisionController extends AbstractController
             $commentRepository->save($comment, true);
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
-
 
         return $this->render('decisions/commentView.html.twig', [
             'decision' => $decision,
