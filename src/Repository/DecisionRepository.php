@@ -63,7 +63,7 @@ class DecisionRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('d');
         if ($searchedValue) {
             $queryBuilder
-            ->leftJoin('d.categoryid', 'c')
+            ->innerJoin('d.categoryid', 'c')
             ->andWhere('d.category = :category_id')
             ->setParameter('category_id', $categoryId)
             ->andWhere('d.title LIKE :searchedValue')
