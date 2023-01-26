@@ -46,8 +46,17 @@
 	<main class="{{statusColor}}">
 
 		<div class="container py-5 rounded-4 mt-5 bg-light">
+		{% if decision.creator == app.user %}
+							<div class=>
+								<a type="button" class="btn btn-secondary shadow-sm text-primary fw-bold w-100 rounded-top" href="{{ path('app_decision_edit', {decision:decision.id}) }}">Modifier ou faire avancer la décision</a>
+							</div>
+							<div class="container">
+				<div class="{{statusColor}} row py-5 mb-5 rounded-bottom">
+				{% else %}
+					
 			<div class="container">
 				<div class="{{statusColor}} row py-5 mb-5 rounded-4">
+						{% endif %}
 					<h1 class="text-secondary fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
 					<div class="col-md-4 text-white d-flex pt-4">
 						<img class="pictureCreator " src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
@@ -55,12 +64,7 @@
 						<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
 					</div>
 					<div class="row text-center mt-5 mx-auto">
-						{% if decision.creator == app.user %}
-							<div class="col-md-7 col-sm-12 mt-2">
-								<a type="button" class="btn btn-secondary text-primary fw-bold w-75" href="{{ path('app_decision_edit', {decision:decision.id}) }}">Modifier ou faire avancer la décision</a>
-							</div>
-						{% endif %}
-						<div class="col-md-4 text-md-end col-sm-12 mt-2">
+						<div class="offset-8 col-3">
 							<a href="{{ path("app_decision_comment", {'decision': decision.id}) }}" class="btn bg-light w-75 bg-light fw-bold">Donner mon avis</a>
 						</div>
 					</div>
