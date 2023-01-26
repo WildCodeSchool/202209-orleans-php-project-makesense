@@ -16,8 +16,9 @@ class AdminUserController extends AbstractController
 {
     public const ROLES = [
         "ROLE_ADMIN" => "Administrateur",
-        "ROLE_USER" => "Approuvré",
-        "ROLE_PENDING" => "Non approuvré",
+        "ROLE_MEMBER" => "Approuvré",
+        "ROLE_USER" => "Non approuvré",
+
 
     ];
 
