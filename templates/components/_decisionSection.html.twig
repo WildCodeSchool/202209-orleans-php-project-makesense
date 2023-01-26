@@ -17,15 +17,19 @@
 						<a class="nav-link my-1 text-white" href="#risk">Risques potentiels</a>
 					</div>
 				</nav>
+				{% if secondDecisionShow == true %}
 				<nav class="nav nav-pills mt-3">
 					<div class="d-flex w-100">
 						<img class="me-3" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt="Icone de la section première décision">
-						<a class="nav-link fw-bold text-white" href="#fsDecision">Première décision</a>
+						<a class="nav-link fw-bold text-white" href="#firstDecision">Première décision</a>
 					</div>
+					{% endif %}
+					{% if finalDecisionShow == true%}
 					<div class="d-flex w-100 mt-2">
 						<img class="me-3" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt="Icone de la section décision finale">
-						<a class="nav-link fw-bold text-white" href="#flDecision">Décision finale</a>
+						<a class="nav-link fw-bold text-white" href="#finalDecision">Décision finale</a>
 					</div>
+					{% endif %}
 				</nav>
 			</nav>
 		</nav>
@@ -48,6 +52,18 @@
 				<h3 class=" fw-bold pb-4">Risques potentiels</h3>
 				<p>{{ decision.risk|raw  }}</p>
 			</div>
+			{% if secondDecisionShow == true %}
+			<div id="firstDecision" class="pb-5 text-dark">
+				<h2 class="fw-bold pb-4">Seconde décision</h2>
+				<p>{{ decision.firstDecision|raw }}</p>
+			</div>
+			{% endif %}
+			{% if finalDecisionShow == true %}
+			<div id="finalDecision" class="pb-5 text-dark">
+				<h2 class="fw-bold pb-4">Décision finale</h2>
+				<p>{{ decision.finalDecision|raw }}</p>
+			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>

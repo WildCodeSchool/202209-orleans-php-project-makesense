@@ -8,38 +8,47 @@
 {% endblock %}
 {% block body %}
 
-	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
+	{% if "now"|date("Y/m/d") <= decision.firstDecisionEndDate|date("Y/m/d")  %}
 		{% set statusColor = 'bg-tertiary' %}
-	{% elseif "now"|date("Y/m/d") > decision.firstDecisionEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+	{% elseif "now"|date("Y/m/d") > decision.firstDecisionEndDate|date("Y/m/d") and "now"|date("Y/m/d") <= decision.finalDecisionEndDate|date("Y/m/d") %}
 		{% set statusColor = 'bg-cinco' %}
 	{% elseif "now"|date("Y/m/d") > decision.finalDecisionEndDate|date("Y/m/d") %}
 		{% set statusColor = 'bg-primary' %}
 	{% endif %}
 
-	{% if "now"|date("Y/m/d") < decision.firstDecisionEndDate|date("Y/m/d")  %}
+	{% if "now"|date("Y/m/d") <= decision.firstDecisionEndDate|date("Y/m/d")  %}
 		{% set arrowStatus = 'arrowstart.svg' %}
 		{% set timelineStartStatus = 'bg-primary' %}
 		{% set timelineConflictStatus = 'bg-tertiary' %}
 		{% set timelineAfterConflictStatus = 'bg-tertiary' %}
 		{% set timelineFinalStatus = 'bg-tertiary' %}
-	{% elseif "now"|date("Y/m/d") > decision.firstDecisionEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.conflictEndDate|date("Y/m/d")  %}
+		{% set secondDecisionShow = false %}
+		{% set finalDecisionShow = false %}
+	{% elseif "now"|date("Y/m/d") > decision.firstDecisionEndDate|date("Y/m/d") and "now"|date("Y/m/d") <= decision.conflictEndDate|date("Y/m/d")  %}
 		{% set arrowStatus = 'arrow2.svg' %}
 		{% set timelineStartStatus = 'bg-primary' %}
 		{% set timelineConflictStatus = 'bg-primary' %}
 		{% set timelineAfterConflictStatus = 'bg-tertiary' %}
 		{% set timelineFinalStatus = 'bg-tertiary' %}
-	{% elseif "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+		{% set secondDecisionShow = true %}
+		{% set finalDecisionShow = false %}
+	{% elseif "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") <= decision.finalDecisionEndDate|date("Y/m/d") %}
 		{% set arrowStatus = 'arrow3.svg' %}
 		{% set timelineStartStatus = 'bg-primary' %}
 		{% set timelineConflictStatus = 'bg-primary' %}
 		{% set timelineAfterConflictStatus = 'bg-primary' %}
 		{% set timelineFinalStatus = 'bg-tertiary' %}
+		{% set secondDecisionShow = true %}
+		{% set finalDecisionShow = true %}
 	{% elseif  "now"|date("Y/m/d") > decision.finalDecisionEndDate|date("Y/m/d") %}
 		{% set arrowStatus = 'arrow4.svg' %}
 		{% set timelineStartStatus = 'bg-primary' %}
 		{% set timelineConflictStatus = 'bg-primary' %}
 		{% set timelineAfterConflictStatus = 'bg-primary' %}
 		{% set timelineFinalStatus = 'bg-primary' %}
+		{% set secondDecisionShow = true %}
+		{% set finalDecisionShow = true %}
+
 	{% endif %}
 
 	<main class="{{statusColor}}">
