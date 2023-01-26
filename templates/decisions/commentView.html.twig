@@ -11,11 +11,14 @@
 
 	{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
 		{% set backgroundColor = 'bg-tertiary' %}
-	{% elseif "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
+	{% endif %}
+	{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
 		{% set backgroundColor = 'bg-cinco' %}
-	{% elseif "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
+	{% endif %}
+	{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
 		{% set backgroundColor = 'bg-primary' %}
 	{% endif %}
+
 	<main>
 		<div class="mt-5 container text-center">
 			<h1 class="fs-1 fw-bold py-3">Avis</h1>
@@ -30,7 +33,9 @@
 					</div>
 				</div>
 			{% endif %}
-			{% include "components/_commentLogic.html.twig" with {'items': commentsFirstPeriods} %}
+
+			{% set background = 'bg-tertiary' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsFirstPeriods, 'background':background} %}
 
 		</div>
 		{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
@@ -42,7 +47,9 @@
 					</div>
 				</div>
 			{% endif %}
-			{% include "components/_commentLogic.html.twig" with {'items': commentsConflictPeriods} %}
+
+			{% set background = 'bg-cinco' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsConflictPeriods , 'background':background} %}
 
 		</div>
 
@@ -54,7 +61,10 @@
 					</div>
 				</div>
 			{% endif %}
-			{% include "components/_commentLogic.html.twig" with {'items': commentsFinalPeriods} %}
+
+			{% set background = 'bg-primary' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsFinalPeriods , 'background':background}  %}
+
 		</div>
 
 		<div class="container-fluid mb-3">

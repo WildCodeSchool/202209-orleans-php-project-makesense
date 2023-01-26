@@ -149,7 +149,6 @@ class DecisionController extends AbstractController
             'decisions/commentView.html.twig',
             [
                 'decision' => $decision,
-                'comments' => $comments,
                 'commentsFirstPeriods' => $commentsFirst,
                 'commentsConflictPeriods' => $commentsConflict,
                 'commentsFinalPeriods' => $commentsFinal,
