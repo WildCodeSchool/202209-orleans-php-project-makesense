@@ -7,6 +7,7 @@ use App\Entity\Decision;
 use App\Form\CommentType;
 use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
 use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
@@ -14,7 +15,6 @@ use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -25,7 +25,7 @@ class DecisionController extends AbstractController
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
-        AutomatedDates $automatedDates,
+        AutomatedDates $automatedDates
     ): Response {
         $decision = new Decision();
 
@@ -76,6 +76,28 @@ class DecisionController extends AbstractController
             'expertUsers' => $expertUsers
         ]);
     }
+
+    #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
+    public function edit(Decision $decision, Request $request, DecisionRepository $decisionRepository,): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $decision);
+
+        $form = $this->createForm(DecisionEditionType::class, $decision);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $decisionRepository->save($decision, true);
+
+            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+        }
+
+        return $this->renderForm('decisions/edit.html.twig', [
+            'decision' => $decision,
+            'form' => $form
+        ]);
+    }
+
 
     #[Route('decision/{decision}/avis', methods: ['GET', 'POST'], name: 'app_decision_comment')]
     public function comment(
