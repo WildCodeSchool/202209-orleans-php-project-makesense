@@ -21,8 +21,8 @@ class UserType extends AbstractType
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                     'choices'  => [
-                        'Non Approuvé' => 'ROLE_PENDING',
-                        'Approuvé' => 'ROLE_USER',
+                        'Non Approuvé' => 'ROLE_USER',
+                        'Approuvé' => 'ROLE_MEMBER',
                         'Admin' => 'ROLE_ADMIN',
                     ],
                     'expanded' => true,
