@@ -56,9 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::BOOLEAN)]
-    private ?bool $isApproved = null;
-
     #[ORM\Column]
     private array $roles = [];
 
@@ -140,19 +137,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsApproved(): ?bool
-    {
-        return $this->isApproved;
-    }
-
-    public function setIsApproved(bool $isApproved): self
-    {
-        $this->isApproved = $isApproved;
-
-        return $this;
-    }
-
-
     /**
      * A visual identifier that represents this user.
      *
@@ -170,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_PENDING';
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
