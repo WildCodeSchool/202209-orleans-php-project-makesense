@@ -54,37 +54,22 @@ class DecisionController extends AbstractController
             $decisionRepository->save($decision, true);
 
             foreach ($impactedUsers as $impactedUser) {
-                if ($impactedUser->getDecisionRole() === Interaction::DECISION_IMPACTED) {
-                    $email = (new Email())
+                $impactedUserRole =  $impactedUser->getDecisionRole();
+                $email = (new Email())
 
-                        ->from($this->getParameter('mailer_from'))
+                    ->from($this->getParameter('mailer_from'))
 
-                        ->to($impactedUser->getUser()->getEmail())
+                    ->to($impactedUser->getUser()->getEmail())
 
-                        ->subject('Une nouvelle décision vient d\'être publiée !')
+                    ->subject('Une nouvelle décision vient d\'être publiée !')
 
-                        ->html($this->renderView('email/impact.html.twig', [
-                            'decision' => $decision,
-                            'impactedUser' => $impactedUser,
-                        ]));
-                    $mailer->send($email);
-                } else {
-                    $email = (new Email())
-
-                        ->from($this->getParameter('mailer_from'))
-
-                        ->to($impactedUser->getUser()->getEmail())
-
-                        ->subject('Une nouvelle décision vient d\'être publiée !')
-
-                        ->html($this->renderView('email/expert.html.twig', [
-                            'decision' => $decision,
-                            'impactedUser' => $impactedUser,
-                        ]));
-                    $mailer->send($email);
-                }
+                    ->html($this->renderView('email/impact.html.twig', [
+                        'decision' => $decision,
+                        'impactedUser' => $impactedUser,
+                        'impactedUserRole' => $impactedUserRole,
+                    ]));
+                $mailer->send($email);
             }
-
 
             return $this->redirectToRoute('app_home');
         }

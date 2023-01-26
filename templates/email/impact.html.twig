@@ -10,10 +10,16 @@
 	</head>
 	<body>
 		<h1>Bonjour
-
+			{% if impactedUserRole === {{ constant('App\\Entity\\Interaction::DECISION_IMPACTED', interaction) }} %}
+				{{ impactedUser.user.firstname }}
+				{{ impactedUser.user.lastname }}
+				, une nouvelle decision où tu es impacté "
+				{{ decision.title }}
+				" vient tout juste d'être créée !
+			{% endif %}
 			{{ impactedUser.user.firstname }}
 			{{ impactedUser.user.lastname }}
-			, une nouvelle decision où tu es impacté "
+			, une nouvelle décision où tu es expert "
 			{{ decision.title }}
 			" vient tout juste d'être créée !
 
