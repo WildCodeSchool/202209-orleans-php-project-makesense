@@ -20,7 +20,7 @@ class DecisionCreationType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre :',
             ])
-            ->add('decision_start_time', DateType::class, [
+            ->add('decisionStartTime', DateType::class, [
                 'label' => 'Date de départ :',
                 'widget' => 'single_text',
                 'label_attr' => ['class' => 'date-label'],
