@@ -11,7 +11,6 @@ use App\Form\DecisionCreationType;
 use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
-use Proxies\__CG__\App\Entity\Decision as EntityDecision;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -1,0 +1,7 @@
+			{% for item in items %}
+				{% set backgroundColor = 'bg-tertiary' %}
+				{% for comment in comments %}
+
+					{% include "components/_comment.html.twig" %}
+				{% endfor %}
+			{% endfor %}
