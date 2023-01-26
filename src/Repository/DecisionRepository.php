@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use DateTime;
 use App\Entity\Decision;
 use Doctrine\Persistence\ManagerRegistry;
@@ -58,16 +59,19 @@ class DecisionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function decisionSearchCategory(?string $searchedValue, int $categoryId): array
+    public function decisionSearchCategory(?string $searchedValue, ?Category $category): array
     {
         $queryBuilder = $this->createQueryBuilder('d');
         if ($searchedValue) {
             $queryBuilder
-            ->innerJoin('d.categoryid', 'c')
-            ->andWhere('d.category = :category_id')
-            ->setParameter('category_id', $categoryId)
-            ->andWhere('d.title LIKE :searchedValue')
-            ->setParameter('searchedValue', '%' . $searchedValue . '%');
+                ->andWhere('d.title LIKE :searchedValue')
+                ->setParameter('searchedValue', '%' . $searchedValue . '%');
+        }
+        if ($category) {
+            $queryBuilder
+                ->join('d.category', 'c')
+                ->andWhere('d.category = :category_id')
+                ->setParameter('category_id', $category);
         }
         $queryBuilder->orderBy('d.decisionStartTime', 'DESC');
 

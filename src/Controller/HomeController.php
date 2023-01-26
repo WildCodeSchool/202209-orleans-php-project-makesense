@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use DateTime;
+use App\Entity\Category;
+use Doctrine\ORM\Mapping\Id;
+use App\Form\DecisionFilterType;
 use App\Form\DecisionSearchType;
 use Doctrine\ORM\Mapping\Entity;
 use App\Repository\CategoryRepository;
@@ -17,9 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class HomeController extends AbstractController
 {
-
-
-
     #[Route('/', name: 'app_home')]
     public function index(DecisionRepository $decisionRepository, Request $request): Response
     {
@@ -51,30 +50,24 @@ class HomeController extends AbstractController
     public function showAll(
         DecisionRepository $decisionRepository,
         Request $request,
-        CategoryRepository $categoryRepository,
     ): Response {
 
-        $form = $this->createForm(DecisionSearchType::class);
-
+        $form = $this->createForm(DecisionFilterType::class);
         $form->handleRequest($request);
-
-        $categories = $categoryRepository->findBy([], ['name' => 'ASC']);
-
-         /**  @var \App\Entity\Category */
-        $category = new Category();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            if ($data['category'] instanceof Category) {
+                $categoryName = $data['category'];
+                $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $categoryName);
+            } else {
+               return $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
+            }
         }
-
-
-        $decisions = $decisionRepository->decisionSearchCategory($data['input'],  ?? '');
 
         return $this->renderForm('decisions/allDecisions.html.twig', [
             'decisions' => $decisions,
             'form' => $form,
-            'categories' => $categories,
-
         ]);
     }
 }
