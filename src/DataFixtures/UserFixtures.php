@@ -41,7 +41,7 @@ class UserFixtures extends Fixture
         //Role User
         $user = new User();
         $user->setEmail('tedyDoe@gmail.com');
-        $user->setRoles([]);
+        $user->setRoles(['ROLE_MEMBER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             'tedytedy'
