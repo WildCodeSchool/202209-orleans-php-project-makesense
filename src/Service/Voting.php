@@ -3,34 +3,22 @@
 namespace App\Service;
 
 use App\Entity\Decision;
+use App\Repository\InteractionRepository;
 
 class Voting
 {
+    public function __construct(private InteractionRepository $interactionRepo)
+    {
+    }
+
     public function countUpVotes(Decision $decision): int
     {
-        $interactions = $decision->getInteractions();
-
-        $upVotes = 0;
-        foreach ($interactions as $interaction) {
-            if ($interaction->isVote() === true) {
-                $upVotes++;
-            }
-        }
-
-        return $upVotes;
+        return count($this->interactionRepo->findBy(['decision' => $decision, 'vote' => true]));
     }
 
     public function countDownVotes(Decision $decision): int
     {
-        $interactions = $decision->getInteractions();
 
-        $downVotes = 0;
-        foreach ($interactions as $interaction) {
-            if ($interaction->isVote() === false) {
-                $downVotes++;
-            }
-        }
-
-        return $downVotes;
+        return count($this->interactionRepo->findBy(['decision' => $decision, 'vote' => false]));
     }
 }

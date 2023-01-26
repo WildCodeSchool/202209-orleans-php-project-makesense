@@ -56,25 +56,11 @@ class DecisionVoter extends Voter
 
     public function canVote(Decision $decision, User $user): bool
     {
-        $interactions = $this->interactionRepo->findBy(
-            [
-                'decision' => $decision,
-                'decisionRole' => [
-                    Interaction::DECISION_EXPERT,
-                    Interaction::DECISION_IMPACTED
-                ]
-            ]
-        );
-
         $authorizedUsers = [];
-        foreach ($interactions as $interaction) {
+        foreach ($decision->getInteractions() as $interaction) {
             $authorizedUsers[] = $interaction->getUser();
         }
 
-        if (in_array($user, $authorizedUsers)) {
-            return true;
-        } else {
-            return false;
-        }
+        return in_array($user, $authorizedUsers);
     }
 }

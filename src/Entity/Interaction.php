@@ -6,12 +6,13 @@ use InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InteractionRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: InteractionRepository::class)]
 class Interaction
 {
+    public const DECISION_IMPACTED = 'impacté';
+    public const DECISION_EXPERT = 'expert';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -34,9 +35,6 @@ class Interaction
 
     #[ORM\Column(nullable: true)]
     private ?bool $vote = null;
-
-    public const DECISION_IMPACTED = 'impacté';
-    public const DECISION_EXPERT = 'expert';
 
     public function getId(): ?int
     {
