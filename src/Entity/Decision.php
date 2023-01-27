@@ -2,16 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\DecisionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DecisionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const FIRST_DECISION = 'firstDecision';
+    public const FINAL_DECISION = 'finalDecision';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -63,19 +67,29 @@ class Decision
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
 
-     #[ORM\ManyToOne]
+    #[ORM\ManyToOne]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class)]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['remove', 'persist'])]
     private Collection $interactions;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class, cascade: ['remove'])]
+    private Collection $comments;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $firstDecision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $finalDecision = null;
 
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -241,6 +255,79 @@ class Decision
                 $interaction->setDecision(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getDecision() === $this) {
+                $comment->setDecision(null);
+            }
+        }
+
+        return $this;
+    }
+
+    #[Assert\Callback]
+    public function checkDuplicateInteraction(ExecutionContextInterface $context): ?bool
+    {
+        $interactions = $this->getInteractions();
+        $interactionUsers = [];
+        foreach ($interactions as $interaction) {
+            $interactionUsers[] = $interaction->getUser()->getId();
+        }
+
+        foreach (array_count_values($interactionUsers) as $userIteration) {
+            if ($userIteration >= 2) {
+                $context->buildViolation('Vous ne pouvez pas mettre une personne en doublon ou lui attribuer 2 rôles.')
+                    ->atPath('interactions')
+                    ->addViolation();
+            }
+        }
+        return true;
+    }
+
+    public function getFirstDecision(): ?string
+    {
+        return $this->firstDecision;
+    }
+
+    public function setFirstDecision(?string $firstDecision): self
+    {
+        $this->firstDecision = $firstDecision;
+
+        return $this;
+    }
+
+    public function getFinalDecision(): ?string
+    {
+        return $this->finalDecision;
+    }
+
+    public function setFinalDecision(?string $finalDecision): self
+    {
+        $this->finalDecision = $finalDecision;
 
         return $this;
     }

@@ -24,10 +24,19 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < self::DECISION_NUMBER; $i++) {
+        for ($i = 0; $i <= self::DECISION_NUMBER; $i++) {
             $decision = new Decision();
-            $decision->setTitle($faker->sentence(rand(15, 45)));
-            $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
+            // The Decision with index 0 will be in vote period
+            if ($i === 0) {
+                $decision->setTitle('It is voting time !');
+            } else {
+                $decision->setTitle($faker->sentence(rand(15, 45)));
+            }
+            if ($i === 0) {
+                $decision->setDecisionStartTime($faker->dateTimeBetween('-6 week', '-5 week'));
+            } else {
+                $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
+            }
             $decision->setDetails($faker->paragraph(rand(2, 10)));
             $decision->setImpact($faker->paragraph(rand(2, 10)));
             $decision->setGain($faker->paragraph(rand(2, 10)));
@@ -51,7 +60,6 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
 
             UserFixtures::class,
             CategoryFixtures::class,
-
         ];
     }
 }

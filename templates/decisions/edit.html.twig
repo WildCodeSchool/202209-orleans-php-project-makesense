@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier décision
+	{{decision.id}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionCreation') }}
+{% endblock %}
+
+{% block body %}
+	<main class="bg-primary container-fluid">
+		<a class="btn btn-danger mx-3 px-4 py-2 fw-bold text-center mt-3" href="{{ path('app_decision', {decision:decision.id}) }}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-left" viewbox="0 0 16 16">
+				<path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"/>
+			</svg>Retour</a>
+		<h1 class="text-secondary text-center fw-bold pt-4">Décision #{{decision.id}}</h1>
+		{% include "components/_editDecisionForm.html.twig" %}
+	</main>
+{% endblock %}

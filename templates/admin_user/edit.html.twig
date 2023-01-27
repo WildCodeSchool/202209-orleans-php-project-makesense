@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer un profil
+{% endblock %}
+
+{% block body %}
+	<main class="bg-quatro">
+		<div class="container text-start ps-5 mt-5">
+			<h1 class="fw-bold text-secondary mb-2">Éditer
+				{{ user.firstname }}
+				{{ user.lastname }}</h1>
+		</div>
+		<div class="container bg-white rounded-4 p-3">
+			<div>
+				{{ include('admin_user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+			</div>
+		</div>
+		<div class="container d-flex justify-content-evenly text-center mt-5 pb-5">
+			<div>
+				<a href="{{ path('app_admin_user_index') }}" class="btn btn-tertiary fw-bold text-white">Retour</a>
+			</div>
+			<div>
+				<form method="post" action="{{ path('app_admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer ?');">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+					<button class="btn btn-danger fw-bold">Supprimer</button>
+				</form>
+			</div>
+		</div>
+
+	</main>
+{% endblock %}

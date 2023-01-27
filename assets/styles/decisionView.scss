@@ -1,8 +1,8 @@
 @import "_theme";
 
 .pictureCreator {
-    height: 6rem;
-    width: 6rem;
+    height: 4rem;
+    width: 4rem;
 }
 
 #timelineGrid {
@@ -62,6 +62,17 @@
 
 .profil-icons:not(first-of-type){
 margin-inline-start: -15px;
+}
+
+.vote-button{
+    max-width : 20rem;
+    transition: 0.2s ease-in-out;
+    box-shadow: rgba(149, 157, 165, 0.5) 5px 5px 5px;
+}
+
+.vote-button:hover{
+    transform: scale(1.02);
+    box-shadow: rgba(149, 157, 165, 0.5) 8px 8px 8px;
 }
    
 @media screen and (max-width: 991px) {
@@ -126,4 +137,3 @@ margin-inline-start: -15px;
         column-gap: 0;
     }
 }
-

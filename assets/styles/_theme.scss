@@ -4,13 +4,17 @@ $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
+$cinco : #26586A;
+$darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
 $font : 'Raleway', sans-serif;
 
 // Tableau de couleurs personalisées
 $custom-colors: (
     "tertiary": $tertiary,
-    "quatro": $quatro
+    "quatro": $quatro,
+    "cinco": $cinco,
+    "darkGrey" : $darkGrey,
 );
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
@@ -47,8 +51,16 @@ main{
     font-weight: 800;
 }
 
+.notSoHugeTitle {
+    opacity: 0.5;
+    color: $light;
+    font-size: clamp(2rem, 12vw, 22rem);
+    text-align: center;
+    font-weight: 800;
+}
+
 .title {
-    background-color: #3B8AA6;
+    background-color: $tertiary;
     font-size: 3.12rem;
 }
 
@@ -57,8 +69,9 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 }
 
 .card-picture{
-    height: 55px;
-    width : 55px;
+    height: 65px;
+    width : 65px;
+    border-radius: 50%;
 }
 
 .decisionCard{
@@ -99,3 +112,7 @@ transition: 0.2s ease-in-out;
     color: var(--categoryColor);
     
     }
+
+.backgroundShow {
+    height: 100vh;
+}

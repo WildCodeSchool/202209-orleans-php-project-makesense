@@ -1,0 +1,88 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Avis
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('commentView') }}
+{% endblock %}
+
+{% block body %}
+
+	{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+		{% set backgroundColor = 'bg-white' %}
+	{% endif %}
+	{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
+		{% set backgroundColor = 'bg-tertiary' %}
+	{% endif %}
+	{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
+		{% set backgroundColor = 'bg-cinco' %}
+	{% endif %}
+	{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
+		{% set backgroundColor = 'bg-primary' %}
+	{% endif %}
+
+	<main>
+{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+		<div class="mt-5 container text-center">
+			<h1 class="fs-1 fw-bold py-3">La décision n'a pas encore débuté.</h1>
+		</div>
+{% else %}
+		<div class="mt-5 container text-center">
+			<h1 class="fs-1 fw-bold py-3">Avis</h1>
+		</div>
+{% endif %}
+
+		{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
+			<div class="container-fluid">
+				<div class="bg-tertiary py-4 rounded-top">
+					<div class="border-bottom border-white border-3 mb-2 mx-5">
+						<h2 class="text-center text-white mt-3">Début de la période pour donner votre avis</h2>
+					</div>
+				</div>
+			{% endif %}
+
+			{% set background = 'bg-tertiary' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsFirstPeriods, 'background':background} %}
+
+		</div>
+		{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
+			<div class="container-fluid">
+				<div class="bg-cinco py-4">
+					<div class="border-bottom border-white border-3 mb-2 mx-5">
+						<h2 class="text-center text-white mt-3">Début de la période pour entrer en conflit
+						</h2>
+					</div>
+				</div>
+			{% endif %}
+
+			{% set background = 'bg-cinco' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsConflictPeriods , 'background':background} %}
+
+		</div>
+
+		{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
+			<div class="container-fluid">
+				<div class="bg-primary py-4">
+					<div class="border-bottom border-white border-3 mb-2 mx-5">
+						<h2 class="text-center text-white mt-3">Début de la période de décision définitive</h2>
+					</div>
+				</div>
+			{% endif %}
+
+			{% set background = 'bg-primary' %}
+			{% include "components/_comment.html.twig" with {'comments':commentsFinalPeriods , 'background':background}  %}
+
+		</div>
+
+{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+{% else %}
+	
+		<div class="container-fluid mb-3">
+			<div class="{{backgroundColor}} text-center rounded-bottom py-4">
+				<a class="btn btn-secondary mt-4 fs-5 fw-bold" type="button" href="{{ path("app_decision_comment", {'decision': decision.id}) }}">Ecrire un avis</a>
+			</div>
+		</div>
+		{% endif %}
+	</main>
+{% endblock %}
