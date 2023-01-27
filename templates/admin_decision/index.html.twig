@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Decision index
+{% endblock %}
+
+{% block body %}
+	<main class="bg-primary">
+		<div class="container text-start mt-5">
+			<h1 class="fw-bold text-start text-secondary mb-5">Toutes les décisions</h1>
+		</div>
+		<div class="container m-auto bg-white rounded-4 g-5">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Title</th>
+						<th>DecisionStartTime</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for decision in decisions %}
+						<tr>
+							<td>{{ decision.id }}</td>
+							<td>{{ decision.title }}</td>
+							<td>{{ decision.decisionStartTime ? decision.decisionStartTime|date('Y-m-d') : '' }}</td>
+							<td>{{ decision.details }}</td>
+							<td>
+								<div class="d-flex gap-1">
+                                <a href="{{ path('app_admin_decision_show', {'id': decision.id}) }}" class="btn btn-cinco fw-bold">Voir</a>
+								
+                                {{ include('admin_decision/_delete_form.html.twig') }}
+							</div>
+                            </td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="13">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>>
+	</main>
+{% endblock %}
