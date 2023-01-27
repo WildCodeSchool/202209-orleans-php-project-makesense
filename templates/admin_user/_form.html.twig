@@ -1,27 +1,20 @@
 {{ form_start(form) }}
 
 <div class="my-3">
-{{ form_label(form.email, 'Email')}}
-{{ form_widget(form.email)}}
-{{ form_errors(form.email) }}
+{{form_row(form.email)}}
 </div>
 
 <div class="my-3">
-{{ form_label(form.firstname, 'Prénom')}}
-{{ form_widget(form.firstname) }}
-{{ form_errors(form.firstname) }}
+{{form_row(form.firstname, { 'label': 'Prénom' })}}
+
 </div>
 
 <div class="my-3">
-{{ form_label(form.lastname, 'Nom')}}
-{{ form_widget(form.lastname) }}
-{{ form_errors(form.lastname) }}
+{{form_row(form.lastname, { 'label': 'Nom' })}}
 </div>
 
 <div class="my-3">
-{{ form_label(form.roles, 'Roles')}}
-{{ form_widget(form.roles) }}
-{{ form_errors(form.roles) }}
+{{ form_row(form.roles, { 'label': 'Roles' })}}
 </div>
 
 <div class="text-center">
