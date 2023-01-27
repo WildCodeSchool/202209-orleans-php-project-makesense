@@ -1,19 +1,23 @@
 {{ form_start(form) }}
 
-{{ form_label(form.email, 'Email')}}
-{{ form_widget(form.email)}}
-{{ form_errors(form.email) }}
+<div class="my-3">
+{{form_row(form.email)}}
+</div>
 
-{{ form_label(form.firstname, 'Prénom')}}
-{{ form_widget(form.firstname) }}
-{{ form_errors(form.firstname) }}
+<div class="my-3">
+{{form_row(form.firstname, { 'label': 'Prénom' })}}
 
-{{ form_label(form.lastname, 'Nom')}}
-{{ form_widget(form.lastname) }}
-{{ form_errors(form.lastname) }}
+</div>
 
-{{ form_label(form.roles, 'Roles')}}
-{{ form_widget(form.roles) }}
-{{ form_errors(form.roles) }}
-<button class="btn btn-tertiary fw-bold">{{ button_label|default('Save') }}</button>
+<div class="my-3">
+{{form_row(form.lastname, { 'label': 'Nom' })}}
+</div>
+
+<div class="my-3">
+{{ form_row(form.roles, { 'label': 'Roles' })}}
+</div>
+
+<div class="text-center">
+<button class="btn btn-tertiary fw-bold w-50 text-white mb-3">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
