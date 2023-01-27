@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Decision
+{% block title %}Voir la décision
 {% endblock %}
 
 {% block body %}
@@ -13,23 +13,19 @@
 			<table class="table">
 				<tbody>
 					<tr>
-						<th>Id</th>
-						<td>{{ decision.id }}</td>
-					</tr>
-					<tr>
-						<th>Title</th>
+						<th>Titre</th>
 						<td>{{ decision.title }}</td>
 					</tr>
 					<tr>
-						<th>DecisionStartTime</th>
+						<th>Date de début</th>
 						<td>{{ decision.decisionStartTime ? decision.decisionStartTime|date('Y-m-d') : '' }}</td>
 					</tr>
 					<tr>
-						<th>Details</th>
+						<th>Détails de la décision</th>
 						<td>{{ decision.details }}</td>
 					</tr>
 					<tr>
-						<th>Impact</th>
+						<th>Impact sur l'organisation</th>
 						<td>{{ decision.impact }}</td>
 					</tr>
 					<tr>
@@ -37,27 +33,27 @@
 						<td>{{ decision.gain }}</td>
 					</tr>
 					<tr>
-						<th>Risk</th>
+						<th>Risque</th>
 						<td>{{ decision.risk }}</td>
 					</tr>
 					<tr>
-						<th>FirstDecisionEndDate</th>
+						<th>Date de fin de la première decision</th>
 						<td>{{ decision.firstDecisionEndDate ? decision.firstDecisionEndDate|date('Y-m-d') : '' }}</td>
 					</tr>
 					<tr>
-						<th>ConflictEndDate</th>
+						<th>Date de fin du conflit</th>
 						<td>{{ decision.conflictEndDate ? decision.conflictEndDate|date('Y-m-d') : '' }}</td>
 					</tr>
 					<tr>
-						<th>FinalDecisionEndDate</th>
+						<th>Date de fin de la décision</th>
 						<td>{{ decision.finalDecisionEndDate ? decision.finalDecisionEndDate|date('Y-m-d') : '' }}</td>
 					</tr>
 					<tr>
-						<th>FirstDecision</th>
+						<th>Première décision</th>
 						<td>{{ decision.firstDecision }}</td>
 					</tr>
 					<tr>
-						<th>FinalDecision</th>
+						<th>Décision final</th>
 						<td>{{ decision.finalDecision }}</td>
 					</tr>
 				</tbody>
