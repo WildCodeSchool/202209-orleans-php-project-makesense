@@ -27,27 +27,37 @@
 						<a class="nav-link fw-bold text-white" href="#flDecision">Décision finale</a>
 					</div>
 				</nav>
-			</nav>
-		</nav>
-	</div>
-	<div class="col-md-8 text-white order-last px-5">
-		<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
-			<div id="detail" class="pb-5 text-dark">
-				<h2 class="fw-bold pb-4">Détails de la décision</h2>
-				<p>{{ decision.details|raw }}</p>
+
+				{% if "now"|date("Y/m/d") <= decision.decisionStartTime|date("Y/m/d")  %}
+					{% else %}
+						<div class="container-fluid text-center mt-4">
+							<a type="button" class="btn btn-secondary justify-self-center fw-bold" href="{{ path("app_decision_commentView", {decision: decision.id})}}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-fill me-2" viewbox="0 0 16 16">
+									<path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+								</svg>Voir avis</a>
+						</div>
+						{% endif %}
+					</nav>
+				</nav>
 			</div>
-			<div id="impact" class="py-5 text-dark">
-				<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
-				<p>{{ decision.impact|raw  }}</p>
-			</div>
-			<div id="benefice" class="py-5 text-dark">
-				<h3 class=" fw-bold pb-4">Bénéfices</h3>
-				<p>{{ decision.gain|raw  }}</p>
-			</div>
-			<div id="risk" class="py-5 text-dark">
-				<h3 class=" fw-bold pb-4">Risques potentiels</h3>
-				<p>{{ decision.risk|raw  }}</p>
+			<div class="col-md-8 text-white order-last px-5">
+				<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
+					<div id="detail" class="pb-5 text-dark">
+						<h2 class="fw-bold pb-4">Détails de la décision</h2>
+						<p>{{ decision.details|raw }}</p>
+					</div>
+					<div id="impact" class="py-5 text-dark">
+						<h3 class=" fw-bold pb-4">Impact sur l'organisation</h3>
+						<p>{{ decision.impact|raw  }}</p>
+					</div>
+					<div id="benefice" class="py-5 text-dark">
+						<h3 class=" fw-bold pb-4">Bénéfices</h3>
+						<p>{{ decision.gain|raw  }}</p>
+					</div>
+					<div id="risk" class="py-5 text-dark">
+						<h3 class=" fw-bold pb-4">Risques potentiels</h3>
+						<p>{{ decision.risk|raw  }}</p>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>

@@ -1,0 +1,28 @@
+@import "_theme";
+
+.pictureComment {
+    height: 4rem;
+    width: 3rem;
+}
+
+article:nth-of-type(odd)> .commentAlign {
+    margin-inline-end: 20rem;
+    margin-inline-start: 3rem;
+}
+
+article:nth-of-type(even)> .commentAlign {
+    margin-inline-end: 3rem;
+    margin-inline-start: 20rem;
+}
+
+@media screen and (max-width: 1100px) {
+
+    article:nth-of-type(odd)> .commentAlign  {
+        margin-inline: 1rem;
+        
+    }
+    article:nth-of-type(even)> .commentAlign  {
+        margin-inline: 1rem;
+        
+    }
+}
