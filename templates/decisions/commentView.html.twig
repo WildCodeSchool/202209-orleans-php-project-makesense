@@ -9,6 +9,9 @@
 
 {% block body %}
 
+	{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+		{% set backgroundColor = 'bg-white' %}
+	{% endif %}
 	{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
 		{% set backgroundColor = 'bg-tertiary' %}
 	{% endif %}
@@ -20,10 +23,15 @@
 	{% endif %}
 
 	<main>
+{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+		<div class="mt-5 container text-center">
+			<h1 class="fs-1 fw-bold py-3">La décision n'a pas encore débuté.</h1>
+		</div>
+{% else %}
 		<div class="mt-5 container text-center">
 			<h1 class="fs-1 fw-bold py-3">Avis</h1>
 		</div>
-
+{% endif %}
 
 		{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
 			<div class="container-fluid">
@@ -67,10 +75,14 @@
 
 		</div>
 
+{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+{% else %}
+	
 		<div class="container-fluid mb-3">
 			<div class="{{backgroundColor}} text-center rounded-bottom py-4">
 				<a class="btn btn-secondary mt-4 fs-5 fw-bold" type="button" href="{{ path("app_decision_comment", {'decision': decision.id}) }}">Ecrire un avis</a>
 			</div>
 		</div>
+		{% endif %}
 	</main>
 {% endblock %}
