@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const FIRST_DECISION = 'firstDecision';
+    public const FINAL_DECISION = 'finalDecision';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -76,6 +79,12 @@ class Decision
 
     #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $firstDecision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $finalDecision = null;
 
     public function __construct()
     {
@@ -297,5 +306,29 @@ class Decision
             }
         }
         return true;
+    }
+
+    public function getFirstDecision(): ?string
+    {
+        return $this->firstDecision;
+    }
+
+    public function setFirstDecision(?string $firstDecision): self
+    {
+        $this->firstDecision = $firstDecision;
+
+        return $this;
+    }
+
+    public function getFinalDecision(): ?string
+    {
+        return $this->finalDecision;
+    }
+
+    public function setFinalDecision(?string $finalDecision): self
+    {
+        $this->finalDecision = $finalDecision;
+
+        return $this;
     }
 }

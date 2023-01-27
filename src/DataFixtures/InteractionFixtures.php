@@ -80,6 +80,29 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($interaction);
         }
 
+        //interaction where Admin is expert and User Role is impacted
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 2))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
+
+        $manager->persist($interaction);
+
+        //interaction where User Role is impacted and Admin is expert
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+
+        $manager->persist($interaction);
 
         $manager->flush();
     }

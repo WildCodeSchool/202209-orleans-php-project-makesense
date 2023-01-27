@@ -4,9 +4,11 @@
 {% endblock %}
 {% block body %}
 	<main class="bg-quatro">
+	<div class="container text-start ps-5 mt-5">
 		<h1 class="fw-bold text-secondary">Liste des membres</h1>
+		</div>
 		<div class="p-5 container">
-			<div class="bg-white rounded">
+			<div class="bg-white rounded-4 px-3 py-2">
 				<table class="table">
 					<thead>
 						<tr>
@@ -39,8 +41,8 @@
 
 								{% endif %}
 								<td>
-									<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Voir</a>
-									<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-tertiary fw-bold">Editer</a>
+									<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-cinco fw-bold">Voir</a>
+									<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-secondary fw-bold">Editer</a>
 								</td>
 							</tr>
 						{% else %}

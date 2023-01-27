@@ -5,6 +5,7 @@ $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
 $cinco : #26586A;
+$darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
 $font : 'Raleway', sans-serif;
 
@@ -12,7 +13,8 @@ $font : 'Raleway', sans-serif;
 $custom-colors: (
     "tertiary": $tertiary,
     "quatro": $quatro,
-    "cinco": $cinco
+    "cinco": $cinco,
+    "darkGrey" : $darkGrey,
 );
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
@@ -67,8 +69,9 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 }
 
 .card-picture{
-    height: 70px;
-    width : 70px;
+    height: 65px;
+    width : 65px;
+    border-radius: 50%;
 }
 
 .decisionCard{
@@ -109,3 +112,7 @@ transition: 0.2s ease-in-out;
     color: var(--categoryColor);
     
     }
+
+.backgroundShow {
+    height: 100vh;
+}
