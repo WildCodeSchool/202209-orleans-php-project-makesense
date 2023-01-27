@@ -6,8 +6,8 @@ use App\Service\Voting;
 use App\Entity\Decision;
 use App\Entity\Comment;
 use App\Form\CommentType;
-use App\Entity\Interaction;
 use App\Service\AutomatedDates;
+use Symfony\Component\Mime\Email;
 use App\Service\TimelineManager;
 use App\Form\DecisionEditionType;
 use App\Form\DecisionCreationType;
@@ -16,6 +16,7 @@ use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
 use App\Security\DecisionVoter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -31,8 +32,10 @@ class DecisionController extends AbstractController
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
+        MailerInterface $mailer,
         AutomatedDates $automatedDates
     ): Response {
+
         $decision = new Decision();
 
         $form = $this->createForm(DecisionCreationType::class, $decision);
@@ -40,10 +43,10 @@ class DecisionController extends AbstractController
         /** @var \App\Entity\User */
         $user = $this->getUser();
         $form->handleRequest($request);
+        $impactedUsers = $form->getData()->getInteractions();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
-
             $decision->setFirstDecisionEndDate(
                 $automatedDates->firstDecisionEndDateCalculation($decision)
             );
@@ -54,6 +57,24 @@ class DecisionController extends AbstractController
                 $automatedDates->finalDecisionEndDateCalculation($decision)
             );
             $decisionRepository->save($decision, true);
+
+            foreach ($impactedUsers as $impactedUser) {
+                $impactedUserRole =  $impactedUser->getDecisionRole();
+                $email = (new Email())
+
+                    ->from($this->getParameter('mailer_from'))
+
+                    ->to($impactedUser->getUser()->getEmail())
+
+                    ->subject('Une nouvelle décision vient d\'être publiée !')
+
+                    ->html($this->renderView('email/impact.html.twig', [
+                        'decision' => $decision,
+                        'impactedUser' => $impactedUser,
+                        'impactedUserRole' => $impactedUserRole,
+                    ]));
+                $mailer->send($email);
+            }
 
             return $this->redirectToRoute('app_home');
         }
