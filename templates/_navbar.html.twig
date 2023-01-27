@@ -12,6 +12,11 @@
 				<li class="nav-item">
 					<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_dashboard', {user:app.user.id}) }}">Tableau de bord</a>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item">
+					<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_admin_user_index')}}">Gestion utilisateurs</a>
+				</li>
+				 {% endif %}
 			</ul>
 			<div class="navbar-nav">
 				<a class="btn btn-primary me-2 rounded-5 fs-5 fw-bold text-secondary" href="{{ path("app_decision_creation") }}">Créer une décision</a>
@@ -19,7 +24,7 @@
 			<ul class="navbar-nav d-flex align-items-center">
 				<li class="nav-item d-flex">
 					<a class="py-auto nav-link d-flex align-items-center" href="{{ path("app_view_my_profil") }}"><img class="mx-2 card-picture profil-icon" src="{% if app.user.poster %}{{ asset('uploads/avatar/')~ app.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'utilisateur">
-						<p class="pe-1 fw-bold m-0">{{app.user.firstname ~ app.user.lastname}}</p>
+						<p class="pe-1 fw-bold m-0">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</p>
 					</a>
 				</li>
 				<li class="nav-item">

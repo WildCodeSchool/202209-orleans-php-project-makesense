@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Nouvelle décision</title>
+	</head>
+	<body>
+		<h1>Bonjour
+
+			{{ impactedUser.user.firstname }}
+			{{ impactedUser.user.lastname }}
+			{% if impactedUserRole == constant("App\\Entity\\Interaction::DECISION_IMPACTED")  %}
+				, une nouvelle decision où tu es impacté "
+
+			{% else %}
+				, une nouvelle décision où tu es expert "
+			{% endif %}
+			{{ decision.title }}
+			" vient tout juste d'être créée !
+
+		</h1>
+	</body>
+</html>
