@@ -4,11 +4,8 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Category;
-use Doctrine\ORM\Mapping\Id;
 use App\Form\DecisionFilterType;
 use App\Form\DecisionSearchType;
-use Doctrine\ORM\Mapping\Entity;
-use App\Repository\CategoryRepository;
 use App\Repository\DecisionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +51,7 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(DecisionFilterType::class);
         $form->handleRequest($request);
+        $decisions = $decisionRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();

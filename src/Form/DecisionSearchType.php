@@ -18,10 +18,6 @@ class DecisionSearchType extends AbstractType
                 SearchType::class,
                 [
                     'required' => false,
-                    'attr' =>
-                    [
-                        'placeholder' => 'Recherchez une décision'
-                    ]
                 ]
             );
     }
