@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
+    public const FIRST_DECISION = 'firstDecision';
+    public const FINAL_DECISION = 'finalDecision';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -64,19 +67,29 @@ class Decision
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
 
-     #[ORM\ManyToOne]
+    #[ORM\ManyToOne]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'decisions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
-    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Interaction::class, cascade: ['remove', 'persist'])]
     private Collection $interactions;
+
+    #[ORM\OneToMany(mappedBy: 'decision', targetEntity: Comment::class)]
+    private Collection $comments;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $firstDecision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $finalDecision = null;
 
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +259,36 @@ class Decision
         return $this;
     }
 
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setDecision($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getDecision() === $this) {
+                $comment->setDecision(null);
+            }
+        }
+
+        return $this;
+    }
+
     #[Assert\Callback]
     public function checkDuplicateInteraction(ExecutionContextInterface $context): ?bool
     {
@@ -263,5 +306,29 @@ class Decision
             }
         }
         return true;
+    }
+
+    public function getFirstDecision(): ?string
+    {
+        return $this->firstDecision;
+    }
+
+    public function setFirstDecision(?string $firstDecision): self
+    {
+        $this->firstDecision = $firstDecision;
+
+        return $this;
+    }
+
+    public function getFinalDecision(): ?string
+    {
+        return $this->finalDecision;
+    }
+
+    public function setFinalDecision(?string $finalDecision): self
+    {
+        $this->finalDecision = $finalDecision;
+
+        return $this;
     }
 }

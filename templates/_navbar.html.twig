@@ -16,14 +16,14 @@
 			<div class="navbar-nav">
 				<a class="btn btn-primary me-2 rounded-5 fs-5 fw-bold text-secondary" href="{{ path("app_decision_creation") }}">Créer une décision</a>
 			</div>
-			<ul class="navbar-nav">
-				<li class="nav-item d-flex mt-2">
-					<a class="py-auto nav-link d-flex" href="{{ path("app_view_my_profil") }}"><img class="mx-2 card-picture" src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'utilisateur">
-						<p class="mt-2 pe-1 fw-bold">Nom utilisateur</p>
+			<ul class="navbar-nav d-flex align-items-center">
+				<li class="nav-item d-flex">
+					<a class="py-auto nav-link d-flex align-items-center" href="{{ path("app_view_my_profil") }}"><img class="mx-2 card-picture profil-icon" src="{% if app.user.poster %}{{ asset('uploads/avatar/')~ app.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'utilisateur">
+						<p class="pe-1 fw-bold m-0">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-danger fs-5 mt-3 pe-3 text-center fw-bold" href="{{ path("app_logout") }}">Se déconnecter
+					<a class="nav-link text-danger fs-5 pe-3 text-center fw-bold" href="{{ path("app_logout") }}">Se déconnecter
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewbox="0 0 16 16">
 							<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
 							<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
