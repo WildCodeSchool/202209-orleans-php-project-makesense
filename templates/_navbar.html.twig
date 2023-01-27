@@ -19,7 +19,7 @@
 			<ul class="navbar-nav d-flex align-items-center">
 				<li class="nav-item d-flex">
 					<a class="py-auto nav-link d-flex align-items-center" href="{{ path("app_view_my_profil") }}"><img class="mx-2 card-picture profil-icon" src="{% if app.user.poster %}{{ asset('uploads/avatar/')~ app.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'utilisateur">
-						<p class="pe-1 fw-bold m-0">{{app.user.firstname ~ app.user.lastname}}</p>
+						<p class="pe-1 fw-bold m-0">{{app.user.firstname ~ ' ' ~ app.user.lastname}}</p>
 					</a>
 				</li>
 				<li class="nav-item">
