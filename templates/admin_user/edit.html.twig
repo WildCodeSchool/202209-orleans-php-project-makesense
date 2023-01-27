@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer un profile
+{% endblock %}
+
+{% block body %}
+	<main class="bg-quatro">
+		<h1 class="fw-bold text-secondary">Éditer
+			{{ user.firstname }}
+			{{ user.lastname }}</h1>
+		<div class="p-5 container">
+			<div class="bg-white rounded">
+				{{ include('admin_user/_form.html.twig', {'button_label': 'Update'}) }}
+
+				<a href="{{ path('app_admin_user_index') }}" class="btn btn-tertiary fw-bold">Retour</a>
+
+				{{ include('admin_user/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</main>
+{% endblock %}

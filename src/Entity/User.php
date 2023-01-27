@@ -56,9 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::BOOLEAN)]
-    private ?bool $isApproved = null;
-
     #[ORM\Column]
     private array $roles = [];
 
@@ -89,10 +86,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Decision::class, cascade: ['remove'])]
     private Collection $decisions;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interaction::class, cascade: ['remove'])]
     private Collection $interactions;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
@@ -139,19 +136,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getIsApproved(): ?bool
-    {
-        return $this->isApproved;
-    }
-
-    public function setIsApproved(bool $isApproved): self
-    {
-        $this->isApproved = $isApproved;
-
-        return $this;
-    }
-
 
     /**
      * A visual identifier that represents this user.

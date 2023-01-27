@@ -26,6 +26,8 @@ final class Version20230120092532 extends AbstractMigration
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CBDEE7539 FOREIGN KEY (decision_id) REFERENCES decision (id)');
         $this->addSql('CREATE INDEX IDX_9474526CA76ED395 ON comment (user_id)');
         $this->addSql('CREATE INDEX IDX_9474526CBDEE7539 ON comment (decision_id)');
+        $this->addSql('ALTER TABLE decision ADD CONSTRAINT FK_84ACBE4861220EA6 FOREIGN KEY (creator_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE user DROP is_approved');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +39,7 @@ final class Version20230120092532 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_9474526CA76ED395 ON comment');
         $this->addSql('DROP INDEX IDX_9474526CBDEE7539 ON comment');
         $this->addSql('ALTER TABLE comment DROP user_id, DROP decision_id');
+        $this->addSql('ALTER TABLE user ADD is_approved TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE decision DROP FOREIGN KEY FK_84ACBE4861220EA6');
     }
 }
