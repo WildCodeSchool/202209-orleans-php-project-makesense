@@ -295,7 +295,9 @@ class Decision
         $interactions = $this->getInteractions();
         $interactionUsers = [];
         foreach ($interactions as $interaction) {
-            $interactionUsers[] = $interaction->getUser()->getId();
+            if ($interaction->getDecisionRole() !== null) {
+                $interactionUsers[] = $interaction->getUser()->getId();
+            }
         }
 
         foreach (array_count_values($interactionUsers) as $userIteration) {

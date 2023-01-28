@@ -69,7 +69,7 @@ class DecisionRepository extends ServiceEntityRepository
         }
 
         $queryBuilder->orderBy('d.finalDecisionEndDate', 'DESC')
-            ->setMaxResults(3);
+            ->setMaxResults(4);
 
         return $queryBuilder->getQuery()
             ->getResult();
@@ -86,7 +86,7 @@ class DecisionRepository extends ServiceEntityRepository
         }
 
         $queryBuilder->orderBy('d.finalDecisionEndDate', 'ASC')
-            ->setMaxResults(3);
+            ->setMaxResults(4);
 
         return $queryBuilder->getQuery()
             ->getResult();

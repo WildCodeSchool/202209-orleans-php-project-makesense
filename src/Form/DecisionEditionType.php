@@ -35,6 +35,16 @@ class DecisionEditionType extends AbstractType
                     ->add('firstDecision', CKEditorType::class, [
                         'label' => 'Première prise de décision :',
                     ]);
+            } elseif ($this->automatedDates->getDecisionStatus($decision) === Decision::FINAL_DECISION) {
+                $form->remove('title')
+                    ->remove('interactions')
+                    ->remove('details')
+                    ->remove('impact')
+                    ->remove('gain')
+                    ->remove('risk')
+                    ->add('finalDecision', CKEditorType::class, [
+                        'label' => 'Prise de décision finale :',
+                    ]);
             }
         });
     }

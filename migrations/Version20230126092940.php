@@ -21,13 +21,11 @@ final class Version20230126092940 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE decision ADD first_decision LONGTEXT DEFAULT NULL, ADD final_decision LONGTEXT DEFAULT NULL');
-        $this->addSql('ALTER TABLE decision ADD CONSTRAINT FK_84ACBE4861220EA6 FOREIGN KEY (creator_id) REFERENCES user (id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE decision DROP FOREIGN KEY FK_84ACBE4861220EA6');
         $this->addSql('ALTER TABLE decision DROP first_decision, DROP final_decision');
     }
 }
