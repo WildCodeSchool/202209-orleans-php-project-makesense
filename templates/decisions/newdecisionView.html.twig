@@ -1,0 +1,283 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Decision
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('decisionView') }}
+{% endblock %}
+{% block body %}
+
+	<main class="bg-tertiary">
+		<div class="row py-5 rounded mx-1">
+			<div class="col-md-2 fs-5 order-first pb-5">
+				<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-3">
+					<nav class="nav nav-pills border rounded-4 py-2">
+
+						<div class="d-flex w-100">
+							<a class="btn btn-light rounded-4 border fw-bold mx-auto w-75" href="#titre" role="button">Titre</a>
+						</div>
+						<div class="d-flex w-100">
+							<a class="btn btn-light rounded-4 fw-bold mx-auto w-75 mt-2" href="#presentation">Présentation</a>
+						</div>
+						<div class="d-flex w-100">
+							<a class="btn btn-light rounded-4 fw-bold mx-auto w-75 mt-2" href="#impact">Impact</a>
+						</div>
+						<div class="d-flex w-100">
+							<a class="btn btn-light rounded-4 fw-bold mx-auto w-75 mt-2" href="#benefices">Bénéfices</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-light rounded-4 fw-bold mx-auto w-75 mt-2" href="#risques">Risques</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-cinco rounded-4 fw-bold mx-auto w-75 mt-2" href="#firstdecision">Première décision</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-primary rounded-4 fw-bold mx-auto w-75 mt-2" href="#finaldecision">Décision finale</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-danger rounded-4 fw-bold mx-auto w-75 mt-2" href="#votes">Vote</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-success rounded-4 fw-bold mx-auto w-75 mt-2" href="#avis">Avis</a>
+						</div>
+
+						<div class="d-flex w-100">
+							<a class="btn btn-secondary rounded-4 fw-bold mx-auto w-75 mt-2" href="{{ path('app_decision_comment', {'decision': decision.id}) }}">Ecrire un avis</a>
+						</div>
+
+
+					</nav>
+				</nav>
+			</div>
+			<div class="col-md-10 text-white order-last pt-3">
+				<div data-bs-spy="scroll" data-bs-target="#navbar-decision" data-bs-smooth-scroll="true" class="scrollspy-example-2 " tabindex="0">
+					<div id="item-1" class="pb-5 text-dark">
+						<div class="container py-3 rounded shadow-sm bg-light">
+							<div class="container bg-tertiary rounded text-center">
+								<h2 id="titre" class="fw-bold pb-4 text-secondary pt-3">{{ decision.title }}</h2>
+							</div>
+
+							<div class="row mt-5 mb-3">
+								<div class="col-6 offset-2 text-start">
+									<div>Prise de décision commencée</div>
+									<div>Fin de la première décision et début des conflits</div>
+									<div>Fin des conflits et début de la décision finale</div>
+									<div>Fin du processus de décision</div>
+								</div>
+								<div class="col-4">
+									<div>{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+									<div>{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+									<div>{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+									<div>{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+									<div id="presentation" class="fw-bold pb-3 btn btn-tertiary w-100 fs-3 text-white">Présentation</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+								<div class="accordion-body">
+									<div class="pb-5 text-dark">
+										<div>{{ decision.details|raw }}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<div id="impact" class="fw-bold pb-3 btn btn-tertiary w-100 fs-3 text-white">Impact</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+								<div class="accordion-body">
+									<div>{{ decision.impact|raw }}</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingThree">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+									<div id="benefices" class="fw-bold pb-3 btn btn-tertiary w-100 fs-3 text-white">Bénéfices</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+								<div class="accordion-body">
+									{{ decision.gain|raw }}
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingFour">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+									<div id="risques" class="fw-bold pb-3 btn btn-tertiary w-100 fs-3 text-white">Risques</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+								<div class="accordion-body">
+									{{ decision.risk|raw }}
+								</div>
+							</div>
+						</div>
+						{% if secondDecisionShow == true %}
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="panelsStayOpen-headingFive">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+										<div id="firsdecision" class="fw-bold pb-3 btn btn-cinco w-100 fs-3 text-white">Première décision</div>
+									</button>
+								</h2>
+								<div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+									<div class="accordion-body">
+										{{ decision.firstDecision|raw }}
+									</div>
+								</div>
+							</div>
+						{% endif %}
+						{% if finalDecisionShow == true %}
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="panelsStayOpen-headingSix">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+										<div id="finaldecision" class="fw-bold pb-3 btn btn-primary w-100 fs-3 text-white">Décision finale</div>
+									</button>
+								</h2>
+								<div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+									<div class="accordion-body">
+										{{ decision.finalDecision|raw }}
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					{% if "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
+						<div id="item-1" class="pb-5 text-dark">
+							<div class="container py-5 rounded shadow-sm bg-light">
+								<h2 id="votes" class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Vote</h2>
+								<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
+									<div class="row mt-5 justify-content-around g-3">
+										<button {{canVote ? '':'disabled'}} name="downVote" class="bg-{{canVote ? 'light':'darkGrey'}} vote-button border border-3 border-danger rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
+											<p class="text-dark fw-bold m-0 display-4">{{downVotes}}</p>
+											<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#B63C47" class="bi bi-hand-thumbs-down-fill" viewbox="0 0 16 16">
+												<path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"/>
+											</svg>
+										</button>
+
+										<button {{canVote ? '':'disabled'}} name="upVote" class="bg-{{canVote ? 'light':'darkGrey'}} vote-button border border-3 border-cinco rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
+											<p class="text-dark fw-bold m-0 display-4">{{upVotes}}</p>
+											<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#346A81" class="bi bi-hand-thumbs-up-fill" viewbox="0 0 16 16">
+												<path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+											</svg>
+										</button>
+									</div>
+									<input type="hidden" name="_token" value="{{ csrf_token('vote' ~ app.user.id) }}">
+								</form>
+							</div>
+						</div>
+					{% endif %}
+					<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+									<div id="votes" class="fw-bold pb-3 btn btn-success w-100 fs-3 text-white">Avis</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+								<div class="accordion-body">
+									<div id="item-2" class="pb-5 text-dark">
+										<section>
+											{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+												{% set backgroundColor = 'bg-white' %}
+											{% endif %}
+											{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
+												{% set backgroundColor = 'bg-tertiary' %}
+											{% endif %}
+											{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
+												{% set backgroundColor = 'bg-cinco' %}
+											{% endif %}
+											{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
+												{% set backgroundColor = 'bg-primary' %}
+											{% endif %}
+
+											{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+												<div class="mt-5 container text-center">
+													<h1 class="fs-1 fw-bold py-3">La décision n'a pas encore débuté.</h1>
+												</div>
+											{% else %}
+												<div class="mt-5 container text-center">
+													<h1 class="fs-1 fw-bold py-3">Avis</h1>
+												</div>
+											{% endif %}
+
+											{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
+												<div class="container-fluid">
+													<div class="bg-tertiary py-4 rounded-top">
+														<div class="border-bottom border-white border-3 mb-2 mx-5">
+															<h2 class="text-center text-white mt-3">Début de la période pour donner votre avis</h2>
+														</div>
+													</div>
+												{% endif %}
+
+												{% set background = 'bg-tertiary' %}
+												{% include "components/_comment.html.twig" with {'comments':commentsFirstPeriods, 'background':background} %}
+
+											</div>
+											{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
+												<div class="container-fluid">
+													<div class="bg-cinco py-4">
+														<div class="border-bottom border-white border-3 mb-2 mx-5">
+															<h2 class="text-center text-white mt-3">Début de la période pour entrer en conflit
+															</h2>
+														</div>
+													</div>
+												{% endif %}
+
+												{% set background = 'bg-cinco' %}
+												{% include "components/_comment.html.twig" with {'comments':commentsConflictPeriods , 'background':background} %}
+
+											</div>
+
+											{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
+												<div class="container-fluid">
+													<div class="bg-primary py-4">
+														<div class="border-bottom border-white border-3 mb-2 mx-5">
+															<h2 class="text-center text-white mt-3">Début de la période de décision définitive</h2>
+														</div>
+													</div>
+												{% endif %}
+
+												{% set background = 'bg-primary' %}
+												{% include "components/_comment.html.twig" with {'comments':commentsFinalPeriods , 'background':background}  %}
+
+											</div>
+
+											{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
+												{% else %}
+
+													<div class="container-fluid mb-3">
+														<div class="{{backgroundColor}} text-center rounded-bottom py-4">
+															<a class="btn btn-secondary mt-4 fs-5 fw-bold" type="button" href="{{ path("app_decision_comment", {'decision': decision.id}) }}">Ecrire un avis</a>
+														</div>
+													</div>
+											{% endif %}
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

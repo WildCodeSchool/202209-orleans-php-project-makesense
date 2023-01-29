@@ -235,4 +235,9 @@ class DecisionController extends AbstractController
             ]
         );
     }
+    #[Route('/newtest', name: 'app_newtest')]
+    public function test(): Response
+    {
+        return $this->render('decisions/newdecisionView.html.twig');
+    }
 }
