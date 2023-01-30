@@ -54,7 +54,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
             $decision->setCategory($this->getReference('category_' . rand(0, 5)));
             // If the decision is in final state then it already have a first decision
-            if ($this->timelineManager->getDecisionStatus($decision) === Decision::FINAL_DECISION) {
+            if ($this->timelineManager->checkDecisionStatus($decision) === Decision::FINAL_DECISION) {
                 $decision->setFirstDecision($faker->paragraph(rand(2, 10)));
             }
             $this->addReference('decision_' . $i, $decision);
