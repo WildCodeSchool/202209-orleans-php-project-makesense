@@ -17,6 +17,11 @@ $custom-colors: (
     "darkGrey" : $darkGrey,
 );
 
+$display-font-sizes: (
+  1: 18rem,
+);
+
+
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
 // et "variables" (car on utilise $theme-colors) de bootstrap
 @import "~bootstrap/scss/functions";
