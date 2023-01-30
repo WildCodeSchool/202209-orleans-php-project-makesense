@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Category;
 use App\Form\DecisionFilterType;
 use App\Form\DecisionSearchType;
+use App\Service\TimelineManager;
 use App\Repository\DecisionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +18,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(DecisionRepository $decisionRepository, Request $request): Response
-    {
+    public function index(
+        DecisionRepository $decisionRepository,
+        Request $request,
+        TimelineManager $timelineManager
+    ): Response {
         $form = $this->createForm(DecisionSearchType::class);
 
         $form->handleRequest($request);
@@ -31,6 +35,10 @@ class HomeController extends AbstractController
         $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
         $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
         $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input'] ?? '');
+
+        $timelineManager->saveDecisionsStatus(
+            array_merge($decisions, $decisionsFinished, $decisionsEndingSoon)
+        );
 
         return $this->renderForm(
             'home/index.html.twig',

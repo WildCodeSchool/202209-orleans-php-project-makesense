@@ -135,7 +135,7 @@ class DecisionController extends AbstractController
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $timelineManager->getDecisionStatus($decision);
+        $decisionStatus = $timelineManager->checkDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
