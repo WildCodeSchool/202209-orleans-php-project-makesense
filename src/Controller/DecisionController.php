@@ -141,19 +141,6 @@ class DecisionController extends AbstractController
         $decisionConflict = $decision->getFirstDecisionEndDate();
         $decisionFinal = $decision->getConflictEndDate();
 
-        /*        return [
-                'decision' => $decision,
-                'commentsFirstPeriods' => $commentsFirst,
-                'commentsConflictPeriods' => $commentsConflict,
-                'commentsFinalPeriods' => $commentsFinal,
-                'decisionFirstPeriod' => $decisionFirst,
-                'decisionConflictPeriod' => $decisionConflict,
-                'decisionFinalPeriod' => $decisionFinal,
-                'decisionFirstPeriod' => $decisionFirst,
-                'decisionConflictPeriod' => $decisionConflict,
-                'decisionFinalPeriod' => $decisionFinal,
-            ]); */
-
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
             'upVotes' => $voting->countUpVotes($decision),
