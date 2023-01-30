@@ -37,11 +37,22 @@ class DashBoardController extends AbstractController
             self::DECISION_LIMIT,
         );
 
+
+        $expertInteractions = $interactionRepo->findBy(
+            [
+                'user' => $user,
+                'decisionRole' => Interaction::DECISION_EXPERT
+            ],
+            ['decision' => 'DESC'],
+            self::DECISION_LIMIT,
+        );
+
         return $this->render(
             'dashboard/index.html.twig',
             [
                 'myDecisions' => $myDecisions,
-                'impactedInteractions' => $impactedInteractions
+                'impactedInteractions' => $impactedInteractions,
+                'expertInteractions' => $expertInteractions
             ],
         );
     }

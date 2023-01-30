@@ -7,7 +7,6 @@
 	<main class="bg-primary">
 		<div class="container-fluid">
 			<h1 class="huge-title">DÉCISIONS</h1>
-
 			{{form_start(form, { 'attr': {'class': 'border border-2 rounded-4 d-flex justify-content-between mx-auto w-75 my-5'} })}}
 			{{ form_widget(form.input, { 'attr': {'class': 'bg-primary text-light border-primary rounded-4 py-2 fs-1'} }) }}
 			<button type="submit" class="btn d-flex align-items-center">
@@ -18,18 +17,8 @@
 			</button>
 			{{form_end(form)}}
 
-			<div class="container d-flex justify-content-center mb-5 align-items-center">
-				<h2 class="text-light px-4 fw-bolder ">
-					<a href="#recent" class="navtitle text-decoration-none text-light">Les décisions récemment terminées</a>
-				</h2>
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-circle-fill" viewbox="0 0 16 16">
-					<circle cx="8" cy="8" r="8"/>
-				</svg>
-				<h2 class="text-light px-4 fw-bolder ">
-					<a href="#toutes" class="navtitle text-decoration-none text-light">Toutes les décisions</a>
-				</h2>
-			</div>
-			<h2 id="fini" class="text-secondary px-4 pb-4 fw-bolder">
+			
+			<h2 id="fini" class="text-secondary pt-5 px-4 pb-4 fw-bolder">
 				Les décisions bientôt finies
 			</h2>
 			<div class="container-fluid">
@@ -54,9 +43,12 @@
 				</div>
 			</div>
 			<h2 id="toutes" class="text-secondary px-4 pt-4 mt-4 mb-3  fw-bolder">
-				Toutes les décisions
+				Autres décisions
 			</h2>
 			<div class="container-fluid">
+				<div class="text-end">
+					<a type="button" class="btn btn-secondary mb-2 me-3" href="{{ path('app_allDecisions') }}">Voir toutes</a>
+				</div>
 				<div class="row g-3 pb-5">
 					{% for decision in decisions %}
 						<div class="col-md-6 col-lg-4 col-xl-3">

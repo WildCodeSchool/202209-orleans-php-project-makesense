@@ -1,33 +1,95 @@
 <div class="text-light fw-bold fs-2 w-75 m-auto text-center">
 	{{ form_start(form) }}
-	{% if decisionStatus != constant('App\\Entity\\Decision::FIRST_DECISION') %}
+	{% if decisionStatus == constant('App\\Entity\\Decision::FIRST_DECISION') %}
 		<div class="my-5 row align-items-center text-center">
-			<div class="col-md-2 col-sm-3">
-				{{ form_label(form.title) }}
+			<h2 class="text-center fs-1 mt-4">Titre :</h2>
+			<h3>{{ decision.title }}</h3>
+			<div class="d-flex justify-content-around align-items-center my-4 mt-5">
+				<div>
+					<h3 class="text-light fw-bold text-center my-5">Personnes impactées</h3>
+					<div class="d-flex justify-content-center my-3">
+						{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
+							<img class="arrow profil-icons mb-5" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+						{% else %}
+							<p class="fs-5 my-3 mb-5">
+								Aucun salarié n'est impacté par cette décision pour l'instant.
+							</p>
+						{% endfor %}
+					</div>
+				</div>
+				<div>
+					<div class="d-flex justify-content-center my-3">
+						<div class="d-none d-lg-block">
+							<h3 class="text-light fw-bold text-center my-5">Personnes expertes</h3>
+							<div class="d-flex justify-content-center my-3">
+								{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
+									<img class="arrow profil-icons mb-5" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+								{% else %}
+									<p class="fs-5 my-3 mb-5">
+										Aucun salarié expert n'est attribué à cette décision pour l'instant.
+									</p>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-10 col-sm-12">
-				{{ form_widget(form.title, {'attr': {'class': 'py-2 fs-1'}}) }}
+
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h3 class="accordion-header" id="headingOne">
+						<button class="accordion-button fw-bold text-primary fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Détails de la décision
+						</button>
+					</h3>
+					<div id="collapseOne" class="accordion-collapse collapse show text-start" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>{{ decision.details|raw }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header" id="headingTwo">
+						<button class="accordion-button collapsed fw-bold text-primary fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Impacts de la décision
+						</button>
+					</h3>
+					<div id="collapseTwo" class="accordion-collapse collapse text-start" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>{{ decision.impact|raw  }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header" id="headingThree">
+						<button class="accordion-button collapsed fw-bold text-primary fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							Bénéfices potentiels de la décision
+						</button>
+					</h3>
+					<div id="collapseThree" class="accordion-collapse collapse text-start" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>{{ decision.gain|raw  }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header bg-tertiary" id="headingFour">
+						<button class="accordion-button collapsed fw-bold text-primary fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							Risques potentiels de la décision
+						</button>
+					</h3>
+					<div id="collapseFour" class="accordion-collapse collapse text-start" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>{{ decision.risk|raw  }}</p>
+						</div>
+					</div>
+				</div>
 			</div>
-			{{form_errors(form.title)}}
+			<div class="form-spacing text-center">
+				{{ form_row(form.firstDecision) }}
+			</div>
 		</div>
-		<div class="text-center">
-			{{ form_label(form.interactions) }}
-			{{ form_errors(form) }}
-			{{ form_widget(form.interactions) }}
-		</div>
-		<div class="first-form-spacing text-center">
-			{{ form_row(form.details) }}
-		</div>
-		<div class="form-spacing text-center">
-			{{ form_row(form.impact) }}
-		</div>
-		<div class="form-spacing text-center">
-			{{ form_row(form.gain) }}
-		</div>
-		<div class="form-spacing text-center">
-			{{ form_row(form.risk) }}
-		</div>
-	{% else %}
+	{% elseif decisionStatus == constant('App\\Entity\\Decision::FINAL_DECISION') %}
 		<div class="my-5 row align-items-center text-center">
 			<h2 class="text-center fs-1 mt-4">Titre :
 				<br>
@@ -113,10 +175,49 @@
 						</div>
 					</div>
 				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header bg-tertiary" id="headingFive">
+						<button class="accordion-button collapsed fw-bold text-primary fs-2 bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+							Première prise de décision
+						</button>
+					</h3>
+					<div id="collapseFive" class="accordion-collapse collapse text-start" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>{{ decision.firstDecision|raw  }}</p>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="form-spacing text-center">
-				{{ form_row(form.firstDecision) }}
+				{{ form_row(form.finalDecision) }}
 			</div>
+		</div>
+	{% else %}
+		<div class="my-5 row align-items-center text-center">
+			<div class="col-md-2 col-sm-3">
+				{{ form_label(form.title) }}
+			</div>
+			<div class="col-md-10 col-sm-12">
+				{{ form_widget(form.title, {'attr': {'class': 'py-2 fs-1'}}) }}
+			</div>
+			{{form_errors(form.title)}}
+		</div>
+		<div class="text-center">
+			{{ form_label(form.interactions) }}
+			{{ form_errors(form) }}
+			{{ form_widget(form.interactions) }}
+		</div>
+		<div class="first-form-spacing text-center">
+			{{ form_row(form.details) }}
+		</div>
+		<div class="form-spacing text-center">
+			{{ form_row(form.impact) }}
+		</div>
+		<div class="form-spacing text-center">
+			{{ form_row(form.gain) }}
+		</div>
+		<div class="form-spacing text-center">
+			{{ form_row(form.risk) }}
 		</div>
 	{% endif %}
 	<button type="submit" class="btn btn-light text-primary fw-bold my-5 text-center">Modifier la décision</button>
