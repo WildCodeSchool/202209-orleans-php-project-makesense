@@ -25,9 +25,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
-    private const UP_VOTE = "upVote";
-    private const DOWN_VOTE = "downVote";
-
     #[Route('/decision/creation', name: 'app_decision_creation')]
     public function new(
         Request $request,
@@ -90,7 +87,8 @@ class DecisionController extends AbstractController
         InteractionRepository $interactionRepo,
         Request $request,
         Voting $voting,
-        DecisionVoter $decisionVoter
+        DecisionVoter $decisionVoter,
+        CommentRepository $commentRepository
     ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
@@ -102,29 +100,74 @@ class DecisionController extends AbstractController
 
         if ($this->isCsrfTokenValid('vote' . $user->getId(), $request->request->get('_token'))) {
             $this->denyAccessUnlessGranted('vote', $decision);
-            if (
-                $request->get(self::DOWN_VOTE) === '' && $interaction->isVote() === false
-                || $request->get(self::UP_VOTE) === '' && $interaction->isVote() === true
-            ) {
-                $interaction->setVote(null);
-            } elseif ($request->get(self::DOWN_VOTE) === '') {
-                $interaction->setVote(false);
-            } elseif ($request->get(self::UP_VOTE) === '') {
-                $interaction->setVote(true);
-            }
+
+            $voting->voteRegister($request, $interaction);
 
             $interactionRepo->save($interaction, true);
 
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
 
+        //comments method
+        $comments = $commentRepository->findBy(
+            [
+                'decision' => $decision,
+            ]
+        );
+
+        $commentsFirst = [];
+        $commentsConflict = [];
+        $commentsFinal = [];
+        foreach ($comments as $comment) {
+            if (
+                $comment->getCommentTimedate() > $decision->getDecisionStartTime()
+                && $comment->getCommentTimedate() <= $decision->getFirstDecisionEndDate()
+            ) {
+                $commentsFirst[] = $comment;
+            } elseif (
+                $comment->getCommentTimedate() > $decision->getFirstDecisionEndDate()
+                && $comment->getCommentTimedate() <= $decision->getConflictEndDate()
+            ) {
+                $commentsConflict[] = $comment;
+            } elseif (
+                $comment->getCommentTimedate() > $decision->getConflictEndDate()
+                &&  $comment->getCommentTimedate() <= $decision->getFinalDecisionEndDate()
+            ) {
+                $commentsFinal[] = $comment;
+            }
+        };
+
+        $decisionFirst = $decision->getDecisionStartTime();
+        $decisionConflict = $decision->getFirstDecisionEndDate();
+        $decisionFinal = $decision->getConflictEndDate();
+
+        /*        return [
+                'decision' => $decision,
+                'commentsFirstPeriods' => $commentsFirst,
+                'commentsConflictPeriods' => $commentsConflict,
+                'commentsFinalPeriods' => $commentsFinal,
+                'decisionFirstPeriod' => $decisionFirst,
+                'decisionConflictPeriod' => $decisionConflict,
+                'decisionFinalPeriod' => $decisionFinal,
+                'decisionFirstPeriod' => $decisionFirst,
+                'decisionConflictPeriod' => $decisionConflict,
+                'decisionFinalPeriod' => $decisionFinal,
+            ]); */
+
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
             'upVotes' => $voting->countUpVotes($decision),
             'downVotes' => $voting->countDownVotes($decision),
-            'canVote' => $decisionVoter->canVote($decision, $user)
+            'canVote' => $decisionVoter->canVote($decision, $user),
+            'commentsFirstPeriods' => $commentsFirst,
+            'commentsConflictPeriods' => $commentsConflict,
+            'commentsFinalPeriods' => $commentsFinal,
+            'decisionFirstPeriod' => $decisionFirst,
+            'decisionConflictPeriod' => $decisionConflict,
+            'decisionFinalPeriod' => $decisionFinal,
         ]);
     }
+
 
     #[Route('decision/modifier/{decision}', methods: ['GET', 'POST'], name: 'app_decision_edit')]
     public function edit(
@@ -135,7 +178,7 @@ class DecisionController extends AbstractController
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $timelineManager->getDecisionStatus($decision);
+        $decisionStatus = $timelineManager->checkDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -174,7 +217,7 @@ class DecisionController extends AbstractController
             $comment->setUser($user);
             $comment->setDecision($decision);
             $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_decision_commentView', ['decision' => $decision->getId()]);
+            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
 
         return $this->render('decisions/commentCreateView.html.twig', [
@@ -182,62 +225,5 @@ class DecisionController extends AbstractController
             'decision' => $decision,
             'commentForm' => $form->createView(),
         ]);
-    }
-
-
-    #[Route('decision/{decision}/avis', name: 'app_decision_commentView')]
-    public function commentView(
-        Decision $decision,
-        CommentRepository $commentRepository,
-    ): Response {
-        $comments = $commentRepository->findBy(
-            [
-                'decision' => $decision,
-            ]
-        );
-
-        $commentsFirst = [];
-        $commentsConflict = [];
-        $commentsFinal = [];
-        foreach ($comments as $comment) {
-            if (
-                $comment->getCommentTimedate() > $decision->getDecisionStartTime()
-                && $comment->getCommentTimedate() <= $decision->getFirstDecisionEndDate()
-            ) {
-                $commentsFirst[] = $comment;
-            } elseif (
-                $comment->getCommentTimedate() > $decision->getFirstDecisionEndDate()
-                && $comment->getCommentTimedate() <= $decision->getConflictEndDate()
-            ) {
-                $commentsConflict[] = $comment;
-            } elseif (
-                $comment->getCommentTimedate() > $decision->getConflictEndDate()
-                &&  $comment->getCommentTimedate() <= $decision->getFinalDecisionEndDate()
-            ) {
-                $commentsFinal[] = $comment;
-            }
-        };
-
-        $decisionFirst = $decision->getDecisionStartTime();
-        $decisionConflict = $decision->getFirstDecisionEndDate();
-        $decisionFinal = $decision->getConflictEndDate();
-
-        return $this->render(
-            'decisions/commentView.html.twig',
-            [
-                'decision' => $decision,
-                'commentsFirstPeriods' => $commentsFirst,
-                'commentsConflictPeriods' => $commentsConflict,
-                'commentsFinalPeriods' => $commentsFinal,
-                'decisionFirstPeriod' => $decisionFirst,
-                'decisionConflictPeriod' => $decisionConflict,
-                'decisionFinalPeriod' => $decisionFinal,
-            ]
-        );
-    }
-    #[Route('/newtest', name: 'app_newtest')]
-    public function test(): Response
-    {
-        return $this->render('decisions/newdecisionView.html.twig');
     }
 }

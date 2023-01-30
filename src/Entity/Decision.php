@@ -13,8 +13,20 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
-    public const FIRST_DECISION = 'firstDecision';
-    public const FINAL_DECISION = 'finalDecision';
+    public const DECISION_NOT_STARTED = 'Décision non commencée';
+    public const FIRST_DECISION = 'Première prise de décision';
+    public const CONFLICT_PERIOD = 'Période de conflit';
+    public const FINAL_DECISION = 'Prise de décision finale';
+    public const DECISION_FINISHED = 'Décision terminée';
+    public const STATUS_COLORS =
+    [
+        self::DECISION_NOT_STARTED => '#FDF353',
+        self::FIRST_DECISION => '#3B8AA6',
+        self::CONFLICT_PERIOD => '#E36164',
+        self::FINAL_DECISION => '#0D3944',
+        self::DECISION_FINISHED => '#6e6d6d',
+
+    ];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -85,6 +97,14 @@ class Decision
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $finalDecision = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $decisionStatus = null;
+
+    #[ORM\Column(length: 7, nullable: true, options: [
+        "fixed" => true,
+    ])]
+    private ?string $statusColor = null;
 
     public function __construct()
     {
@@ -328,6 +348,30 @@ class Decision
     public function setFinalDecision(?string $finalDecision): self
     {
         $this->finalDecision = $finalDecision;
+
+        return $this;
+    }
+
+    public function getDecisionStatus(): ?string
+    {
+        return $this->decisionStatus;
+    }
+
+    public function setDecisionStatus(?string $decisionStatus): self
+    {
+        $this->decisionStatus = $decisionStatus;
+
+        return $this;
+    }
+
+    public function getStatusColor(): ?string
+    {
+        return $this->statusColor;
+    }
+
+    public function setStatusColor(?string $statusColor): self
+    {
+        $this->statusColor = $statusColor;
 
         return $this;
     }
