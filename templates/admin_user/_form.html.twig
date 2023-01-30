@@ -1,23 +1,23 @@
 {{ form_start(form) }}
 
 <div class="my-3">
-{{form_row(form.email)}}
+	{{form_row(form.email)}}
 </div>
 
 <div class="my-3">
-{{form_row(form.firstname, { 'label': 'Prénom' })}}
+	{{form_row(form.firstname, { 'label': 'Prénom' })}}
 
 </div>
 
 <div class="my-3">
-{{form_row(form.lastname, { 'label': 'Nom' })}}
+	{{form_row(form.lastname, { 'label': 'Nom' })}}
 </div>
 
 <div class="my-3">
-{{ form_row(form.roles, { 'label': 'Roles' })}}
+	{{ form_row(form.roles, { 'label': 'Roles' })}}
 </div>
 
 <div class="text-center">
-<button class="btn btn-tertiary fw-bold w-50 text-white mb-3">{{ button_label|default('Save') }}</button>
+	<button class="btn btn-tertiary fw-bold w-50 text-white mb-3">{{ button_label|default('Save') }}</button>
 </div>
 {{ form_end(form) }}

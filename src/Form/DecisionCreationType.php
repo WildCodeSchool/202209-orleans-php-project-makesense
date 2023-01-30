@@ -2,14 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Decision;
 use App\Form\InteractionType;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class DecisionCreationType extends AbstractType
@@ -51,7 +54,17 @@ class DecisionCreationType extends AbstractType
             ])
             ->add('risk', CKEditorType::class, [
                 'label' => 'Risques potentiels de la décision :',
-            ]);
+            ])
+            ->add(
+                'category',
+                EntityType::class,
+                [
+                    'class' => Category::class,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'placeholder' => 'Liste des catégories',
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
