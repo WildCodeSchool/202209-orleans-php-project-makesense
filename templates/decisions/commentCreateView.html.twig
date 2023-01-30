@@ -30,6 +30,10 @@
 
 						{{form_start(commentForm)}}
 						{{ form_label(commentForm.comment) }}
+						<div class="form-check form-switch my-3">
+							{{ form_label(commentForm.inConflict) }}
+							{{ form_widget(commentForm.inConflict) }}
+						</div>
 
 						{{ form_widget(commentForm.comment, {'attr':{'class':'form-control'}}
 						) }}
