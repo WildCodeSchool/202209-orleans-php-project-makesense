@@ -1,7 +1,8 @@
 <div class="card decisionCard mx-3 my-2 rounded-4 border-primary">
 	{% if decision.category %}
-		<div class="ms-3 mt-2">
+		<div class="ms-3 mt-3">
 			<span style="--categoryColor: {{decision.category.color}}" class=" category fw-bold p-2 bg-light badge fs-6 border border-2 rounded-pill">{{decision.category.name}}</span>
+			<span style="--statusColor: {{decision.statusColor}}; color : {{decision.statusColor}}" class="decisionStatus fw-bold p-2 bg-light badge fs-6 border border-2 rounded-pill">{{decision.decisionStatus}}</span>
 		</div>
 	{% endif %}
 	<div class="card-body d-flex flex-column justify-content-between">
