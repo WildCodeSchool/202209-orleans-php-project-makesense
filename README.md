@@ -127,3 +127,11 @@ SOFTWARE.
 -   yarn install
 -   add your MAILER_DSN in the .env.local
 -   add MAILER_FROM_ADDRESS in the .env.local
+
+To access the website you need to connect :
+id : tedyDoe@gmail.com
+mdp : tedytedy
+
+To accesss the admin part of the website :
+id : admin@make-sense.ms
+mdp : adminadmin
