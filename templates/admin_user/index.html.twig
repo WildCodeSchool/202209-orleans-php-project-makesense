@@ -4,17 +4,17 @@
 {% endblock %}
 {% block body %}
 	<main class="bg-quatro">
-	<div class="container text-start ps-5 mt-5">
-		<h1 class="fw-bold text-secondary">Liste des membres</h1>
+		<div class="container text-start ps-5 mt-5">
+			<h1 class="fw-bold text-secondary">Liste des membres</h1>
 		</div>
 		<div class="p-5 container">
 			<div class="bg-white rounded-4 px-3 py-2">
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Email</th>
 							<th>Prénom</th>
-							<th>Nom</th>
+							<th>nom</th>
+							<th>Email</th>
 							<th>Rôle</th>
 							<th>Action</th>
 						</tr>
@@ -23,9 +23,9 @@
 					<tbody>
 						{% for user in users %}
 							<tr>
-								<td>{{ user.email }}</td>
 								<td>{{ user.firstname }}</td>
 								<td>{{ user.lastname }}</td>
+								<td>{{ user.email }}</td>
 
 								{% if user.roles|filter(role => role == "ROLE_ADMIN") %}
 									<td>{{ constant("App\\Controller\\AdminUserController::ROLES")["ROLE_ADMIN"] }}</td>
