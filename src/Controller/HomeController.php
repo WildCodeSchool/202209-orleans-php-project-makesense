@@ -51,17 +51,14 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(DecisionFilterType::class);
         $form->handleRequest($request);
-        $decisions = $decisionRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             if ($data['category'] instanceof Category) {
-                $categoryName = $data['category'];
-                $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $categoryName);
-            } else {
-                $decisions = $decisionRepository->decisionSearch($data['input'] ?? '');
+                $category = $data['category'];
             }
         }
+        $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $category ?? null);
 
         return $this->renderForm('decisions/allDecisions.html.twig', [
             'decisions' => $decisions,
