@@ -28,24 +28,26 @@
 					<div class="row py-5 rounded-4 bg-tertiary">
 
 						<div class="col-md-12 text-white fs-5 order-first pb-5">
-
-							{{form_start(commentForm) }}
+							{{form_start(commentForm)}}
 							{{ form_label(commentForm.comment) }}
-
+							{% if decisionStatus == constant('App\\Entity\\Decision::CONFLICT_PERIOD') %}
+								<div class="form-check form-switch my-3">
+									{{ form_label(commentForm.inConflict) }}
+									{{ form_widget(commentForm.inConflict) }}
+								</div>
+							{% endif %}
 							{{ form_widget(commentForm.comment, {'attr':{'class':'form-control'}}
 							) }}
 							{{ form_errors(commentForm.comment, {'attr':{'class':'form-control'}}
 							) }}
 							<div class="d-flex justify-content-around">
-								<button class="btn btn-primary w-25 mt-3">Envoyer</button>
+								<button class="btn btn-tertiary w-25 mt-3">Envoyer</button>
 								{{form_end(commentForm)}}
 								<a type="button" href="/" class="btn bg-danger w-25 mt-3 fw-bold ">Retour</a>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-{% endblock %}
+		</main>
+	{% endblock %}

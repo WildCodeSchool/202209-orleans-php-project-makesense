@@ -169,20 +169,22 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
+        TimelineManager $timelineManager
     ): Response {
 
         /**  @var \App\Entity\User */
         $user = $this->getUser();
 
         $comment = new Comment();
+        $comment->setUser($user);
+        $comment->setDecision($decision);
+
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUser($user);
-            $comment->setDecision($decision);
             $commentRepository->save($comment, true);
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
         }
@@ -191,6 +193,7 @@ class DecisionController extends AbstractController
 
             'decision' => $decision,
             'commentForm' => $form->createView(),
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
         ]);
     }
 }
