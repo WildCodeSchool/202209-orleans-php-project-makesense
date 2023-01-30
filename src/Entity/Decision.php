@@ -13,8 +13,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
-    public const FIRST_DECISION = 'firstDecision';
-    public const FINAL_DECISION = 'finalDecision';
+    public const DECISION_NOT_STARTED = 'Décision non commencée';
+    public const FIRST_DECISION = 'Première prise de décision';
+    public const CONFLICT_PERIOD = 'Période de conflit';
+    public const FINAL_DECISION = 'Prise de décision finale';
+    public const DECISION_FINISHED = 'Décision terminée';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

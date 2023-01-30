@@ -135,7 +135,7 @@ class DecisionController extends AbstractController
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $timelineManager->getDecisionStatus($decision);
+        $decisionStatus = $timelineManager->checkDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -159,20 +159,22 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
+        TimelineManager $timelineManager
     ): Response {
 
         /**  @var \App\Entity\User */
         $user = $this->getUser();
 
         $comment = new Comment();
+        $comment->setUser($user);
+        $comment->setDecision($decision);
+
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUser($user);
-            $comment->setDecision($decision);
             $commentRepository->save($comment, true);
             return $this->redirectToRoute('app_decision_commentView', ['decision' => $decision->getId()]);
         }
@@ -181,6 +183,7 @@ class DecisionController extends AbstractController
 
             'decision' => $decision,
             'commentForm' => $form->createView(),
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
         ]);
     }
 
