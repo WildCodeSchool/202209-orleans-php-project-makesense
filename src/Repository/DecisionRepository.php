@@ -18,6 +18,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class DecisionRepository extends ServiceEntityRepository
 {
+    private const DECISION_LIMIT_ORDER = 4;
+    private const ALL_DECISIONS_LIMIT_ORDER = 12;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Decision::class);
@@ -53,7 +56,7 @@ class DecisionRepository extends ServiceEntityRepository
                 ->setParameter('searchedValue', '%' . $searchedValue . '%');
         }
         $queryBuilder->orderBy('d.decisionStartTime', 'DESC')
-            ->setMaxResults(12);
+            ->setMaxResults(self::ALL_DECISIONS_LIMIT_ORDER);
 
         return $queryBuilder->getQuery()
             ->getResult();
@@ -90,7 +93,7 @@ class DecisionRepository extends ServiceEntityRepository
         }
 
         $queryBuilder->orderBy('d.finalDecisionEndDate', 'DESC')
-            ->setMaxResults(3);
+            ->setMaxResults(self::DECISION_LIMIT_ORDER);
 
         return $queryBuilder->getQuery()
             ->getResult();
@@ -107,7 +110,7 @@ class DecisionRepository extends ServiceEntityRepository
         }
 
         $queryBuilder->orderBy('d.finalDecisionEndDate', 'ASC')
-            ->setMaxResults(3);
+            ->setMaxResults(self::DECISION_LIMIT_ORDER);
 
         return $queryBuilder->getQuery()
             ->getResult();
