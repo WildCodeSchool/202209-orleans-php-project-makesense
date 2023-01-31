@@ -10,19 +10,7 @@
 
 
 	<main class="bg-tertiary">
-		{% for category, messages in app.flashes %}
 
-			{% for message in messages %}
-
-				<div class=" text-center alert alert-{{ category }}">
-
-					{{ message }}
-
-				</div>
-
-			{% endfor %}
-
-		{% endfor %}
 		<div class="container bg-light py-3 rounded-4">
 			<div class="container py-5 rounded-4 mt-5 mb-5 bg-tertiary">
 				<div class="row py-3">
@@ -37,6 +25,19 @@
 				</div>
 			</div>
 			<div>
+				{% for category, messages in app.flashes %}
+
+					{% for message in messages %}
+
+						<div class="m-auto fw-bold text-center text-danger bg-light border-light alert alert-{{ category }}">
+
+							{{ message }}
+
+						</div>
+
+					{% endfor %}
+
+				{% endfor %}
 				<div class="container">
 					<div class="row py-5 rounded-4 bg-tertiary">
 
