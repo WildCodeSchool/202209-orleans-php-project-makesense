@@ -190,7 +190,7 @@ class DecisionController extends AbstractController
                 $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) !==
                 null && $comment->isInConflict() === true
             ) {
-                $this->addFlash('danger', 'Seul les personnes impactées ou expertes peuvent entrer en conflit');
+                $this->addFlash('danger', 'Seules les personnes impactées ou expertes peuvent entrer en conflit');
             } else {
                 $commentRepository->save($comment, true);
                 return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
