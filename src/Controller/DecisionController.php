@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\Voting;
 use App\Entity\Decision;
 use App\Entity\Comment;
+use App\Entity\Interaction;
 use App\Form\CommentType;
 use App\Service\AutomatedDates;
 use Symfony\Component\Mime\Email;
@@ -169,7 +170,8 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
-        TimelineManager $timelineManager
+        TimelineManager $timelineManager,
+        InteractionRepository $interactionRepo
     ): Response {
 
         /**  @var \App\Entity\User */
@@ -183,17 +185,24 @@ class DecisionController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            if (
+                $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) !==
+                null && $comment->isInConflict() === true
+            ) {
+                $this->addFlash('danger', 'Seul les personnes impactées ou expertes peuvent entrer en conflit');
+            } else {
+                $commentRepository->save($comment, true);
+                return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            }
         }
 
         return $this->render('decisions/commentCreateView.html.twig', [
 
             'decision' => $decision,
             'commentForm' => $form->createView(),
-            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
+
         ]);
     }
 }
