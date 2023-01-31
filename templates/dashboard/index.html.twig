@@ -33,6 +33,18 @@
 					{% endfor %}
 				</div>
 			</div>
+			<h2 id="fini" class="text-secondary px-4 pt-5 fw-bolder">
+				Les décisions ou je suis expert
+			</h2>
+			<div class="container-fluid">
+				<div class="row g-3">
+					{% for interaction in expertInteractions %}
+						<div class="col-md-6 col-lg-4 col-xl-3">
+							{% include "components/_decisionCards.html.twig" with {'decision': interaction.decision} %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</main>
 {% endblock %}

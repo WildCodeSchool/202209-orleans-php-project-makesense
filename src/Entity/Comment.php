@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -16,6 +17,9 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+        message: 'Le champ est obligatoire.'
+    )]
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -26,6 +30,9 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Decision $decision = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $inConflict = null;
 
     public function __construct()
     {
@@ -81,6 +88,18 @@ class Comment
     public function setDecision(?Decision $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function isInConflict(): ?bool
+    {
+        return $this->inConflict;
+    }
+
+    public function setInConflict(?bool $inConflict): self
+    {
+        $this->inConflict = $inConflict;
 
         return $this;
     }

@@ -1,10 +1,6 @@
 {{ form_start(form) }}
 
 <div class="my-3">
-	{{form_row(form.email)}}
-</div>
-
-<div class="my-3">
 	{{form_row(form.firstname, { 'label': 'Prénom' })}}
 
 </div>
@@ -12,6 +8,11 @@
 <div class="my-3">
 	{{form_row(form.lastname, { 'label': 'Nom' })}}
 </div>
+
+<div class="my-3">
+	{{form_row(form.email)}}
+</div>
+
 
 <div class="my-3">
 	{{ form_row(form.roles, { 'label': 'Roles' })}}

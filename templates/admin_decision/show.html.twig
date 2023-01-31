@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir la décision
+{% endblock %}
+
+{% block body %}
+
+	<main class="bg-primary">
+		<div class="container text-start mt-5">
+			<h1 class="fw-bold text-start text-secondary mb-5">Voir la décision</h1>
+		</div>
+		<div class="container m-auto bg-white rounded-4 p-5">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Titre</th>
+						<td>{{ decision.title }}</td>
+					</tr>
+					<tr>
+						<th>Date de début</th>
+						<td>{{ decision.decisionStartTime ? decision.decisionStartTime|date('Y-m-d') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Détails de la décision</th>
+						<td>{{ decision.details }}</td>
+					</tr>
+					<tr>
+						<th>Impact sur l'organisation</th>
+						<td>{{ decision.impact }}</td>
+					</tr>
+					<tr>
+						<th>Gain</th>
+						<td>{{ decision.gain }}</td>
+					</tr>
+					<tr>
+						<th>Risque</th>
+						<td>{{ decision.risk }}</td>
+					</tr>
+					<tr>
+						<th>Date de fin de la première decision</th>
+						<td>{{ decision.firstDecisionEndDate ? decision.firstDecisionEndDate|date('Y-m-d') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Date de fin du conflit</th>
+						<td>{{ decision.conflictEndDate ? decision.conflictEndDate|date('Y-m-d') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Date de fin de la décision</th>
+						<td>{{ decision.finalDecisionEndDate ? decision.finalDecisionEndDate|date('Y-m-d') : '' }}</td>
+					</tr>
+					<tr>
+						<th>Première décision</th>
+						<td>{{ decision.firstDecision }}</td>
+					</tr>
+					<tr>
+						<th>Décision final</th>
+						<td>{{ decision.finalDecision }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-around">
+				<a href="{{ path('app_admin_decision_index') }}" class="btn btn-tertiary text-white fw-bold">Retour</a>
+
+				{{ include('admin_decision/_delete_form.html.twig') }}
+			</div>
+		</div>
+
+	</main>
+
+{% endblock %}
