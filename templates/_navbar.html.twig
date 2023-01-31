@@ -13,14 +13,19 @@
 					<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_dashboard', {user:app.user.id}) }}">Tableau de bord</a>
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}
-					<li class="nav-item">
-						<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_admin_user_index')}}">Gestion utilisateurs</a>
-					</li>
-				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
-					<li class="nav-item">
-						<a class="nav-link text-primary fw-bolder fs-5" href="{{ path('app_admin_decision_index')}}">Gestion des décisions</a>
-					</li>
+					<div class="dropdown nav-item my-auto">
+						<button class="btn btn-light fw-bold text-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Administration
+						</button>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item text-primary fw-bolder fs-5" href="{{ path('app_admin_user_index')}}">Gestion utilisateurs</a>
+							</li>
+							<li>
+								<a class="dropdown-item text-primary fw-bolder fs-5" href="{{ path('app_admin_decision_index')}}">Gestion des décisions</a>
+							</li>
+						</ul>
+					</div>
 				{% endif %}
 			</ul>
 			<div class="navbar-nav">
