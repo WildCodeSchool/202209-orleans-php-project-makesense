@@ -25,6 +25,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
+    public function __construct(private TimelineManager $timelineManager)
+    {
+    }
+
     #[Route('/decision/creation', name: 'app_decision_creation')]
     public function new(
         Request $request,
@@ -51,6 +55,7 @@ class DecisionController extends AbstractController
             $decision->setFinalDecisionEndDate(
                 $automatedDates->finalDecisionEndDateCalculation($decision)
             );
+            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_home');
@@ -152,6 +157,7 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);

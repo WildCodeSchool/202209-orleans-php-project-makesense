@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Interaction;
+use App\Service\TimelineManager;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashBoardController extends AbstractController
 {
     public const DECISION_LIMIT = 4;
+
+    public function __construct(private TimelineManager $timelineManager)
+    {
+    }
+
 
     #[Route('/tableau-de-bord/{user}', name: 'app_dashboard')]
     public function index(
@@ -46,6 +52,17 @@ class DashBoardController extends AbstractController
             ['decision' => 'DESC'],
             self::DECISION_LIMIT,
         );
+
+        $interactions = array_merge($expertInteractions, $impactedInteractions);
+
+        $decisions = [];
+        foreach ($interactions as $interaction) {
+            $decisions[] = $interaction->getDecision();
+        }
+
+        $decisions = array_merge($myDecisions, $decisions);
+
+        $this->timelineManager->saveDecisionsStatus($decisions);
 
         return $this->render(
             'dashboard/index.html.twig',
