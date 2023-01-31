@@ -145,12 +145,10 @@ class DecisionController extends AbstractController
     public function edit(
         Decision $decision,
         Request $request,
-        DecisionRepository $decisionRepository,
-        TimelineManager $timelineManager
+        DecisionRepository $decisionRepository
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $timelineManager->checkDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
@@ -165,8 +163,7 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form,
-            'decisionStatus' => $decisionStatus
+            'form' => $form
         ]);
     }
 
@@ -174,8 +171,7 @@ class DecisionController extends AbstractController
     public function comment(
         Decision $decision,
         Request $request,
-        CommentRepository $commentRepository,
-        TimelineManager $timelineManager
+        CommentRepository $commentRepository
     ): Response {
 
         /**  @var \App\Entity\User */
@@ -198,8 +194,7 @@ class DecisionController extends AbstractController
         return $this->render('decisions/commentCreateView.html.twig', [
 
             'decision' => $decision,
-            'commentForm' => $form->createView(),
-            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
+            'commentForm' => $form->createView()
         ]);
     }
 }
