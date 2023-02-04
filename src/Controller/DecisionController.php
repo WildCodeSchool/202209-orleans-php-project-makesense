@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Service\Voting;
 use App\Entity\Decision;
 use App\Entity\Comment;
-use App\Entity\Interaction;
 use App\Form\CommentType;
 use App\Service\AutomatedDates;
 use Symfony\Component\Mime\Email;
@@ -26,6 +25,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
+    public function __construct(private TimelineManager $timelineManager)
+    {
+    }
+
     #[Route('/decision/creation', name: 'app_decision_creation')]
     public function new(
         Request $request,
@@ -52,6 +55,7 @@ class DecisionController extends AbstractController
             $decision->setFinalDecisionEndDate(
                 $automatedDates->finalDecisionEndDateCalculation($decision)
             );
+            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_home');
@@ -141,18 +145,17 @@ class DecisionController extends AbstractController
     public function edit(
         Decision $decision,
         Request $request,
-        DecisionRepository $decisionRepository,
-        TimelineManager $timelineManager
+        DecisionRepository $decisionRepository
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
-        $decisionStatus = $timelineManager->checkDecisionStatus($decision);
 
         $form = $this->createForm(DecisionEditionType::class, $decision);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
@@ -160,8 +163,7 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form,
-            'decisionStatus' => $decisionStatus
+            'form' => $form
         ]);
     }
 
@@ -198,11 +200,9 @@ class DecisionController extends AbstractController
         }
 
         return $this->render('decisions/commentCreateView.html.twig', [
-
             'decision' => $decision,
             'commentForm' => $form->createView(),
-            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
-
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
         ]);
     }
 }

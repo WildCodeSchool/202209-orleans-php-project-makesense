@@ -17,11 +17,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class HomeController extends AbstractController
 {
+    public function __construct(private TimelineManager $timelineManager)
+    {
+    }
+
     #[Route('/', name: 'app_home')]
     public function index(
         DecisionRepository $decisionRepository,
-        Request $request,
-        TimelineManager $timelineManager
+        Request $request
     ): Response {
         $form = $this->createForm(DecisionSearchType::class);
 
@@ -36,7 +39,7 @@ class HomeController extends AbstractController
         $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
         $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input'] ?? '');
 
-        $timelineManager->saveDecisionsStatus(
+        $this->timelineManager->saveDecisionsStatus(
             array_merge($decisions, $decisionsFinished, $decisionsEndingSoon)
         );
 
@@ -67,6 +70,8 @@ class HomeController extends AbstractController
             }
         }
         $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $category ?? null);
+
+        $this->timelineManager->saveDecisionsStatus($decisions);
 
         return $this->renderForm('decisions/allDecisions.html.twig', [
             'decisions' => $decisions,

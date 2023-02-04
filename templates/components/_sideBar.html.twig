@@ -1,47 +1,62 @@
-<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-3">
+<nav id="navbar-decision" class=" align-items-stretch sticky-top pt-3 d-none d-lg-block">
 	<nav class="nav nav-pills border rounded-4 py-2">
 
 		<div class="d-flex w-100">
-		
-			<a class="btn btn-light d-flex rounded-4 border fw-bold mx-auto w-75" href="#titre" role="button"><img class="" src="{{ asset('build/images/icons/title.svg') }}" alt=""><div class="my-auto ms-2">Titre</div></a>
+
+			<a class="btn btn-light d-flex rounded-4 border fw-bold mx-auto w-75" href="#titre" role="button"><img class="" src="{{ asset('build/images/icons/title.svg') }}" alt=""><div class="my-auto ms-2">Titre</div>
+			</a>
 		</div>
 		<div class="d-flex w-100">
-			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#presentation"><div><img class="" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt=""></div> <div class="ms-2 my-auto">Présentation</div></a>
+			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#presentation">
+				<div><img class="" src="{{ asset('build/images/icons/decisiontxt.svg') }}" alt=""></div>
+				<div class="ms-2 my-auto">Présentation</div>
+			</a>
 		</div>
 		<div class="d-flex w-100">
-			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#impact"><div><img class="" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt=""></div><div class="ms-2 my-auto">Impact</div></a>
+			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#impact">
+				<div><img class="" src="{{ asset('build/images/icons/Vectororga.svg') }}" alt=""></div>
+				<div class="ms-2 my-auto">Impact</div>
+			</a>
 		</div>
 		<div class="d-flex w-100">
-			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#benefices"><img class="" src="{{ asset('build/images/icons/bene.svg') }}" alt=""><div class="ms-2 my-auto">Bénéfices</div></a>
+			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#benefices"><img class="" src="{{ asset('build/images/icons/bene.svg') }}" alt=""><div class="ms-2 my-auto">Bénéfices</div>
+			</a>
 		</div>
 
 		<div class="d-flex w-100">
-			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#risques"><img class="" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt=""><div class="ms-2 my-auto">Risques</div></a>
+			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#risques"><img class="" src="{{ asset('build/images/icons/Vectorrisk.svg') }}" alt=""><div class="ms-2 my-auto">Risques</div>
+			</a>
 		</div>
 		{% if secondDecisionShow == true %}
 			<div class="d-flex w-100">
-				<a class="btn btn-cinco d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#firstdecision"><div class="my-auto"><img class="" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt=""></div><div class="my-auto">Première décision</div></a>
+				<a class="btn btn-cinco d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#firstdecision">
+					<div class="my-auto"><img class="" src="{{ asset('build/images/icons/firsstdecisiontxt.svg') }}" alt=""></div>
+					<div class="my-auto">Première décision</div>
+				</a>
 			</div>
 		{% endif %}
 		{% if finalDecisionShow == true %}
 			<div class="d-flex w-100">
-				<a class="btn btn-primary d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#finaldecision"><div class="my-auto"><img class="" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt=""></div>Décision finale</a>
+				<a class="btn btn-primary d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#finaldecision">
+					<div class="my-auto"><img class="" src="{{ asset('build/images/icons/finaldecisiontxt.svg') }}" alt=""></div>Décision finale</a>
 			</div>
 		{% endif %}
 		{% if "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
 			<div class="d-flex w-100">
-				<a class="btn btn-danger d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#votes"><img class="" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt=""><div class="ms-2 my-auto">Vote</div></a>
+				<a class="btn btn-danger d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#votes"><img class="" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt=""><div class="ms-2 my-auto">Vote</div>
+				</a>
 			</div>
 		{% endif %}
 
 		<div class="d-flex w-100">
-			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#avis"><img class="" src="{{ asset('build/images/icons/seecomment.svg') }}" alt=""><div class="my-auto ms-2">Avis</div></a>
+			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#avis"><img class="" src="{{ asset('build/images/icons/seecomment.svg') }}" alt=""><div class="my-auto ms-2">Avis</div>
+			</a>
 		</div>
-		{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
-			{% else %}
-				<div class="d-flex w-100">
-					<a class="btn btn-secondary d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="{{ path('app_decision_comment', {'decision': decision.id}) }}"><img class="" src="{{ asset('build/images/icons/writtingcom.svg') }}" alt=""><div class="my-auto ms-2">Ecrire un avis</div></a>
-				</div>
+		{% if decision.decisionStatus != constant('App\\Entity\\Decision::DECISION_FINISHED') and decision.decisionStatus != constant('App\\Entity\\Decision::DECISION_NOT_STARTED')%}
+			<div class="d-flex w-100">
+				<a class="btn btn-secondary d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="{{ path('app_decision_comment', {'decision': decision.id}) }}"><img class="" src="{{ asset('build/images/icons/writtingcom.svg') }}" alt=""><div class="my-auto ms-2">Ecrire un avis</div>
+				</a>
+			</div>
 		{% endif %}
 	</nav>
 </nav>

@@ -57,6 +57,8 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             if ($this->timelineManager->checkDecisionStatus($decision) === Decision::FINAL_DECISION) {
                 $decision->setFirstDecision($faker->paragraph(rand(2, 10)));
             }
+            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
+            $decision->setStatusColor(Decision::STATUS_COLORS[$this->timelineManager->checkDecisionStatus($decision)]);
             $this->addReference('decision_' . $i, $decision);
 
             $manager->persist($decision);
