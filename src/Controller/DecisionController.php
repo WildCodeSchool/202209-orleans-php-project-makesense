@@ -171,7 +171,9 @@ class DecisionController extends AbstractController
     public function comment(
         Decision $decision,
         Request $request,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        TimelineManager $timelineManager,
+        InteractionRepository $interactionRepo
     ): Response {
 
         /**  @var \App\Entity\User */
@@ -185,16 +187,22 @@ class DecisionController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            if (
+                $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) !==
+                null && $comment->isInConflict() === true
+            ) {
+                $this->addFlash('danger', 'Seules les personnes impactées ou expertes peuvent entrer en conflit');
+            } else {
+                $commentRepository->save($comment, true);
+                return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            }
         }
 
         return $this->render('decisions/commentCreateView.html.twig', [
-
             'decision' => $decision,
-            'commentForm' => $form->createView()
+            'commentForm' => $form->createView(),
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
         ]);
     }
 }
