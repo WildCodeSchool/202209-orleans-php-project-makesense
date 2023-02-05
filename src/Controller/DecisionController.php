@@ -171,7 +171,8 @@ class DecisionController extends AbstractController
     public function comment(
         Decision $decision,
         Request $request,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        TimelineManager $timelineManager
     ): Response {
 
         /**  @var \App\Entity\User */
@@ -194,7 +195,8 @@ class DecisionController extends AbstractController
         return $this->render('decisions/commentCreateView.html.twig', [
 
             'decision' => $decision,
-            'commentForm' => $form->createView()
+            'commentForm' => $form->createView(),
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
         ]);
     }
 }
