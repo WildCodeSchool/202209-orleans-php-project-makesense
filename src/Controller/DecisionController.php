@@ -145,7 +145,8 @@ class DecisionController extends AbstractController
     public function edit(
         Decision $decision,
         Request $request,
-        DecisionRepository $decisionRepository
+        DecisionRepository $decisionRepository,
+        TimelineManager $timelineManager
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
@@ -163,7 +164,8 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form
+            'form' => $form,
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
         ]);
     }
 
