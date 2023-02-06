@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\Status;
 use App\Entity\Decision;
-use App\Repository\DecisionRepository;
+use App\Service\TimelineManager;
 use App\Repository\StatusRepository;
 
 class StatusUpdater
