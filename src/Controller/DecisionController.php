@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Service\Voting;
 use App\Entity\Decision;
+use App\Entity\Status;
 use App\Form\CommentType;
 use App\Service\StatusUpdater;
 use App\Security\DecisionVoter;
@@ -32,6 +33,7 @@ class DecisionController extends AbstractController
         DecisionRepository $decisionRepository,
         AutomatedDates $automatedDates,
         MailerInterface $mailer,
+        TimelineManager $timelineManager
     ): Response {
 
         $decision = new Decision();
@@ -54,6 +56,12 @@ class DecisionController extends AbstractController
             $decision->setFinalDecisionEndDate(
                 $automatedDates->finalDecisionEndDateCalculation($decision)
             );
+            $status = new Status();
+            $status->setDecisionStatus($timelineManager->checkDecisionStatus($decision));
+            $status->setStatusColor(Status::STATUS_COLORS[$status->getDecisionStatus()]);
+            $status->setStatusDaysLeft($timelineManager->getStatusDaysLeft($decision));
+            $decision->setStatus($status);
+
             $decisionRepository->save($decision, true);
 
             foreach ($impactedUsers as $impactedUser) {
