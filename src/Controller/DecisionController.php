@@ -226,7 +226,7 @@ class DecisionController extends AbstractController
         return $this->render('decisions/commentCreateView.html.twig', [
             'decision' => $decision,
             'commentForm' => $form->createView(),
-            'decisionStatus' => $timelineManager->checkDecisionStatus($decision)
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
         ]);
     }
 }
