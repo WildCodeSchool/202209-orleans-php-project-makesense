@@ -100,39 +100,39 @@
 								<div class="container bg-tertiary rounded text-center">
 									<h2 id="titre" class="fw-bold pb-4 text-secondary pt-3">{{ decision.title }}</h2>
 								</div>
-							{% else %}
-								<div class="container py-3 rounded shadow-sm bg-light">
-									<div class="container bg-tertiary rounded text-center">
-										<h2 id="titre" class="fw-bold pb-4 text-secondary pt-3">{{ decision.title }}</h2>
-									</div>
-								{% endif %}
-								<div class="d-flex justify-content-end">
-									<img class="mx-2 pictureComment" src="{% if decision.creator.poster %}{{ asset('uploads/avatar/')~ decision.creator.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'auteur">
-									<div class="ms-2 py-3 pe-2">par</div>
-									<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
-								</div>
-
-								{% include "/components/_headerDetails.html.twig" %}
-
 							</div>
-						</div>
-						{% include "/components/_decisionPart.html.twig" %}
-						<div id="votes">
-						{% include "/components/_vote.html.twig" %}
-						</div>
+						{% else %}
+							<div class="container py-3 rounded shadow-sm bg-light">
+								<div class="container bg-tertiary rounded text-center">
+									<h2 id="titre" class="fw-bold pb-4 text-secondary pt-3">{{ decision.title }}</h2>
+								</div>
+							{% endif %}
+							<div class="d-flex justify-content-end">
+								<img class="mx-2 pictureComment card-picture profil-icon" src="{% if decision.creator.poster %}{{ asset('uploads/avatar/')~ decision.creator.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'auteur">
+								<div class="ms-2 py-3 pe-2">par</div>
+								<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
+							</div>
 
-						<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-										<div id="votes" class="fw-bold pb-3 py-3 btn btn-tertiary w-100 fs-3 text-white">Avis</div>
-									</button>
-								</h2>
-								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-									<div class="accordion-body">
-										<div id="avis" class="pb-5 text-dark">
-											{% include "/components/_commentFrame.html.twig" %}
-										</div>
+							{% include "/components/_headerDetails.html.twig" %}
+
+						</div>
+					</div>
+					{% include "/components/_decisionPart.html.twig" %}
+					<div id="votes">
+						{% include "/components/_vote.html.twig" %}
+					</div>
+
+					<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<div id="votes" class="fw-bold pb-3 py-3 btn btn-tertiary w-100 fs-3 text-white">Avis</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+								<div class="accordion-body">
+									<div id="avis" class="pb-5 text-dark">
+										{% include "/components/_commentFrame.html.twig" %}
 									</div>
 								</div>
 							</div>
@@ -140,5 +140,6 @@
 					</div>
 				</div>
 			</div>
-		</main>
-	{% endblock %}
+		</div>
+	</main>
+{% endblock %}

@@ -28,6 +28,8 @@ class DashBoardController extends AbstractController
         User $user,
         InteractionRepository $interactionRepo
     ): Response {
+        $this->denyAccessUnlessGranted('view', $user);
+
         $myDecisions = $decisionRepository->findBy(
             ['creator' => $user],
             ['decisionStartTime' => 'DESC'],
