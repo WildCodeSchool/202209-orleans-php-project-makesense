@@ -128,6 +128,7 @@ class DecisionController extends AbstractController
 
         return $this->render('decisions/decisionView.html.twig', [
             'decision' => $decision,
+            'comments' => $comment,
             'upVotes' => $voting->countUpVotes($decision),
             'downVotes' => $voting->countDownVotes($decision),
             'canVote' => $decisionVoter->canVote($decision, $user),
