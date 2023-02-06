@@ -7,6 +7,7 @@ $quatro : #1A3843;
 $cinco : #26586A;
 $darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
+$error500 : #66E31C;
 $font : 'Raleway', sans-serif;
 
 // Tableau de couleurs personalisées
@@ -15,10 +16,11 @@ $custom-colors: (
     "quatro": $quatro,
     "cinco": $cinco,
     "darkGrey" : $darkGrey,
+    "error500" : $error500,
 );
 
 $display-font-sizes: (
-  1: 15rem,
+  1: 8rem,
 );
 
 
@@ -45,6 +47,10 @@ body {
 
 main{
     padding-block-start :20vh;
+}
+
+.error {
+    padding-block-start :2vh;
 }
 
 
@@ -119,5 +125,5 @@ transition: 0.2s ease-in-out;
     }
 
 .backgroundShow {
-    height: 90vh;
+    height: 100vh;
 }

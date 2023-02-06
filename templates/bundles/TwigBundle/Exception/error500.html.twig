@@ -4,9 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<main class="bg-secondary backgroundShow text-center">
+	<main class="error bg-error500 backgroundShow text-center">
 		<div><img src="{{ asset('build/images/logo-makesense.png') }}" alt=""></div>
+		<a class="btn btn-error500 fs-1 fw-bold border border-dark" href="{{ path("app_home") }}">Retour à l'accueil</a>
 		<div class="text-white display-1 fw-bold">500</div>
-		<div class="display-1 fw-bold">OOPS PETITE ERREUR SEREVEUR</div>
+		<div class="display-1 fw-bold">OOPS PETITE ERREUR SERVEUR</div>
 	</main>
 {% endblock %}
