@@ -43,6 +43,10 @@ class Decision
     #[Assert\NotBlank(
         message: 'Le champ est obligatoire.'
     )]
+    #[Assert\GreaterThan(
+        'today',
+        message: 'Vous ne pouvez pas faire commencer une décision à une date antérieure à aujourd\'hui'
+    )]
     private ?\DateTimeInterface $decisionStartTime = null;
 
     #[ORM\Column(type: Types::TEXT)]
