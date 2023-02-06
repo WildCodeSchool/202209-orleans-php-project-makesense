@@ -130,18 +130,19 @@
 							{% include "/components/_vote.html.twig" %}
 						</div>
 
-						<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-										<div id="votes" class="fw-bold pb-3 py-3 btn btn-tertiary w-100 fs-3 text-white">Avis</div>
-									</button>
-								</h2>
-								<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-									<div class="accordion-body">
-										<div id="avis" class="pb-5 text-dark">
-											{% include "/components/_commentFrame.html.twig" %}
-										</div>
+						{% include "/components/_headerDetails.html.twig" %}
+					</div>
+					<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									<div id="votes" class="fw-bold pb-3 py-3 btn btn-tertiary w-100 fs-3 text-white">Avis</div>
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+								<div class="accordion-body">
+									<div id="avis" class="pb-5 text-dark">
+										{% include "/components/_commentFrame.html.twig" %}
 									</div>
 								</div>
 							</div>

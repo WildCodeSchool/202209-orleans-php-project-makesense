@@ -33,7 +33,8 @@ class DecisionController extends AbstractController
     public function new(
         Request $request,
         DecisionRepository $decisionRepository,
-        AutomatedDates $automatedDates
+        AutomatedDates $automatedDates,
+        MailerInterface $mailer,
     ): Response {
 
         $decision = new Decision();
@@ -43,6 +44,7 @@ class DecisionController extends AbstractController
         /** @var \App\Entity\User */
         $user = $this->getUser();
         $form->handleRequest($request);
+        $impactedUsers = $form->getData()->getInteractions();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $decision->setCreator($user);
@@ -57,6 +59,24 @@ class DecisionController extends AbstractController
             );
             $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
+
+            foreach ($impactedUsers as $impactedUser) {
+                $impactedUserRole =  $impactedUser->getDecisionRole();
+                $email = (new Email())
+
+                    ->from($this->getParameter('mailer_from'))
+
+                    ->to($impactedUser->getUser()->getEmail())
+
+                    ->subject('Une nouvelle décision vient d\'être publiée !')
+
+                    ->html($this->renderView('email/impact.html.twig', [
+                        'decision' => $decision,
+                        'impactedUser' => $impactedUser,
+                        'impactedUserRole' => $impactedUserRole,
+                    ]));
+                $mailer->send($email);
+            }
 
             return $this->redirectToRoute('app_home');
         }
@@ -73,7 +93,8 @@ class DecisionController extends AbstractController
         Request $request,
         Voting $voting,
         DecisionVoter $decisionVoter,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        TimelineManager $timelineManager
     ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
@@ -137,6 +158,8 @@ class DecisionController extends AbstractController
             'decisionFirstPeriod' => $decisionFirst,
             'decisionConflictPeriod' => $decisionConflict,
             'decisionFinalPeriod' => $decisionFinal,
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
+            'voteRatio' => $voting->getVoteRatio($decision)
         ]);
     }
 
@@ -145,7 +168,8 @@ class DecisionController extends AbstractController
     public function edit(
         Decision $decision,
         Request $request,
-        DecisionRepository $decisionRepository
+        DecisionRepository $decisionRepository,
+        TimelineManager $timelineManager
     ): Response {
 
         $this->denyAccessUnlessGranted('edit', $decision);
@@ -163,7 +187,8 @@ class DecisionController extends AbstractController
 
         return $this->renderForm('decisions/edit.html.twig', [
             'decision' => $decision,
-            'form' => $form
+            'form' => $form,
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
         ]);
     }
 
@@ -172,9 +197,10 @@ class DecisionController extends AbstractController
         Decision $decision,
         Request $request,
         CommentRepository $commentRepository,
-        TimelineManager $timelineManager
+        TimelineManager $timelineManager,
+        InteractionRepository $interactionRepo
     ): Response {
-
+        $this->denyAccessUnlessGranted('comment', $decision);
         /**  @var \App\Entity\User */
         $user = $this->getUser();
 
@@ -182,18 +208,22 @@ class DecisionController extends AbstractController
         $comment->setUser($user);
         $comment->setDecision($decision);
 
-
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->save($comment, true);
-            return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            if (
+                $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) !==
+                null && $comment->isInConflict() === true
+            ) {
+                $this->addFlash('danger', 'Seules les personnes impactées ou expertes peuvent entrer en conflit');
+            } else {
+                $commentRepository->save($comment, true);
+                return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
+            }
         }
 
         return $this->render('decisions/commentCreateView.html.twig', [
-
             'decision' => $decision,
             'commentForm' => $form->createView(),
             'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
