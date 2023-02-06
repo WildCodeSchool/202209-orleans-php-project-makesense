@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Status;
 use App\Entity\Decision;
 use App\Service\AutomatedDates;
 use App\Service\TimelineManager;
@@ -54,11 +55,9 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
             $decision->setCategory($this->getReference('category_' . rand(0, 5)));
             // If the decision is in final state then it already have a first decision
-            if ($this->timelineManager->checkDecisionStatus($decision) === Decision::FINAL_DECISION) {
+            if ($this->timelineManager->checkDecisionStatus($decision) === Status::FINAL_DECISION) {
                 $decision->setFirstDecision($faker->paragraph(rand(2, 10)));
             }
-            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
-            $decision->setStatusColor(Decision::STATUS_COLORS[$this->timelineManager->checkDecisionStatus($decision)]);
             $this->addReference('decision_' . $i, $decision);
 
             $manager->persist($decision);

@@ -1,12 +1,18 @@
 {% for comment in comments %}
-	{% set backgroundColor = background %}
-	<article class="{{backgroundColor}} py-4">
-		<div class="commentAlign py-3 bg-white rounded-4 mt-2 shadow">
+	<article class="py-4">
+		<div class="commentAlign py-3 bg-white border border-1 border-tertiary rounded-4 mt-2 shadow">
 			<div class="ms-3 mt-2 d-flex">
 				<img class="mx-2 pictureComment" src="{% if comment.user.poster %}{{ asset('uploads/avatar/')~ comment.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'auteur">
 				<div class="my-auto">{{comment.user.firstname}}
-					{{comment.user.lastname}}</div>
+					{{comment.user.lastname}}
+				</div>
+				{% if comment.inConflict %}
+					<div class="d-flex align-items-center">
+						<span class="border-danger text-danger fw-bold p-2 bg-light badge fs-6 border border-2 rounded-pill mx-2">conflit</span>
+					</div>
+				{% endif %}
 			</div>
+
 			<div class="mx-4 mt-4 mb-1">
 				{{comment.comment|raw}}
 			</div>

@@ -3,76 +3,65 @@
 namespace App\Service;
 
 use DateTime;
+use App\Entity\Status;
 use App\Entity\Decision;
-use App\Repository\DecisionRepository;
 
 class TimelineManager
 {
-    public function __construct(private DecisionRepository $decisionRepository)
-    {
-    }
-
     public function checkDecisionStatus(Decision $decision): ?string
     {
         $decisionStatus = '';
         /** @var DateTime */
         $now = new Datetime('now');
         if ($now < $decision->getDecisionStartTime()) {
-            $decisionStatus = Decision::DECISION_NOT_STARTED;
+            $decisionStatus = Status::DECISION_NOT_STARTED;
         } elseif (
             $now >= $decision->getDecisionStartTime()
             && $now < $decision->getFirstDecisionEndDate()
         ) {
-            $decisionStatus = Decision::FIRST_DECISION;
+            $decisionStatus = Status::FIRST_DECISION;
         } elseif (
             $now >= $decision->getFirstDecisionEndDate()
             && $now < $decision->getConflictEndDate()
         ) {
-            $decisionStatus = Decision::CONFLICT_PERIOD;
+            $decisionStatus = Status::CONFLICT_PERIOD;
         } elseif (
             $now >= $decision->getConflictEndDate()
             && $now < $decision->getFinalDecisionEndDate()
         ) {
-            $decisionStatus = Decision::FINAL_DECISION;
+            $decisionStatus = Status::FINAL_DECISION;
         } elseif ($now >= $decision->getFinalDecisionEndDate()) {
-            $decisionStatus = Decision::DECISION_FINISHED;
+            $decisionStatus = Status::DECISION_FINISHED;
         }
-
         return $decisionStatus;
     }
 
-    public function saveDecisionStatus(Decision $decision): void
+    public function getStatusDaysLeft(Decision $decision): ?string
     {
-        if ($decision->getDecisionStatus() !== $this->checkDecisionStatus($decision)) {
-            if ($this->checkDecisionStatus($decision) === Decision::DECISION_NOT_STARTED) {
-                $decision->setDecisionStatus(Decision::DECISION_NOT_STARTED);
-                $decision->setStatusColor(Decision::STATUS_COLORS[Decision::DECISION_NOT_STARTED]);
-            } elseif ($this->checkDecisionStatus($decision) === Decision::FIRST_DECISION) {
-                $decision->setDecisionStatus(Decision::FIRST_DECISION);
-                $decision->setStatusColor(Decision::STATUS_COLORS[Decision::FIRST_DECISION]);
-            } elseif ($this->checkDecisionStatus($decision) === Decision::CONFLICT_PERIOD) {
-                $decision->setDecisionStatus(Decision::CONFLICT_PERIOD);
-                $decision->setStatusColor(Decision::STATUS_COLORS[Decision::CONFLICT_PERIOD]);
-            } elseif ($this->checkDecisionStatus($decision) === Decision::FINAL_DECISION) {
-                $decision->setDecisionStatus(Decision::FINAL_DECISION);
-                $decision->setStatusColor(Decision::STATUS_COLORS[Decision::FINAL_DECISION]);
-            } elseif ($this->checkDecisionStatus($decision) === Decision::DECISION_FINISHED) {
-                $decision->setDecisionStatus(Decision::DECISION_FINISHED);
-                $decision->setStatusColor(Decision::STATUS_COLORS[Decision::DECISION_FINISHED]);
-            }
+        /** @var DateTime */
+        $now = new Datetime('now');
+        if ($this->checkDecisionStatus($decision) === Status::DECISION_NOT_STARTED) {
+            $statusDate = $decision->getDecisionStartTime();
+            $interval = date_diff($now, $statusDate, true);
 
-            $this->decisionRepository->save($decision, true);
-        }
-    }
+            return $interval->format('%a jours restant(s)');
+        } elseif ($this->checkDecisionStatus($decision) === Status::FIRST_DECISION) {
+            $statusDate = $decision->getFirstDecisionEndDate();
+            $interval = date_diff($now, $statusDate, true);
 
-    public function saveDecisionsStatus(array $decisions): void
-    {
-        foreach ($decisions as $decision) {
-            if ($decision->getDecisionStatus() !== $this->checkDecisionStatus($decision)) {
-                $decision->setDecisionStatus($this->checkDecisionStatus($decision));
-                $decision->setStatusColor(Decision::STATUS_COLORS[$this->checkDecisionStatus($decision)]);
-                $this->decisionRepository->save($decision, true);
-            }
+            return $interval->format('%a jours restant(s)');
+        } elseif ($this->checkDecisionStatus($decision) === Status::CONFLICT_PERIOD) {
+            $statusDate = $decision->getConflictEndDate();
+            $interval = date_diff($now, $statusDate, true);
+
+            return $interval->format('%a jours restant(s)');
+        } elseif ($this->checkDecisionStatus($decision) === Status::FINAL_DECISION) {
+            $statusDate = $decision->getFinalDecisionEndDate();
+            $interval = date_diff($now, $statusDate, true);
+
+            return $interval->format('%a jours restant(s)');
+        } else {
+            return null;
         }
     }
 }

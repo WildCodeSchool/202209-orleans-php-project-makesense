@@ -26,7 +26,9 @@ class UserType extends AbstractType
                         'Admin' => 'ROLE_ADMIN',
                     ],
                     'expanded' => true,
-                    'multiple' => false
+                    'multiple' => false,
+                    'label' => false,
+
                 ],
             ]);
     }

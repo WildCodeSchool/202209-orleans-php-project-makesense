@@ -14,7 +14,7 @@ class CategoryFixtures extends Fixture
         'Finance' => '#E36164',
         'R&D' => '#474136',
         'Juridique' => '#70AF90',
-        'Marketing' => '#C1E94E',
+        'Marketing' => '#F3976B',
     ];
 
     public function load(ObjectManager $manager): void
