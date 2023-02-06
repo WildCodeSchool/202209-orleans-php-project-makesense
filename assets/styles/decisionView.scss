@@ -57,3 +57,8 @@ article:nth-of-type(even)> .commentAlign {
  height: 1rem;
  width: 1rem;
 }
+
+.iconDecision {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    height: 40px;
+}

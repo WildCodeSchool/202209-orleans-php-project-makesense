@@ -1,7 +1,11 @@
 {% if decision.status.decisionStatus == constant('App\\Entity\\Status::FINAL_DECISION') %}
+
 	<div class="pb-5 text-dark">
 		<div class="container py-5 rounded shadow-sm bg-light">
-			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Vote</h2>
+			<div class="bg-primary rounded my-auto d-flex py-4">
+			<img class="ps-3 iconDecision text-start" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">
+			<h2 class="fw-bold fs-3 text-white mx-auto">Vote</h2>
+			</div>
 			<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
 				<p class="text-primary fw-bold fs-5 text-center mb-0 mt-4">
 					<svg class="mb-1 mx-1" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewbox="0 0 16 16">
