@@ -45,7 +45,7 @@ class Decision
     )]
     #[Assert\GreaterThan(
         'today',
-        message: 'Vous ne pouvez pas faire commencer une décision à une date antérieur à aujourd\'hui'
+        message: 'Vous ne pouvez pas faire commencer une décision à une date antérieure à aujourd\'hui'
     )]
     private ?\DateTimeInterface $decisionStartTime = null;
 
