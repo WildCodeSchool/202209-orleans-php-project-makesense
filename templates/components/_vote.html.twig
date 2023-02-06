@@ -1,4 +1,4 @@
-{% if decisionStatus == constant('App\\Entity\\Decision::FINAL_DECISION') %}
+{% if decision.status.decisionStatus == constant('App\\Entity\\Status::FINAL_DECISION') %}
 	<div class="pb-5 text-dark">
 		<div class="container py-5 rounded shadow-sm bg-light">
 			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Vote</h2>
@@ -29,7 +29,7 @@
 			</form>
 		</div>
 	</div>
-{% elseif decisionStatus == constant('App\\Entity\\Decision::DECISION_FINISHED') %}
+{% elseif decision.status.decisionStatus == constant('App\\Entity\\Status::DECISION_FINISHED') %}
 	<div class="pb-5 text-dark">
 		<div class="container py-5 rounded shadow-sm bg-light">
 			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Résultat des votes</h2>
