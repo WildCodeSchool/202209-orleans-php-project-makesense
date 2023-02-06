@@ -3,8 +3,8 @@
 $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
-$quatro : #1A3843;
-$cinco : #26586A;
+$quatro : #1F5562;
+$cinco : #2C7A88;
 $darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
 $font : 'Raleway', sans-serif;
@@ -80,7 +80,7 @@ p, h1, h2, h3, h4, h5, ul, li, div {
     box-shadow: $lightShadow 7px 7px;
     transition: 0.2s ease-in-out;
     min-height: 370px;
-    max-width: 390px;
+    max-width: 450px;
 }
 
 .decisionCard:hover {

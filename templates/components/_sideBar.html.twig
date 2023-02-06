@@ -52,7 +52,7 @@
 			<a class="btn btn-light d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="#avis"><img class="" src="{{ asset('build/images/icons/seecomment.svg') }}" alt=""><div class="my-auto ms-2">Avis</div>
 			</a>
 		</div>
-		{% if decision.decisionStatus != constant('App\\Entity\\Decision::DECISION_FINISHED') and decision.decisionStatus != constant('App\\Entity\\Decision::DECISION_NOT_STARTED')%}
+		{% if decision.status.decisionStatus != constant('App\\Entity\\Status::DECISION_FINISHED') and decision.status.decisionStatus != constant('App\\Entity\\Status::DECISION_NOT_STARTED')%}
 			<div class="d-flex w-100">
 				<a class="btn btn-secondary d-flex rounded-4 fw-bold mx-auto w-75 mt-2" href="{{ path('app_decision_comment', {'decision': decision.id}) }}"><img class="" src="{{ asset('build/images/icons/writtingcom.svg') }}" alt=""><div class="my-auto ms-2">Ecrire un avis</div>
 				</a>

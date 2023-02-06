@@ -10,24 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
-    public const DECISION_NOT_STARTED = 'Décision non commencée';
-    public const FIRST_DECISION = 'Première prise de décision';
-    public const CONFLICT_PERIOD = 'Période de conflit';
-    public const FINAL_DECISION = 'Prise de décision finale';
-    public const DECISION_FINISHED = 'Décision terminée';
-    public const STATUS_COLORS =
-    [
-        self::DECISION_NOT_STARTED => '#FDF353',
-        self::FIRST_DECISION => '#3B8AA6',
-        self::CONFLICT_PERIOD => '#E36164',
-        self::FINAL_DECISION => '#0D3944',
-        self::DECISION_FINISHED => '#6e6d6d',
-
-    ];
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -78,7 +64,6 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
-
     #[ORM\ManyToOne]
     private ?Category $category = null;
 
@@ -98,13 +83,8 @@ class Decision
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $finalDecision = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
-    private ?string $decisionStatus = null;
-
-    #[ORM\Column(length: 7, nullable: true, options: [
-        "fixed" => true,
-    ])]
-    private ?string $statusColor = null;
+    #[ORM\OneToOne(mappedBy: 'decision', cascade: ['persist', 'remove'])]
+    private ?Status $status = null;
 
     public function __construct()
     {
@@ -224,7 +204,6 @@ class Decision
 
         return $this;
     }
-
 
     public function getCategory(): ?Category
     {
@@ -354,26 +333,24 @@ class Decision
         return $this;
     }
 
-    public function getDecisionStatus(): ?string
+    public function getStatus(): ?Status
     {
-        return $this->decisionStatus;
+        return $this->status;
     }
 
-    public function setDecisionStatus(?string $decisionStatus): self
+    public function setStatus(?Status $status): self
     {
-        $this->decisionStatus = $decisionStatus;
+        // unset the owning side of the relation if necessary
+        if ($status === null && $this->status !== null) {
+            $this->status->setDecision(null);
+        }
 
-        return $this;
-    }
+        // set the owning side of the relation if necessary
+        if ($status !== null && $status->getDecision() !== $this) {
+            $status->setDecision($this);
+        }
 
-    public function getStatusColor(): ?string
-    {
-        return $this->statusColor;
-    }
-
-    public function setStatusColor(?string $statusColor): self
-    {
-        $this->statusColor = $statusColor;
+        $this->status = $status;
 
         return $this;
     }
