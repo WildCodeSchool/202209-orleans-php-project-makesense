@@ -7,19 +7,16 @@
 	{{ encore_entry_link_tags('decisionView') }}
 {% endblock %}
 {% block body %}
-
-
-	<main class="bg-tertiary">
-
+	<main class="bg-tertiary pb-4">
 		<div class="container bg-light py-3 rounded-4">
-			<div class="container py-5 rounded-4 mt-5 mb-5 bg-tertiary">
+			<div class="container py-5 rounded-4 mt-4 mb-5 bg-tertiary">
 				<div class="row py-3">
 					<h1 class="text-secondary text-uppercase fw-bolder fs-4 col-md-8 text-center">{{ decision.title }}</h1>
-
 					<div class="col-md-4 text-white d-flex pt-4">
-						<img class="mx-2 pictureCreator" src="{{ asset('build/images/icons/person.svg') }}" alt="Image de l'auteur">
+						<img class="mx-2 pictureCreator" src="{% if app.user.poster %}{{ asset('uploads/avatar/')~ app.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'auteur">
 						<div class="ms-2 py-3 pe-2">par
-							{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
+							{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}
+						</div>
 						<div class="text-uppercase fw-bold py-3"></div>
 					</div>
 				</div>
@@ -39,12 +36,11 @@
 
 				{% endfor %}
 				<div class="container">
-					<div class="row py-5 rounded-4 bg-tertiary">
-
-						<div class="col-md-12 text-white fs-5 order-first pb-5">
+					<div class="row pt-5 pb-4 px-3 rounded-4 bg-tertiary">
+						<div class="col-md-12 text-white fs-5 order-first">
 							{{form_start(commentForm)}}
 							{{ form_label(commentForm.comment) }}
-							{% if decisionStatus == constant('App\\Entity\\Decision::CONFLICT_PERIOD') %}
+							{% if decision.status.decisionStatus == constant('App\\Entity\\Status::CONFLICT_PERIOD') %}
 								<div class="form-check form-switch my-3">
 									{{ form_label(commentForm.inConflict) }}
 									{{ form_widget(commentForm.inConflict) }}
@@ -54,14 +50,15 @@
 							) }}
 							{{ form_errors(commentForm.comment, {'attr':{'class':'form-control'}}
 							) }}
-							<div class="d-flex justify-content-around">
-								<button class="btn btn-primary w-25 mt-3">Envoyer</button>
+							<div class="d-flex justify-content-around mt-3">
+								<button class="btn btn-primary w-25 mt-3 fw-bold">Envoyer</button>
 								{{form_end(commentForm)}}
-								<a type="button" href="/" class="btn bg-danger w-25 mt-3 fw-bold ">Retour</a>
+								<a type="button" href="/" class="btn bg-danger w-25 mt-3 fw-bold text-white">Retour</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</main>
-	{% endblock %}
+		</div>
+	</main>
+{% endblock %}

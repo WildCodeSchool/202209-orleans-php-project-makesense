@@ -4,6 +4,7 @@ namespace App\Service;
 
 use DateTime;
 use DateInterval;
+use App\Entity\Status;
 use App\Entity\Decision;
 
 class AutomatedDates
@@ -42,12 +43,12 @@ class AutomatedDates
             $now >= $decision->getDecisionStartTime()
             && $now < $decision->getFirstDecisionEndDate()
         ) {
-            $decisionStatus = Decision::FIRST_DECISION;
+            $decisionStatus = Status::FIRST_DECISION;
         } elseif (
             $now >= $decision->getConflictEndDate()
             && $now < $decision->getFinalDecisionEndDate()
         ) {
-            $decisionStatus = Decision::FINAL_DECISION;
+            $decisionStatus = Status::FINAL_DECISION;
         }
         return $decisionStatus;
     }

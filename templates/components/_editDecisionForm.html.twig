@@ -1,6 +1,6 @@
 <div class="text-light fw-bold fs-2 w-75 m-auto text-center">
 	{{ form_start(form) }}
-	{% if decisionStatus == constant('App\\Entity\\Decision::FIRST_DECISION') %}
+	{% if decision.status.decisionStatus == constant('App\\Entity\\Status::FIRST_DECISION') %}
 		<div class="my-5 row align-items-center text-center">
 			<div class="col-md-2 col-sm-3">
 				{{ form_label(form.title) }}
@@ -124,7 +124,7 @@
 				{{ form_row(form.firstDecision) }}
 			</div>
 		</div>
-	{% elseif decisionStatus == constant('App\\Entity\\Decision::FINAL_DECISION') %}
+	{% elseif decision.status.decisionStatus == constant('App\\Entity\\Status::FINAL_DECISION') %}
 		<div class="my-5 row align-items-center text-center">
 			<h2 class="text-center fs-1 mt-4">Titre :
 				<br>

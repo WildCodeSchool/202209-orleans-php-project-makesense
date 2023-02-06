@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Category;
+use App\Service\StatusUpdater;
 use App\Form\DecisionFilterType;
 use App\Form\DecisionSearchType;
-use App\Service\TimelineManager;
 use App\Repository\DecisionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class HomeController extends AbstractController
 {
-    public function __construct(private TimelineManager $timelineManager)
+    public function __construct(private StatusUpdater $statusUpdater)
     {
     }
 
@@ -39,7 +39,7 @@ class HomeController extends AbstractController
         $decisionsFinished = $decisionRepository->findDecisionFinished($today, $data['input'] ?? '');
         $decisionsEndingSoon = $decisionRepository->findDecisionFinishedSoon($today, $data['input'] ?? '');
 
-        $this->timelineManager->saveDecisionsStatus(
+        $this->statusUpdater->saveDecisionsStatus(
             array_merge($decisions, $decisionsFinished, $decisionsEndingSoon)
         );
 
@@ -71,7 +71,7 @@ class HomeController extends AbstractController
         }
         $decisions = $decisionRepository->decisionSearchCategory($data['input'] ?? '', $category ?? null);
 
-        $this->timelineManager->saveDecisionsStatus($decisions);
+        $this->statusUpdater->saveDecisionsStatus($decisions);
 
         return $this->renderForm('decisions/allDecisions.html.twig', [
             'decisions' => $decisions,
