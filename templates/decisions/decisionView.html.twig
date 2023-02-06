@@ -8,7 +8,23 @@
 {% endblock %}
 {% block body %}
 
-	{% if "now"|date("Y/m/d") <= decision.firstDecisionEndDate|date("Y/m/d")  %}
+{% if "now"|date("Y/m/d") <= decision.decisionStartTime|date("Y/m/d")  %}
+ {% set secondDecisionShow = false %}
+		{% set finalDecisionShow = false %}
+		{% set backgroundPhase1 = '' %}
+		{% set backgroundPhase2 = 'bg-light' %}
+		{% set backgroundPhase3 = 'bg-light' %}
+		{% set backgroundPhase4 = 'bg-light' %}
+		{% set textPhase1 = 'text-light' %}
+		{% set textPhase2 = 'text-dark' %}
+		{% set textPhase3 = 'text-dark' %}
+		{% set textPhase4 = 'text-dark' %}
+		{% set opacityPhase1 = 'opacity-25' %}
+		{% set opacityPhase2 = 'opacity-25' %}
+		{% set opacityPhase3 = 'opacity-25' %}
+		{% set opacityPhase4 = 'opacity-25' %}
+
+	{% elseif "now"|date("Y/m/d") <= decision.firstDecisionEndDate|date("Y/m/d")  %}
 		{% set secondDecisionShow = false %}
 		{% set finalDecisionShow = false %}
 		{% set backgroundPhase1 = 'bg-primary' %}
@@ -70,20 +86,6 @@
 		{% set opacityPhase4 = 'opacity-100' %}
 	{% endif %}
 
-	{# conditions for the comments #}
-	{% if "now"|date("Y/m/d") < decisionFirstPeriod|date("Y/m/d") %}
-		{% set backgroundColor = 'bg-white' %}
-	{% endif %}
-	{% if "now"|date("Y/m/d") >= decisionFirstPeriod|date("Y/m/d")  %}
-		{% set backgroundColor = 'bg-tertiary' %}
-	{% endif %}
-	{% if "now"|date("Y/m/d") >= decisionConflictPeriod|date("Y/m/d")  %}
-		{% set backgroundColor = 'bg-cinco' %}
-	{% endif %}
-	{% if "now"|date("Y/m/d") >= decisionFinalPeriod|date("Y/m/d")  %}
-		{% set backgroundColor = 'bg-primary' %}
-	{% endif %}
-
 	<main class="bg-tertiary">
 		<div class="row py-5 rounded mx-1">
 			<div class="col-md-2 fs-5 order-first pb-5">
@@ -94,7 +96,7 @@
 					<div class="pb-5 text-dark">
 						{% if decision.creator == app.user %}
 							<div>
-								<a type="button" class="btn btn-secondary shadow-sm text-primary fw-bold w-100 rounded-top" href="{{ path('app_decision_edit', {decision:decision.id}) }}">Modifier ou faire avancer la décision</a>
+								<a type="button" class="btn btn-secondary shadow-sm text-primary py-3 fw-bold w-100 rounded-top fs-4" href="{{ path('app_decision_edit', {decision:decision.id}) }}">Modifier ou faire avancer la décision</a>
 							</div>
 							<div class="container py-3 rounded shadow-sm bg-light">
 								<div class="container bg-tertiary rounded text-center">
@@ -112,8 +114,14 @@
 									<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
 								</div>
 
+							{% if "now"|date("Y/m/d") < decision.decisionStartTime|date("Y/m/d")  %}
+							<div class="text-center text-danger">
+								<p class="fw-bold">La décision n'a pas encore commencée.</p>
+								</div>
+								{% endif %}
 								{% include "/components/_headerDetails.html.twig" %}
 
+							
 							</div>
 						</div>
 						{% include "/components/_decisionPart.html.twig" %}
