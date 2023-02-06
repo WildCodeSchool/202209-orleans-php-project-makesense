@@ -1,0 +1,12 @@
+{% extends "errorBase.html.twig" %}
+
+{% block title %}Make Sense 500
+{% endblock %}
+
+{% block body %}
+	<main class="bg-secondary backgroundShow text-center">
+		<div><img src="{{ asset('build/images/logo-makesense.png') }}" alt=""></div>
+		<div class="text-white display-1 fw-bold">500</div>
+		<div class="display-1 fw-bold">OOPS PETITE ERREUR SEREVEUR</div>
+	</main>
+{% endblock %}
