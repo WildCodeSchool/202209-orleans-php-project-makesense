@@ -8,8 +8,8 @@
 {% endblock %}
 {% block body %}
 
-{% if "now"|date("Y/m/d") <= decision.decisionStartTime|date("Y/m/d")  %}
- {% set secondDecisionShow = false %}
+	{% if "now"|date("Y/m/d") <= decision.decisionStartTime|date("Y/m/d")  %}
+		{% set secondDecisionShow = false %}
 		{% set finalDecisionShow = false %}
 		{% set backgroundPhase1 = '' %}
 		{% set backgroundPhase2 = 'bg-light' %}
@@ -114,26 +114,26 @@
 									<div class="text-uppercase fw-bold py-3">{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</div>
 								</div>
 
-							{% if "now"|date("Y/m/d") < decision.decisionStartTime|date("Y/m/d")  %}
-							<div class="text-center text-danger">
-								<p class="fw-bold">La décision n'a pas encore commencée.</p>
-								</div>
+								{% if "now"|date("Y/m/d") < decision.decisionStartTime|date("Y/m/d")  %}
+									<div class="text-center text-danger">
+										<p class="fw-bold">La décision n'a pas encore commencée.</p>
+									</div>
 								{% endif %}
 								{% include "/components/_headerDetails.html.twig" %}
 
-							
+
 							</div>
 						</div>
 						{% include "/components/_decisionPart.html.twig" %}
 						<div id="votes">
-						{% include "/components/_vote.html.twig" %}
+							{% include "/components/_vote.html.twig" %}
 						</div>
 
 						<div class="accordion mb-5" id="accordionPanelsStayOpenExample">
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="panelsStayOpen-headingComment">
 									<button class="accordion-button bg-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseComment" aria-expanded="false" aria-controls="panelsStayOpen-collapseComment">
-									<img class="iconDecision text-start" src="{{ asset('build/images/icons/seecomment.svg') }}" alt="">
+										<img class="iconDecision text-start" src="{{ asset('build/images/icons/seecomment.svg') }}" alt="">
 										<div id="votes" class="fw-bold pb-3 py-3 btn btn-tertiary w-100 fs-3 text-white">Avis</div>
 									</button>
 								</h2>

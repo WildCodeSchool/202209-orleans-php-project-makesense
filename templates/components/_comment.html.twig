@@ -1,6 +1,6 @@
 {% for comment in comments %}
 	<article class="py-4">
-		<div class="commentAlign py-3 bg-white rounded-4 mt-2 shadow">
+		<div class="commentAlign py-3 bg-white border border-1 border-tertiary rounded-4 mt-2 shadow">
 			<div class="ms-3 mt-2 d-flex">
 				<img class="mx-2 pictureComment" src="{% if comment.user.poster %}{{ asset('uploads/avatar/')~ comment.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="Image de l'auteur">
 				<div class="my-auto">{{comment.user.firstname}}
