@@ -73,7 +73,8 @@ class DecisionController extends AbstractController
         Request $request,
         Voting $voting,
         DecisionVoter $decisionVoter,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        TimelineManager $timelineManager
     ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
@@ -137,6 +138,8 @@ class DecisionController extends AbstractController
             'decisionFirstPeriod' => $decisionFirst,
             'decisionConflictPeriod' => $decisionConflict,
             'decisionFinalPeriod' => $decisionFinal,
+            'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
+            'voteRatio' => $voting->getVoteRatio($decision)
         ]);
     }
 

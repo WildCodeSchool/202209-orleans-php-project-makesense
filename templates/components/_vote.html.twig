@@ -1,25 +1,97 @@
-{% if "now"|date("Y/m/d") > decision.conflictEndDate|date("Y/m/d") and "now"|date("Y/m/d") < decision.finalDecisionEndDate|date("Y/m/d") %}
-						<div class="pb-5 text-dark">
-							<div class="container py-5 rounded shadow-sm bg-light">
-								<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Vote</h2>
-								<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
-									<div class="row mt-5 justify-content-around g-3">
-										<button {{canVote ? '':'disabled'}} name="downVote" class="bg-{{canVote ? 'light':'darkGrey'}} vote-button border border-3 border-danger rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
-											<p class="text-dark fw-bold m-0 display-4">{{downVotes}}</p>
-											<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#B63C47" class="bi bi-hand-thumbs-down-fill" viewbox="0 0 16 16">
-												<path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"/>
-											</svg>
-										</button>
+{% if decisionStatus == constant('App\\Entity\\Decision::FINAL_DECISION') %}
+	<div class="pb-5 text-dark">
+		<div class="container py-5 rounded shadow-sm bg-light">
+			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Vote</h2>
+			<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
+				<p class="text-primary fw-bold fs-5 text-center mb-0 mt-4">
+					<svg class="mb-1 mx-1" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewbox="0 0 16 16">
+						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+						<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+					</svg>
+					{{canVote ? '':'Vous ne pouvez pas voter sur cette décision car vous n\'êtes ni impacté ni expert'}}
+				</p>
+				<div class="row mt-5 justify-content-around g-3">
+					<button {{canVote ? '':'disabled'}} name="downVote" class="bg-light vote-button border border-3 border-danger rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
+						<p class="text-dark fw-bold m-0 display-4">{{downVotes}}</p>
+						<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#B63C47" class="bi bi-hand-thumbs-down-fill" viewbox="0 0 16 16">
+							<path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"/>
+						</svg>
+					</button>
 
-										<button {{canVote ? '':'disabled'}} name="upVote" class="bg-{{canVote ? 'light':'darkGrey'}} vote-button border border-3 border-cinco rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
-											<p class="text-dark fw-bold m-0 display-4">{{upVotes}}</p>
-											<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#346A81" class="bi bi-hand-thumbs-up-fill" viewbox="0 0 16 16">
-												<path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
-											</svg>
-										</button>
-									</div>
-									<input type="hidden" name="_token" value="{{ csrf_token('vote' ~ app.user.id) }}">
-								</form>
+					<button {{canVote ? '':'disabled'}} name="upVote" class="bg-light vote-button border border-3 border-cinco rounded-4 col-md-6 d-flex justify-content-around align-items-center py-4">
+						<p class="text-dark fw-bold m-0 display-4">{{upVotes}}</p>
+						<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#346A81" class="bi bi-hand-thumbs-up-fill" viewbox="0 0 16 16">
+							<path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+						</svg>
+					</button>
+				</div>
+				<input type="hidden" name="_token" value="{{ csrf_token('vote' ~ app.user.id) }}">
+			</form>
+		</div>
+	</div>
+{% elseif decisionStatus == constant('App\\Entity\\Decision::DECISION_FINISHED') %}
+	<div class="pb-5 text-dark">
+		<div class="container py-5 rounded shadow-sm bg-light">
+			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Résultat des votes</h2>
+			<div class="container">
+				<div class="row mt-5 justify-content-around g-3">
+					{% if upVotes > downVotes %}
+						<div class="d-flex justify-content-center align-items-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#198754" class="bi bi-hand-thumbs-up-fill" viewbox="0 0 16 16">
+								<path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+							</svg>
+							<p class="text-success fw-bold fs-3 px-5 mb-0">Une majorité de
+								{{voteRatio ~ '%'}}
+								personnes est pour cette décision
+							</p>
+						</div>
+						<div class="bg-light d-flex justify-content-center align-items-center py-4">
+							<p class="text-success fw-bold m-0 display-3">{{upVotes}}</p>
+							<p class="text-success my-0 px-3 fs-4 fw-bold">vote(s) pour</p>
+						</div>
+						<div class="bg-light d-flex justify-content-center align-items-center py-4">
+							<p class="text-danger fw-bold m-0 display-5">{{downVotes}}</p>
+							<p class="text-danger my-0 px-3 fs-5 fw-bold">vote(s) contre</p>
+						</div>
+					{% elseif downVotes > upVotes %}
+						<div class="d-flex justify-content-center align-items-center">
+							<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="#B63C47" class="bi bi-hand-thumbs-down-fill" viewbox="0 0 16 16">
+								<path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"/>
+							</svg>
+							<p class="text-danger fw-bold fs-3 px-5 mb-0">Une majorité de
+								{{voteRatio ~ '%'}}
+								personnes est contre cette décision
+							</p>
+						</div>
+						<div class="bg-light d-flex justify-content-center align-items-center pt-3 pb-2">
+							<p class="text-danger fw-bold m-0 display-3">{{downVotes}}</p>
+							<p class="text-danger my-0 px-3 fs-4 fw-bold">vote(s) contre</p>
+						</div>
+						<div class="bg-light d-flex justify-content-center align-items-center pt-2 pb-4">
+							<p class="text-success fw-bold m-0 display-5">{{upVotes}}</p>
+							<p class="text-success my-0 px-3 fs-5 fw-bold">vote(s) pour</p>
+						</div>
+					{% elseif downVotes == upVotes and downVotes > 0 and upVotes > 0 %}
+						<p class="text-primary fw-bold fs-5 text-center">
+							La décision a autant de votes pour que de votes contre.
+						</p>
+						<div class="d-flex justify-content-center">
+							<div class="bg-light d-flex justify-content-center align-items-center px-4">
+								<p class="text-danger fw-bold m-0 display-3">{{downVotes}}</p>
+								<p class="text-danger my-0 px-3 fs-5 fw-bold">vote(s) contre</p>
+							</div>
+							<div class="bg-light d-flex justify-content-center align-items-center px-4">
+								<p class="text-success fw-bold m-0 display-5">{{upVotes}}</p>
+								<p class="text-success my-0 px-3 fs-5 fw-bold">vote(s) pour</p>
 							</div>
 						</div>
+					{% else %}
+						<p class="text-primary fw-bold fs-5 text-center">
+							Il n'y a eu aucun vote sur cette décision.
+						</p>
 					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

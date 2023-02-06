@@ -5,7 +5,6 @@ $secondary : #FDF353;
 $tertiary : #3B8AA6;
 $quatro : #1A3843;
 $cinco : #26586A;
-$darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
 $font : 'Raleway', sans-serif;
 $form-check-input-checked-bg-color: $secondary;
@@ -16,7 +15,6 @@ $custom-colors: (
     "tertiary": $tertiary,
     "quatro": $quatro,
     "cinco": $cinco,
-    "darkGrey" : $darkGrey,
 );
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
