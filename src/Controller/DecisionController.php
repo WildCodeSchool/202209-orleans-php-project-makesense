@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Service\StatusUpdater;
 use App\Security\DecisionVoter;
 use App\Service\AutomatedDates;
+use App\Service\TimelineManager;
 use App\Form\DecisionEditionType;
 use Symfony\Component\Mime\Email;
 use App\Form\DecisionCreationType;
