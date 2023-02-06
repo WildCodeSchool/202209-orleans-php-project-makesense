@@ -40,7 +40,7 @@
 						<div class="col-md-12 text-white fs-5 order-first">
 							{{form_start(commentForm)}}
 							{{ form_label(commentForm.comment) }}
-							{% if decisionStatus == constant('App\\Entity\\Decision::CONFLICT_PERIOD') %}
+							{% if decision.status.decisionStatus == constant('App\\Entity\\Status::CONFLICT_PERIOD') %}
 								<div class="form-check form-switch my-3">
 									{{ form_label(commentForm.inConflict) }}
 									{{ form_widget(commentForm.inConflict) }}

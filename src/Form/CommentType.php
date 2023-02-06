@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Comment;
-use App\Entity\Decision;
+use App\Entity\Status;
 use App\Service\TimelineManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -31,7 +31,7 @@ class CommentType extends AbstractType
             $comment = $event->getData();
             $form = $event->getForm();
 
-            if ($this->timelineManager->checkDecisionStatus($comment->getDecision()) === Decision::CONFLICT_PERIOD) {
+            if ($this->timelineManager->checkDecisionStatus($comment->getDecision()) === Status::CONFLICT_PERIOD) {
                 $form->add('inConflict', CheckboxType::class, [
                     'label' =>
                     'Seul les personnes impactées ou 

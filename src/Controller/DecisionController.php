@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Service\Voting;
 use App\Entity\Decision;
-use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Service\StatusUpdater;
+use App\Security\DecisionVoter;
 use App\Service\AutomatedDates;
-use Symfony\Component\Mime\Email;
 use App\Service\TimelineManager;
 use App\Form\DecisionEditionType;
+use Symfony\Component\Mime\Email;
 use App\Form\DecisionCreationType;
 use App\Repository\CommentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\InteractionRepository;
-use App\Security\DecisionVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,10 +26,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_MEMBER')]
 class DecisionController extends AbstractController
 {
-    public function __construct(private TimelineManager $timelineManager)
-    {
-    }
-
     #[Route('/decision/creation', name: 'app_decision_creation')]
     public function new(
         Request $request,
@@ -57,7 +54,6 @@ class DecisionController extends AbstractController
             $decision->setFinalDecisionEndDate(
                 $automatedDates->finalDecisionEndDateCalculation($decision)
             );
-            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             foreach ($impactedUsers as $impactedUser) {
@@ -94,10 +90,12 @@ class DecisionController extends AbstractController
         Voting $voting,
         DecisionVoter $decisionVoter,
         CommentRepository $commentRepository,
+        StatusUpdater $statusUpdater,
         TimelineManager $timelineManager
     ): Response {
         /** @var \App\Entity\User */
         $user = $this->getUser();
+        $statusUpdater->saveDecisionStatus($decision);
 
         $interaction = $interactionRepo->findOneBy([
             'decision' => $decision,
@@ -179,7 +177,6 @@ class DecisionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $decision->setDecisionStatus($this->timelineManager->checkDecisionStatus($decision));
             $decisionRepository->save($decision, true);
 
             return $this->redirectToRoute('app_decision', ['decision' => $decision->getId()]);
