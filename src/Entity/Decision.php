@@ -10,12 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 #[ORM\Entity(repositoryClass: DecisionRepository::class)]
 class Decision
 {
-    public const FIRST_DECISION = 'firstDecision';
-    public const FINAL_DECISION = 'finalDecision';
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,6 +28,10 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank(
         message: 'Le champ est obligatoire.'
+    )]
+    #[Assert\GreaterThan(
+        'today',
+        message: 'Vous ne pouvez pas faire commencer une décision à une date antérieure à aujourd\'hui'
     )]
     private ?\DateTimeInterface $decisionStartTime = null;
 
@@ -66,7 +68,6 @@ class Decision
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finalDecisionEndDate = null;
 
-
     #[ORM\ManyToOne]
     private ?Category $category = null;
 
@@ -85,6 +86,9 @@ class Decision
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $finalDecision = null;
+
+    #[ORM\OneToOne(mappedBy: 'decision', cascade: ['persist', 'remove'])]
+    private ?Status $status = null;
 
     public function __construct()
     {
@@ -205,7 +209,6 @@ class Decision
         return $this;
     }
 
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -295,7 +298,9 @@ class Decision
         $interactions = $this->getInteractions();
         $interactionUsers = [];
         foreach ($interactions as $interaction) {
-            $interactionUsers[] = $interaction->getUser()->getId();
+            if ($interaction->getDecisionRole() !== null) {
+                $interactionUsers[] = $interaction->getUser()->getId();
+            }
         }
 
         foreach (array_count_values($interactionUsers) as $userIteration) {
@@ -328,6 +333,28 @@ class Decision
     public function setFinalDecision(?string $finalDecision): self
     {
         $this->finalDecision = $finalDecision;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($status === null && $this->status !== null) {
+            $this->status->setDecision(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($status !== null && $status->getDecision() !== $this) {
+            $status->setDecision($this);
+        }
+
+        $this->status = $status;
 
         return $this;
     }

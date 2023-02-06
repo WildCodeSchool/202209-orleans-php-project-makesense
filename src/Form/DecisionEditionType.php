@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Status;
 use App\Entity\Decision;
-use App\Form\DecisionCreationType;
 use App\Service\AutomatedDates;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\DecisionCreationType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,7 +26,7 @@ class DecisionEditionType extends AbstractType
             $decision = $event->getData();
             $form = $event->getForm();
 
-            if ($this->automatedDates->getDecisionStatus($decision) === Decision::FIRST_DECISION) {
+            if ($this->automatedDates->getDecisionStatus($decision) === Status::FIRST_DECISION) {
                 $form->remove('title')
                     ->remove('interactions')
                     ->remove('details')
@@ -34,6 +35,16 @@ class DecisionEditionType extends AbstractType
                     ->remove('risk')
                     ->add('firstDecision', CKEditorType::class, [
                         'label' => 'Première prise de décision :',
+                    ]);
+            } elseif ($this->automatedDates->getDecisionStatus($decision) === Status::FINAL_DECISION) {
+                $form->remove('title')
+                    ->remove('interactions')
+                    ->remove('details')
+                    ->remove('impact')
+                    ->remove('gain')
+                    ->remove('risk')
+                    ->add('finalDecision', CKEditorType::class, [
+                        'label' => 'Prise de décision finale :',
                     ]);
             }
         });

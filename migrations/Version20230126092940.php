@@ -26,6 +26,6 @@ final class Version20230126092940 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE decision DROP FOREIGN KEY FK_84ACBE4861220EA6');
+        $this->addSql('ALTER TABLE decision DROP first_decision, DROP final_decision');
     }
 }

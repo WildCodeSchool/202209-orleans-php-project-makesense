@@ -3,12 +3,14 @@
 $primary: #0D3944;
 $secondary : #FDF353;
 $tertiary : #3B8AA6;
-$quatro : #1A3843;
-$cinco : #26586A;
+$quatro : #1F5562;
+$cinco : #2C7A88;
 $darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
 $error500 : #66E31C;
 $font : 'Raleway', sans-serif;
+$form-check-input-checked-bg-color: $secondary;
+$form-check-input-checked-color: $primary;
 
 // Tableau de couleurs personalisées
 $custom-colors: (
@@ -80,16 +82,16 @@ p, h1, h2, h3, h4, h5, ul, li, div {
 }
 
 .card-picture{
-    height: 65px;
-    width : 65px;
+    height: 45px;
+    width : 45px;
     border-radius: 50%;
 }
 
 .decisionCard{
     box-shadow: $lightShadow 7px 7px;
     transition: 0.2s ease-in-out;
-    min-height: 350px;
-    max-width: 390px;
+    min-height: 370px;
+    max-width: 450px;
 }
 
 .decisionCard:hover {
@@ -113,16 +115,21 @@ transition: 0.2s ease-in-out;
 .navtitle:hover {
     opacity: 0.7;
 }
+
 .decisionCard .category {
-    
     color: var(--categoryColor);
     border-color: var(--categoryColor);
 }
+
 .category {
     --bs-border-color: var(--categoryColor);
     color: var(--categoryColor);
-    
-    }
+}
+
+.decisionStatus {
+    --bs-border-color: var(--statusColor);
+    color: var(--statusColor);
+}
 
 .backgroundShow {
     height: 100vh;

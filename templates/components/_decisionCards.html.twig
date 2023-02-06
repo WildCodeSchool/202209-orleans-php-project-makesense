@@ -1,18 +1,28 @@
 <div class="card decisionCard mx-3 my-2 rounded-4 border-primary">
-	{% if decision.category %}
-		<div class="ms-3 mt-2">
-			<span style="--categoryColor: {{decision.category.color}}" class=" category fw-bold p-2 bg-light badge fs-6 border border-2 rounded-pill">{{decision.category.name}}</span>
-		</div>
-	{% endif %}
+
+	<div class="mx-3 mt-2 d-flex justify-content-between align-items-center">
+		{% if decision.category %}
+			<span style="--categoryColor: {{decision.category.color}}" class=" category fw-bold p-2 mt-1 bg-light badge fs-6 border border-2 rounded-pill">{{decision.category.name}}</span>
+		{% endif %}
+		{% if decision.comments|filter(comment => comment.inConflict)|length > 0 %}
+			<p class="border-danger text-danger fw-bold p-2 fs-6 m-0">{{decision.comments|filter(comment => comment.inConflict)|length}}
+				conflit(s)</p>
+		{% endif %}
+	</div>
 	<div class="card-body d-flex flex-column justify-content-between">
 		<a class="stretched-link" href="{{ path("app_decision", {'decision': decision.id})}}"></a>
 		<h3 class="card-title text-primary fw-bolder">{{decision.title|u.truncate(80, '...')}}</h3>
-		<div class="d-flex align-items-center justify-content-end hoverauthor">
-
-			<img class="card-picture" src="{% if decision.creator.poster %}{{ asset('uploads/avatar/')~ decision.creator.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="profile picture of the creator of the decision">
-			<p class="card-text px-3 text-primary m-0">par
-				<b>{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</b>
-			</p>
+		<div class="row hoverauthor justify-content-between align-items-center">
+			<div class="col-sm-5">
+				<p style="--statusColor: {{decision.status.statusColor}}; color : {{decision.status.statusColor}}" class="text-end decisionStatus fw-bold bg-white fs-6 mb-0">{{decision.status.decisionStatus}}</p>
+				<p class="fst-italic mb-2 text-end">{{decision.status.statusDaysLeft}}</p>
+			</div>
+			<div class="col-sm-7 d-flex align-items-center">
+				<img class="card-picture mx-1 mb-2" src="{% if decision.creator.poster %}{{ asset('uploads/avatar/')~ decision.creator.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="profile picture of the creator of the decision">
+				<p class="card-text text-primary mb-2">par
+					<b>{{decision.creator.firstname ~ ' ' ~ decision.creator.lastname}}</b>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
