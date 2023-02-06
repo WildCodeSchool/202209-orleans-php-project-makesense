@@ -200,14 +200,13 @@ class DecisionController extends AbstractController
         TimelineManager $timelineManager,
         InteractionRepository $interactionRepo
     ): Response {
-
+        $this->denyAccessUnlessGranted('comment', $decision);
         /**  @var \App\Entity\User */
         $user = $this->getUser();
 
         $comment = new Comment();
         $comment->setUser($user);
         $comment->setDecision($decision);
-
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
