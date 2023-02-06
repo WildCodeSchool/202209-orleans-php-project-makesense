@@ -3,11 +3,11 @@
 	<div class="pb-5 text-dark">
 		<div class="container py-5 rounded shadow-sm bg-light">
 			<div class="bg-primary rounded my-auto d-flex py-4">
-			<img class="ps-3 iconDecision text-start" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">
-			<h2 class="fw-bold fs-3 text-white mx-auto">Vote</h2>
+				<img class="ps-3 iconDecision text-start" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">
+				<h2 class="fw-bold fs-3 text-white mx-auto">Vote</h2>
 			</div>
 			<form class="container" method="post" action="{{ path('app_decision', {'decision': decision.id}) }}">
-				<p class="text-primary fw-bold fs-5 text-center mb-0 mt-4">
+				<p class="text-primary fw-bold fs-5 text-center mb-0 mt-4 {{canVote ? 'd-none':''}}">
 					<svg class="mb-1 mx-1" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewbox="0 0 16 16">
 						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 						<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -36,7 +36,10 @@
 {% elseif decision.status.decisionStatus == constant('App\\Entity\\Status::DECISION_FINISHED') %}
 	<div class="pb-5 text-dark">
 		<div class="container py-5 rounded shadow-sm bg-light">
-			<h2 class="fw-bold py-3 bg-danger w-100 fs-3 text-white text-center rounded">Résultat des votes</h2>
+			<div class="bg-primary rounded my-auto d-flex py-4">
+				<img class="ps-3 iconDecision text-start" src="{{ asset('build/images/icons/Vectorthumbup.svg') }}" alt="">
+				<h2 class="fw-bold fs-3 text-white mx-auto">Résultat du vote</h2>
+			</div>
 			<div class="container">
 				<div class="row mt-5 justify-content-around g-3">
 					{% if upVotes > downVotes %}
@@ -98,4 +101,5 @@
 			</div>
 		</div>
 	</div>
-{% endif %}
+{% endif %} 
+
