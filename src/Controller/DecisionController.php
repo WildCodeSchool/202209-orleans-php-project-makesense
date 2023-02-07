@@ -166,7 +166,8 @@ class DecisionController extends AbstractController
             'decisionConflictPeriod' => $decisionConflict,
             'decisionFinalPeriod' => $decisionFinal,
             'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
-            'voteRatio' => $voting->getVoteRatio($decision)
+            'voteRatio' => $voting->getVoteRatio($decision),
+            'commentCount' => count($comments)
         ]);
     }
 
@@ -206,7 +207,6 @@ class DecisionController extends AbstractController
         TimelineManager $timelineManager,
         InteractionRepository $interactionRepo
     ): Response {
-        $this->denyAccessUnlessGranted('comment', $decision);
         /**  @var \App\Entity\User */
         $user = $this->getUser();
 
@@ -219,7 +219,7 @@ class DecisionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (
-                $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) !==
+                $interactionRepo->findBy(['decision' => $decision, 'user' => $user]) ==
                 null && $comment->isInConflict() === true
             ) {
                 $this->addFlash('danger', 'Seules les personnes impactées ou expertes peuvent entrer en conflit');
