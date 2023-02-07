@@ -1,0 +1,13 @@
+{% extends "errorBase.html.twig" %}
+
+{% block title %}Make Sense 401
+{% endblock %}
+
+{% block body %}
+	<main class="error bg-danger backgroundShow text-center">
+		<div><img src="{{ asset('build/images/logo-makesense.png') }}" alt=""></div>
+		<a class="btn btn-danger fs-1 fw-bold border border-dark text-dark" href="{{ path("app_home") }}">Retour à l'accueil</a>
+		<div class="text-white mt-5 display-1 fw-bold">401</div>
+		<div class="mt-5 text-white display-1 fw-bold">{{'accès non autorisé'|upper}}</div>
+	</main>
+{% endblock %}
