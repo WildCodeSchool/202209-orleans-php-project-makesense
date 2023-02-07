@@ -30,10 +30,11 @@
 		<div class="d-flex justify-content-center my-3">
 			{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
 				<div class="user-icon">
-					<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-					<div class="badge bg-primary user-tooltip">{{ impactedUser.user.firstname }}
-						{{ impactedUser.user.lastname }}</div>
-				</div>
+					<a href="{{ path('app_view_you_profil', {'user': impactedUser.user.id}) }}"><img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+						<div class="badge bg-primary user-tooltip">{{ impactedUser.user.firstname }}
+							{{ impactedUser.user.lastname }}</div>
+					</div>
+				</a>
 			{% else %}
 				Aucun salarié n'est impacté par cette décision pour l'instant.
 			{% endfor %}
@@ -46,10 +47,11 @@
 				<div class="d-flex justify-content-center my-3">
 					{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
 						<div class="user-icon">
-							<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
-							<div class="badge bg-primary user-tooltip">{{ expertUser.user.firstname }}
-								{{ expertUser.user.lastname }}</div>
-						</div>
+							<a href="{{ path('app_view_you_profil', {'user': expertUser.user.id}) }}"><img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+								<div class="badge bg-primary user-tooltip">{{ expertUser.user.firstname }}
+									{{ expertUser.user.lastname }}</div>
+							</div>
+						</a>
 					{% else %}
 						Aucun salarié expert n'est attribué à cette décision pour l'instant.
 					{% endfor %}

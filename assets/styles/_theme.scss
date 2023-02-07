@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-$primary: #0D3944;
-$secondary : #FDF353;
-$tertiary : #3B8AA6;
-$quatro : #1F5562;
-$cinco : #2C7A88;
+$primary: #0d3944;
+$secondary: #fdf353;
+$tertiary: #3b8aa6;
+$quatro: #1f5562;
+$cinco: #2c7a88;
 $darkGrey: #6e6d6d;
-$lightShadow : rgba(255, 255, 255, 75%);
-$error500 : #66E31C;
-$font : 'Raleway', sans-serif;
+$lightShadow: rgba(255, 255, 255, 75%);
+$font: "Raleway", sans-serif;
+$lightShadow: rgba(255, 255, 255, 75%);
+$error500: #66e31c;
+$font: "Raleway", sans-serif;
 $form-check-input-checked-bg-color: $secondary;
 $form-check-input-checked-color: $primary;
 
@@ -17,21 +19,21 @@ $custom-colors: (
     "tertiary": $tertiary,
     "quatro": $quatro,
     "cinco": $cinco,
-    "darkGrey" : $darkGrey,
-    "error500" : $error500,
+    "darkGrey": $darkGrey,
+    "error500": $error500,
 );
 
+// Import des parties "fonctions" (car on utilise la fonction map-merge())
 $display-font-sizes: (
-  1: 8rem,
+    1: 8rem,
 );
 
-
-// Import des parties "fonctions" (car on utilise la fonction map-merge()) 
+// Import des parties "fonctions" (car on utilise la fonction map-merge())
 // et "variables" (car on utilise $theme-colors) de bootstrap
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-// Fusion du tableau de couleurs existant avec les couleurs custom 
+// Fusion du tableau de couleurs existant avec les couleurs custom
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // Import du reste de bootstrap dans lequel il aura ajoute les custom colors
@@ -47,14 +49,13 @@ body {
     min-height: 100vh;
 }
 
-main{
-    padding-block-start :20vh;
+main {
+    padding-block-start: 20vh;
 }
 
 .error {
-    padding-block-start :2vh;
+    padding-block-start: 2vh;
 }
-
 
 .huge-title {
     opacity: 0.5;
@@ -77,17 +78,25 @@ main{
     font-size: 3.12rem;
 }
 
-p, h1, h2, h3, h4, h5, ul, li, div {
-    font-family : $font;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+ul,
+li,
+div {
+    font-family: $font;
 }
 
-.card-picture{
+.card-picture {
     height: 45px;
-    width : 45px;
+    width: 45px;
     border-radius: 50%;
 }
 
-.decisionCard{
+.decisionCard {
     box-shadow: $lightShadow 7px 7px;
     transition: 0.2s ease-in-out;
     min-height: 370px;
@@ -107,9 +116,8 @@ p, h1, h2, h3, h4, h5, ul, li, div {
     transform: scale(1);
 }
 
-
 .navtitle {
-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .navtitle:hover {
