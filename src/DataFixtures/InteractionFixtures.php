@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+/** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
 class InteractionFixtures extends Fixture implements DependentFixtureInterface
 {
     private const IMPACTED_USER_PER_DECISION = 10;
@@ -97,6 +98,30 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
         );
         $interaction->setDecision(
             $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
+
+        $manager->persist($interaction);
+
+        //interaction where User Role is impacted and Admin is expert in vote period
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+
+        $manager->persist($interaction);
+
+        //interaction where TedyDoe is expert in conflict period
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 3)
         );
         $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
 
