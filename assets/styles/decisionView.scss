@@ -5,23 +5,49 @@
     width: 4rem;
 }
 
-.profil-icons{
- width : 50px;
- height : 50px;
- border-radius: 50%;
+.profil-icons {
+    --icon-size: 50px;
+    width: var(--icon-size);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.profil-icons:not(first-of-type){
-margin-inline-start: -15px;
+.profil-icons:not(first-of-type) {
+    margin-inline-start: -15px;
 }
 
-.vote-button{
-    max-width : 20rem;
+.user-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-tooltip {
+    position: absolute;
+    bottom: -50%;
+    display: none;
+    z-index: 3;
+}
+
+.profil-icons:hover {
+    filter: drop-shadow(2px 2px 4px $darkGrey);
+    z-index: 2;
+
+}
+
+.profil-icons:hover+.user-tooltip {
+    display: inline-block;
+}
+
+.vote-button {
+    max-width: 20rem;
     transition: 0.2s ease-in-out;
     box-shadow: rgba(149, 157, 165, 0.5) 5px 5px 5px;
 }
 
-.vote-button:hover{
+.vote-button:hover {
     transform: scale(1.02);
     box-shadow: rgba(149, 157, 165, 0.5) 8px 8px 8px;
 }
@@ -31,29 +57,35 @@ margin-inline-start: -15px;
     width: 3rem;
 }
 
-article:nth-of-type(odd)> .commentAlign {
+article:nth-of-type(odd)>.commentAlign {
     margin-inline-end: 20rem;
     margin-inline-start: 3rem;
 }
 
-article:nth-of-type(even)> .commentAlign {
+article:nth-of-type(even)>.commentAlign {
     margin-inline-end: 3rem;
     margin-inline-start: 20rem;
 }
 
 @media screen and (max-width: 1100px) {
 
-    article:nth-of-type(odd)> .commentAlign  {
+    article:nth-of-type(odd)>.commentAlign {
         margin-inline: 1rem;
-        
+
     }
-    article:nth-of-type(even)> .commentAlign  {
+
+    article:nth-of-type(even)>.commentAlign {
         margin-inline: 1rem;
-        
+
     }
 }
 
 .iconside {
- height: 1rem;
- width: 1rem;
+    height: 1rem;
+    width: 1rem;
+}
+
+.iconDecision {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    height: 40px;
 }

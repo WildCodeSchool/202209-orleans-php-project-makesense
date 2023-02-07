@@ -8,6 +8,9 @@ $cinco: #2c7a88;
 $darkGrey: #6e6d6d;
 $lightShadow: rgba(255, 255, 255, 75%);
 $font: "Raleway", sans-serif;
+$lightShadow: rgba(255, 255, 255, 75%);
+$error500: #66e31c;
+$font: "Raleway", sans-serif;
 $form-check-input-checked-bg-color: $secondary;
 $form-check-input-checked-color: $primary;
 
@@ -16,6 +19,13 @@ $custom-colors: (
     "tertiary": $tertiary,
     "quatro": $quatro,
     "cinco": $cinco,
+    "darkGrey": $darkGrey,
+    "error500": $error500,
+);
+
+// Import des parties "fonctions" (car on utilise la fonction map-merge())
+$display-font-sizes: (
+    1: 8rem,
 );
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge())
@@ -41,6 +51,10 @@ body {
 
 main {
     padding-block-start: 20vh;
+}
+
+.error {
+    padding-block-start: 2vh;
 }
 
 .huge-title {
