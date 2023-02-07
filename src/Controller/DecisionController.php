@@ -166,7 +166,8 @@ class DecisionController extends AbstractController
             'decisionConflictPeriod' => $decisionConflict,
             'decisionFinalPeriod' => $decisionFinal,
             'decisionStatus' => $timelineManager->checkDecisionStatus($decision),
-            'voteRatio' => $voting->getVoteRatio($decision)
+            'voteRatio' => $voting->getVoteRatio($decision),
+            'commentCount' => count($comments)
         ]);
     }
 
