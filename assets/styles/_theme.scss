@@ -7,6 +7,7 @@ $quatro : #1F5562;
 $cinco : #2C7A88;
 $darkGrey: #6e6d6d;
 $lightShadow : rgba(255, 255, 255, 75%);
+$error500 : #66E31C;
 $font : 'Raleway', sans-serif;
 $form-check-input-checked-bg-color: $secondary;
 $form-check-input-checked-color: $primary;
@@ -16,7 +17,14 @@ $custom-colors: (
     "tertiary": $tertiary,
     "quatro": $quatro,
     "cinco": $cinco,
+    "darkGrey" : $darkGrey,
+    "error500" : $error500,
 );
+
+$display-font-sizes: (
+  1: 8rem,
+);
+
 
 // Import des parties "fonctions" (car on utilise la fonction map-merge()) 
 // et "variables" (car on utilise $theme-colors) de bootstrap
@@ -41,6 +49,10 @@ body {
 
 main{
     padding-block-start :20vh;
+}
+
+.error {
+    padding-block-start :2vh;
 }
 
 

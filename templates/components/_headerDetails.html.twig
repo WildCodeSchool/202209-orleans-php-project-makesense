@@ -29,7 +29,11 @@
 		<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
 		<div class="d-flex justify-content-center my-3">
 			{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
-				<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+				<div class="user-icon">
+					<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+					<div class="badge bg-primary user-tooltip">{{ impactedUser.user.firstname }}
+						{{ impactedUser.user.lastname }}</div>
+				</div>
 			{% else %}
 				Aucun salarié n'est impacté par cette décision pour l'instant.
 			{% endfor %}
@@ -41,8 +45,10 @@
 				<h3 class="text-primary fw-bold text-center">Personnes expertes</h3>
 				<div class="d-flex justify-content-center my-3">
 					{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
-						<div>
+						<div class="user-icon">
 							<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+							<div class="badge bg-primary user-tooltip">{{ expertUser.user.firstname }}
+								{{ expertUser.user.lastname }}</div>
 						</div>
 					{% else %}
 						Aucun salarié expert n'est attribué à cette décision pour l'instant.
