@@ -1,12 +1,12 @@
 <div class="row justify-content-center fs-4">
 	<div class="text-center">
-		<div class="{{backgroundPhase1}}  {{textPhase1}} {{opacityPhase1}}  rounded-4 fw-light fs-5 w-75 mx-auto">
+		<div class="{{backgroundPhase1}} {{textPhase1}} {{opacityPhase1}} rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Prise de décision commencée</div>
 			<div>{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 		</div>
 	</div>
 	<div class="text-center">
-		<div class="{{backgroundPhase2}}  {{textPhase2}} {{opacityPhase2}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
+		<div class="{{backgroundPhase2}} {{textPhase2}} {{opacityPhase2}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Fin de la première décision et début des conflits</div>
 			<div>{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 		</div>
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="text-center">
-		<div class="{{backgroundPhase4}}  {{textPhase4}} {{opacityPhase4}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
+		<div class="{{backgroundPhase4}} {{textPhase4}} {{opacityPhase4}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Fin du processus de décision</div>
 			<div>{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
 		</div>
@@ -29,7 +29,7 @@
 		<h3 class="text-primary fw-bold text-center">Personnes impactées</h3>
 		<div class="d-flex justify-content-center my-3">
 			{% for impactedUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_IMPACTED')) %}
-				<img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+				<a href="{{ path('app_view_you_profil', {'user': impactedUser.user.id}) }}"><img class="arrow profil-icons" src="{% if impactedUser.user.poster %}{{ asset('uploads/avatar/')~ impactedUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures"></a>
 			{% else %}
 				Aucun salarié n'est impacté par cette décision pour l'instant.
 			{% endfor %}
@@ -42,7 +42,7 @@
 				<div class="d-flex justify-content-center my-3">
 					{% for expertUser in decision.interactions|filter(interaction=>interaction.decisionRole==constant('App\\Entity\\Interaction::DECISION_EXPERT')) %}
 						<div class="p-2">
-							<img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures">
+							<a href="{{ path('app_view_you_profil', {'user': expertUser.user.id}) }}"><img class="arrow profil-icons" src="{% if expertUser.user.poster %}{{ asset('uploads/avatar/')~ expertUser.user.poster }}{% else %}{{ asset('build/images/icons/person.svg') }}{% endif %}" alt="User profile pictures"></a>
 						</div>
 					{% else %}
 						Aucun salarié expert n'est attribué à cette décision pour l'instant.
