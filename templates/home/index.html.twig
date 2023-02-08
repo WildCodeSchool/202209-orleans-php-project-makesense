@@ -7,8 +7,8 @@
 	<main class="bg-primary">
 		<div class="container-fluid">
 			<h1 class="huge-title">DÉCISIONS</h1>
-			<div class="d-flex">
-				{{form_start(form, { 'attr': {'class': 'border border-2 rounded-4 d-flex justify-content-between mx-auto w-75 my-5'} })}}
+			<div class="text-center pb-5">
+				{{form_start(form, { 'attr': {'class': 'border border-2 rounded-4 d-flex justify-content-between mx-5 my-5'} })}}
 				{{ form_widget(form.input, { 'attr': {'class': 'bg-primary text-light border-primary rounded-4 py-2 fs-1'} }) }}
 				<button type="submit" class="btn d-flex align-items-center">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFFF" class="bi bi-search" viewbox="0 0 16 16">
@@ -17,8 +17,8 @@
 					<label class="btn text-light fw-bold ps-2 fs-3 d-none d-sm-block" for="input">Rechercher</label>
 				</button>
 				{{form_end(form)}}
-				<div class="my-auto me-5">
-					<a type="button" class="btn btn-secondary fw-bold py-4 px-4 rounded-4 fs-5" href="{{ path('app_allDecisions') }}">Voir toutes</a>
+				<div class="my-auto mx-5">
+					<a type="button" class="btn btn-secondary fw-bold py-auto px-3 rounded-4 fs-5" href="{{ path('app_allDecisions') }}">Voir toutes les décisions</a>
 				</div>
 			</div>
 			<h2 id="fini" class="text-secondary pt-5 px-4 pb-4 fw-bolder">
