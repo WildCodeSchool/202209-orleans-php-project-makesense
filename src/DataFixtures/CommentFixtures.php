@@ -64,10 +64,26 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         </p>",
     ];
 
+    public const DECISION_4_COMMENTS = [
+        "<p style='color:#000000;font-family:'Raleway',
+        sans-serif;font-size:1.2rem;font-weight:400;'>
+        Bof bof comme idée.
+        </p>",
+        "<p style='color:#000000;font-family:'Raleway',
+        sans-serif;font-size:1.2rem;font-weight:400;'>
+        Très bonne idée.
+        </p>",
+        "<p style='color:#000000;font-family:'Raleway',
+        sans-serif;font-size:1.2rem;font-weight:400;'>
+        Je ne pense pas que ce soit essentiel.
+        </p>",
+    ];
+
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        for ($i = 4; $i < DecisionFixtures::DECISION_NUMBER; $i++) {
+        for ($i = 5; $i < DecisionFixtures::DECISION_NUMBER; $i++) {
             for ($j = 0; $j < self::COMMENT_NUMBER_BY_INTERACTION; $j++) {
                 $comment = new Comment();
 
@@ -135,6 +151,21 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
 
             $comment->setUser($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT))));
             $comment->setDecision($this->getReference('decision_3'));
+            $manager->persist($comment);
+
+            $manager->flush();
+        }
+
+        //comments for Decision 4
+        for ($i = 0; $i < self::COMMENT_NUMBER_BY_INTERACTION; $i++) {
+            $comment = new Comment();
+
+            $comment->setComment(self::DECISION_4_COMMENTS[$i]);
+
+            $comment->setCommentTimedate($faker->dateTimeBetween('-20 week', '+10 week'));
+
+            $comment->setUser($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT))));
+            $comment->setDecision($this->getReference('decision_4'));
             $manager->persist($comment);
 
             $manager->flush();

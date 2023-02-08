@@ -44,15 +44,15 @@ class UserFixtures extends Fixture
 
         //Role User Tedy
         $user = new User();
-        $user->setEmail('tedyDoe@gmail.com');
+        $user->setEmail('mikael@gmail.com');
         $user->setRoles(['ROLE_MEMBER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             'tedytedy'
         );
         $user->setPassword($hashedPassword);
-        $user->setFirstname('Tedy');
-        $user->setLastname('Doe');
+        $user->setFirstname('Mikaël');
+        $user->setLastname('Gallé');
         $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 1), $user);
         $manager->persist($user);
 
