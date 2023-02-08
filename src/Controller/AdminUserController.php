@@ -18,8 +18,6 @@ class AdminUserController extends AbstractController
         "ROLE_ADMIN" => "Administrateur",
         "ROLE_MEMBER" => "Approuvré",
         "ROLE_USER" => "Non approuvré",
-
-
     ];
 
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
@@ -31,7 +29,6 @@ class AdminUserController extends AbstractController
             'users' => $users,
         ]);
     }
-
 
     #[Route('/{id}', name: 'app_admin_user_show', methods: ['GET'])]
     public function show(User $user): Response
