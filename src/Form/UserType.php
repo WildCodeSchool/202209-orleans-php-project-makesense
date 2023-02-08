@@ -17,15 +17,19 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
-            ->add('roles', ChoiceType::class, [
-                'choices'  => [
-                    'Non Approuvé' => 'ROLE_USER',
-                    'Approuvé' => 'ROLE_MEMBER',
-                    'Admin' => 'ROLE_ADMIN',
+            ->add('roles', CollectionType::class, [
+                'entry_type'   => ChoiceType::class,
+                'entry_options'  => [
+                    'choices'  => [
+                        'Non Approuvé' => 'ROLE_USER',
+                        'Approuvé' => 'ROLE_MEMBER',
+                        'Admin' => 'ROLE_ADMIN',
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                    'label' => false,
+
                 ],
-                'expanded' => true,
-                'multiple' => true,
-                'label' => false,
             ]);
     }
 
