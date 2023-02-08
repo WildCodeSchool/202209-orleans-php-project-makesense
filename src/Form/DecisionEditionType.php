@@ -21,7 +21,8 @@ class DecisionEditionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->remove('decisionStartTime');
+        $builder->remove('decisionStartTime')
+                ->remove('category');
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $decision = $event->getData();
             $form = $event->getForm();

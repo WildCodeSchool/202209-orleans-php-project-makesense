@@ -10,12 +10,13 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+/** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
 class InteractionFixtures extends Fixture implements DependentFixtureInterface
 {
     private const IMPACTED_USER_PER_DECISION = 10;
     private const EXPERT_USER_PER_DECISION = 14;
-    private const USER_ROLE_IMPACTED_DECISION_NUMBER = 20;
-    private const USER_ROLE_EXPERT_DECISION_NUMBER = 4;
+    private const USER_ROLE_IMPACTED_DECISION_NUMBER = 6;
+    private const USER_ROLE_EXPERT_DECISION_NUMBER = 5;
     public const GENERIC_USER_IMPACTED = UserFixtures::GENERIC_USER_ACCOUNT * 0.7;
 
     public function load(ObjectManager $manager): void
@@ -54,7 +55,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
         for ($k = 3; $k < self::USER_ROLE_IMPACTED_DECISION_NUMBER; $k++) {
             $interaction = new Interaction();
             $interaction->setUser(
-                $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+                $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
             );
             $interaction->setDecision(
                 $this->getReference(
@@ -74,7 +75,7 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
         for ($m = 3; $m < self::USER_ROLE_EXPERT_DECISION_NUMBER; $m++) {
             $interaction = new Interaction();
             $interaction->setUser(
-                $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+                $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
             );
             $interaction->setDecision(
                 $this->getReference(
@@ -97,6 +98,30 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
         );
         $interaction->setDecision(
             $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
+
+        $manager->persist($interaction);
+
+        //interaction where User Role Sophie is impacted and Admin is expert in vote period
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 0)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+
+        $manager->persist($interaction);
+
+        //interaction where Sophie is expert in conflict period
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 3)
         );
         $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
 
