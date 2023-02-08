@@ -29,7 +29,11 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
-            $user->setPassword($faker->password());
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                'tedytedy'
+            );
+            $user->setPassword($hashedPassword);
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $this->addReference('user_' . $i, $user);

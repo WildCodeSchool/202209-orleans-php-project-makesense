@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Status;
 use App\Entity\Decision;
+use App\Entity\Interaction;
 use App\Service\AutomatedDates;
 use App\Service\TimelineManager;
 use Doctrine\Persistence\ObjectManager;
@@ -15,6 +16,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DECISION_NUMBER = 100;
+    public const DECISION_FINISHED_IMPACTED_USERS_VOTES = 10;
 
 
     public function __construct(private AutomatedDates $automatedDates, private TimelineManager $timelineManager)
@@ -69,6 +71,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                      font-size:1.2rem;font-weight:400;'>Prendre plutôt un poste en alternance pour commencer.
                      Si le besoin devient permanent alors prendre un CDI sera envisageable.</p>"
                 );
+                $decision->setCategory($this->getReference('category_0'));
             } elseif ($i === 1) {
                 $decision->setTitle('Changement des photocopieuses du département comptabilité - 4 semaines plus tard');
                 $decision->setDecisionStartTime($faker->dateTimeBetween('-5 week', '-5 week'));
@@ -142,6 +145,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                      ainsi toutes les imprimantes devraient être neuves d'ici l'hivers prochain. De plus, les salariés
                      pourront utiliser au moins une imprimante en cas de panne</p>"
                 );
+                $decision->setCategory($this->getReference('category_1'));
             } elseif ($i === 2) {
                 $decision->setTitle('Changement des photocopieuses du département comptabilité.');
                 $decision->setDecisionStartTime($faker->dateTimeBetween('-1 week', '-1 week'));
@@ -207,6 +211,7 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                   la productivité. Au vu du nombre d’impressions annuel de notre département, 
                   l’idée de perdre une à deux imprimantes
                    n’est vraiment pas négligeable.</p>");
+                $decision->setCategory($this->getReference('category_1'));
             } elseif ($i === 3) {
                 $decision->setTitle('Acheter une nouvelle machine à café à grain');
                 $decision->setDecisionStartTime($faker->dateTimeBetween('-3 week', '-3 week'));
@@ -283,22 +288,35 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                      font-size:1.2rem;font-weight:400;'>Remplacer 10 
                      des 15 anciennes machines pour le mois prochain.</p>"
                 );
+                $decision->setCategory($this->getReference('category_0'));
             } else {
                 $decision->setTitle($faker->sentence(rand(15, 30)));
-                $decision->setDecisionStartTime($faker->dateTimeBetween('-20 week', '+10 week'));
+                $decision->setDecisionStartTime($faker->dateTimeBetween('-10 week', '+1 week'));
                 $decision->setCreator($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT))));
                 $decision->setDetails($faker->paragraph(rand(2, 10)));
                 $decision->setImpact($faker->paragraph(rand(2, 10)));
                 $decision->setGain($faker->paragraph(rand(2, 10)));
                 $decision->setRisk($faker->paragraph(rand(2, 10)));
+                $decision->setCategory($this->getReference('category_' . rand(0, 5)));
                 if ($this->timelineManager->checkDecisionStatus($decision) === Status::FINAL_DECISION) {
                     $decision->setFirstDecision($faker->paragraph(rand(2, 10)));
+                }
+                if ($this->timelineManager->checkDecisionStatus($decision) === Status::DECISION_FINISHED) {
+                    for ($o = 0; $o < self::DECISION_FINISHED_IMPACTED_USERS_VOTES; $o++) {
+                        $interaction = new Interaction();
+                        $interaction->setUser(
+                            $this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT)))
+                        );
+                        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+                        $interaction->setVote($faker->boolean());
+                        $decision->addInteraction($interaction);
+                    }
                 }
             }
             $decision->setFirstDecisionEndDate($this->automatedDates->firstDecisionEndDateCalculation($decision));
             $decision->setConflictEndDate($this->automatedDates->conflictEndDateCalculation($decision));
             $decision->setFinalDecisionEndDate($this->automatedDates->finalDecisionEndDateCalculation($decision));
-            $decision->setCategory($this->getReference('category_' . rand(0, 5)));
+
             // If the decision is in final state then it already have a first decision
 
             $this->addReference('decision_' . $i, $decision);
