@@ -41,6 +41,7 @@
 							{{form_start(commentForm)}}
 							{{ form_label(commentForm.comment) }}
 							{% if decision.status.decisionStatus == constant('App\\Entity\\Status::CONFLICT_PERIOD') %}
+							<div class="text-secondary pt-5">Entrer en conflit ?</div>
 								<div class="form-check form-switch my-3">
 									{{ form_label(commentForm.inConflict) }}
 									{{ form_widget(commentForm.inConflict) }}
