@@ -72,6 +72,11 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                      Si le besoin devient permanent alors prendre un CDI sera envisageable.</p>"
                 );
                 $decision->setCategory($this->getReference('category_0'));
+                $decision->setFinalDecision("<h4 style='color:#0d3944;font-family:'Raleway',sans-serif;
+                font-size:1.45rem;font-weight:475;'>Décision :</h4>
+                 <p style='color:#000000;font-family:'Raleway',sans-serif;
+                 font-size:1.2rem;font-weight:400;'>Je confirme la 1ère décision qui est de prendre plutôt un poste en
+                  alternance plutôt qu'un CDI suite au manque de conflit sur cette décisions.</p>");
             } elseif ($i === 1) {
                 $decision->setTitle('Changement des photocopieuses du département comptabilité - 4 semaines plus tard');
                 $decision->setDecisionStartTime($faker->dateTimeBetween('-5 week', '-5 week'));
