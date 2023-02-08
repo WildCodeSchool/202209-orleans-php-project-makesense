@@ -12,7 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-/** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
+/** @SuppressWarnings(PHPMD) */
 class DecisionFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DECISION_NUMBER = 100;
@@ -29,10 +29,11 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i <= self::DECISION_NUMBER; $i++) {
             $decision = new Decision();
-            // The Decision with index 0 is in vote period TedyDoe is impacted therefore can vote
-            // The Decision with index 1 is in first decision phase with TedyDoe as the creator
-            // The Decision with index 2 is in final decision phase with TedyDoe as the creator
-            // The Decision with index 3 is in conclict period and TedyDoe is impacted
+            // The Decision with index 0 is in vote period Mikael is impacted therefore can vote
+            // The Decision with index 1 is in first decision phase with Mikael as the creator
+            // The Decision with index 2 is in final decision phase with Mikael as the creator
+            // The Decision with index 3 is in conclict period and Stéphanie is impacted
+            // The Decision with index 4 is in conclict period and Mikael is impacted
             if ($i === 0) {
                 $decision->setTitle('Création d\'un poste de développeur PHP/Symfony');
                 $decision->setDecisionStartTime($faker->dateTimeBetween('-5 week', '-5 week'));
@@ -292,6 +293,47 @@ class DecisionFixtures extends Fixture implements DependentFixtureInterface
                      <p style='color:#000000;font-family:'Raleway',sans-serif;
                      font-size:1.2rem;font-weight:400;'>Remplacer 10 
                      des 15 anciennes machines pour le mois prochain.</p>"
+                );
+                $decision->setCategory($this->getReference('category_0'));
+            } elseif ($i === 4) {
+                $decision->setTitle('Des lumières d’ambiance pour notre open space.');
+                $decision->setDecisionStartTime($faker->dateTimeBetween('-3 week', '-3 week'));
+                $decision->setCreator($this->getReference('user_' . rand(0, (UserFixtures::GENERIC_USER_ACCOUNT))));
+                $decision->setDetails(
+                    "<p style='color:#000000;font-family:'Raleway',sans-serif;font-size:1.2rem;
+                    font-weight:400;'> Ma proposition d’agrémenter l’open space de lumière d’ambiance viens après
+                    la lecture d’un article sur une étude de l’importance de la lumière sur notre environnement
+                    et plus particulièrement dans un espace professionnel.
+                    Ce n’est pas un sujet à prendre à la légère, car elle peut avoir un impact signification sur
+                    le moral et le travail d’un service. </p>"
+                );
+                $decision->setImpact(
+                    "<p style='color:#000000;font-family:
+                            'Raleway',sans-serif;font-size:1.2rem;font-weight:400;'>Cette étude révèle qu’une 
+                            bonne maîtrise de la lumière d’un espace professionnel permet d’avoir un impact 
+                            positif sur le moral et la productivité des employés qui sont exposés.
+                            Avoir la possibilité d’avoir des lumières qui s’adaptent aux différentes étapes
+                             de la journée permettrais d’éviter de subir la même intensité lumineuse de nos 
+                             éclairages actuels peu importe l’heure.</p>"
+                );
+                $decision->setGain(
+                    "<p style='color:#000000;font-family:'Raleway',sans-serif;font-size:
+                        1.2rem;font-weight:400;'>Le principal bénéfice de cette décision est la gestion de
+                         l’intensité de l’éclairage qui permettra un contrôle sur la consommation énergétique.
+                        L’autre point est celui du morale générale des employés de l’open space et augmenté 
+                        ainsi le bien-être de chacun a pour effet un gain de productivité.</p>"
+                );
+                $decision->setRisk(
+                    "<p style='color:#000000;font-family:'Raleway',sans-serif;
+                       font-size:1.2rem;font-weight:400;'> Changement de tous les éclairages ainsi que l’achat
+                        de nouveaux luminaires, ainsi que l’installation d’un système de gestion de l’éclairage.
+                       Cela a un coût plutôt important.</p>"
+                );
+                $decision->setFirstDecision(
+                    "<p style='color:#000000;font-family:'Raleway',sans-serif;
+                     font-size:1.2rem;font-weight:400;'> Pas de changement des luminaires actuels mais, rajout
+                      de lampes connecté à plusieurs endroits de l’open space avec possibilité de paramétrer 
+                      l’éclairage selon l’heure.</p>"
                 );
                 $decision->setCategory($this->getReference('category_0'));
             } else {

@@ -152,6 +152,42 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($interaction);
 
+        //interaction Decision 1 where Stéphanie is impacted
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 1)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+
+        $manager->persist($interaction);
+
+        //interaction Decision 2 where Stéphanie is impacted
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 3))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 2)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
+
+        $manager->persist($interaction);
+
+        //interaction Decision 4 where Mikael is expert
+        $interaction = new Interaction();
+        $interaction->setUser(
+            $this->getReference('user_' . (UserFixtures::GENERIC_USER_ACCOUNT + 1))
+        );
+        $interaction->setDecision(
+            $this->getReference('decision_' . 4)
+        );
+        $interaction->setDecisionRole(Interaction::DECISION_EXPERT);
+
+        $manager->persist($interaction);
+
         $manager->flush();
     }
 
