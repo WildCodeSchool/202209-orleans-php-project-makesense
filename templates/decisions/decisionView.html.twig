@@ -11,11 +11,11 @@
 	{% if "now"|date("Y/m/d") <= decision.decisionStartTime|date("Y/m/d")  %}
 		{% set secondDecisionShow = false %}
 		{% set finalDecisionShow = false %}
-		{% set backgroundPhase1 = '' %}
+		{% set backgroundPhase1 = 'bg-light' %}
 		{% set backgroundPhase2 = 'bg-light' %}
 		{% set backgroundPhase3 = 'bg-light' %}
 		{% set backgroundPhase4 = 'bg-light' %}
-		{% set textPhase1 = 'text-light' %}
+		{% set textPhase1 = 'text-dark' %}
 		{% set textPhase2 = 'text-dark' %}
 		{% set textPhase3 = 'text-dark' %}
 		{% set textPhase4 = 'text-dark' %}

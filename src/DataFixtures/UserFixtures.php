@@ -12,7 +12,7 @@ class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
 
-    public const GENERIC_USER_ACCOUNT = 100;
+    public const GENERIC_USER_ACCOUNT = 30;
 
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -29,7 +29,11 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email());
             $user->setRoles([]);
-            $user->setPassword($faker->password());
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                'tedytedy'
+            );
+            $user->setPassword($hashedPassword);
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
             $this->addReference('user_' . $i, $user);
@@ -54,7 +58,7 @@ class UserFixtures extends Fixture
 
         //Role User Sophie
         $user = new User();
-        $user->setEmail('stéphanie@gmail.com');
+        $user->setEmail('stephanie@gmail.com');
         $user->setRoles(['ROLE_MEMBER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,

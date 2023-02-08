@@ -3,7 +3,10 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Status;
 use App\Entity\Interaction;
+use App\Service\AutomatedDates;
+use App\Service\TimelineManager;
 use App\DataFixtures\UserFixtures;
 use App\DataFixtures\DecisionFixtures;
 use Doctrine\Persistence\ObjectManager;
@@ -19,6 +22,11 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
     private const USER_ROLE_EXPERT_DECISION_NUMBER = 5;
     public const GENERIC_USER_IMPACTED = UserFixtures::GENERIC_USER_ACCOUNT * 0.7;
 
+
+    public function __construct(private TimelineManager $timelineManager)
+    {
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -29,8 +37,13 @@ class InteractionFixtures extends Fixture implements DependentFixtureInterface
                 $interaction->setUser(
                     $this->getReference('user_' . $j)
                 );
-                $interaction->setDecision($this->getReference('decision_' . $i));
-
+                if (
+                    $this->timelineManager->checkDecisionStatus($this->getReference('decision_' . $i))
+                    === Status::DECISION_FINISHED
+                ) {
+                } else {
+                    $interaction->setDecision($this->getReference('decision_' . $i));
+                }
                 $interaction->setDecisionRole(Interaction::DECISION_IMPACTED);
 
                 $manager->persist($interaction);

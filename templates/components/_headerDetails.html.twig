@@ -2,25 +2,25 @@
 	<div class="text-center">
 		<div class="{{backgroundPhase1}} {{textPhase1}} {{opacityPhase1}} rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Prise de décision commencée</div>
-			<div>{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+			<div>{{ decision.decisionStartTime|format_datetime(locale='fr',pattern="dd MMMM YYYY", timezone='Europe/Paris') }}</div>
 		</div>
 	</div>
 	<div class="text-center">
 		<div class="{{backgroundPhase2}} {{textPhase2}} {{opacityPhase2}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Fin de la première décision et début des conflits</div>
-			<div>{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+			<div>{{ decision.firstDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY", timezone='Europe/Paris') }}</div>
 		</div>
 	</div>
 	<div class="text-center">
 		<div class="{{backgroundPhase3}} {{textPhase3}} {{opacityPhase3}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Fin des conflits et début de la décision finale</div>
-			<div>{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+			<div>{{ decision.conflictEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY", timezone='Europe/Paris') }}</div>
 		</div>
 	</div>
 	<div class="text-center">
 		<div class="{{backgroundPhase4}} {{textPhase4}} {{opacityPhase4}} mt-3 mx-1 rounded-4 fw-light fs-5 w-75 mx-auto">
 			<div class="">Fin du processus de décision</div>
-			<div>{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</div>
+			<div>{{ decision.finalDecisionEndDate|format_datetime(locale='fr',pattern="dd MMMM YYYY", timezone='Europe/Paris') }}</div>
 		</div>
 	</div>
 </div>
