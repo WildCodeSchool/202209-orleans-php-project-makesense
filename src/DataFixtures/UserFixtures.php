@@ -38,7 +38,7 @@ class UserFixtures extends Fixture
         }
 
 
-        //Role User
+        //Role User Tedy
         $user = new User();
         $user->setEmail('tedyDoe@gmail.com');
         $user->setRoles(['ROLE_MEMBER']);
@@ -50,6 +50,20 @@ class UserFixtures extends Fixture
         $user->setFirstname('Tedy');
         $user->setLastname('Doe');
         $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 1), $user);
+        $manager->persist($user);
+
+        //Role User Sophie
+        $user = new User();
+        $user->setEmail('stéphanie@gmail.com');
+        $user->setRoles(['ROLE_MEMBER']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'tedytedy'
+        );
+        $user->setPassword($hashedPassword);
+        $user->setFirstname('Stéphanie');
+        $user->setLastname('Garcia');
+        $this->addReference('user_' . (self::GENERIC_USER_ACCOUNT + 3), $user);
         $manager->persist($user);
 
 
